@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SEO } from '../components/SEO';
-import { Copy, Check, Trash2, Link as LinkIcon, Info, ArrowDownUp } from 'lucide-react';
+import { Copy, Check, Trash2, Link as LinkIcon, Info, ArrowDownUp, Globe, Hash, ListTree } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function UrlEncoder() {
@@ -8,35 +8,57 @@ export function UrlEncoder() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isLiveMode, setIsLiveMode] = useState(false);
+  const [encodeMode, setEncodeMode] = useState<'component' | 'uri'>('component');
+  const [lastAction, setLastAction] = useState<'encode' | 'decode'>('encode');
   const { t } = useTranslation();
 
-  const handleEncode = () => {
-    if (!input) {
+  const handleEncode = (textToEncode: string = input) => {
+    if (!textToEncode) {
       setOutput('');
       setError(null);
       return;
     }
     try {
-      setOutput(encodeURIComponent(input));
+      const encoded = encodeMode === 'component' 
+        ? encodeURIComponent(textToEncode) 
+        : encodeURI(textToEncode);
+      setOutput(encoded);
       setError(null);
+      setLastAction('encode');
     } catch (err) {
       setError((err as Error).message);
     }
   };
 
-  const handleDecode = () => {
-    if (!input) {
+  const handleDecode = (textToDecode: string = input) => {
+    if (!textToDecode) {
       setOutput('');
       setError(null);
       return;
     }
     try {
-      setOutput(decodeURIComponent(input));
+      const decoded = encodeMode === 'component'
+        ? decodeURIComponent(textToDecode)
+        : decodeURI(textToDecode);
+      setOutput(decoded);
       setError(null);
+      setLastAction('decode');
     } catch (err) {
       setError("Invalid URL-encoded string");
     }
   };
+
+  // Live Mode Effect
+  useEffect(() => {
+    if (isLiveMode) {
+      if (lastAction === 'encode') {
+        handleEncode(input);
+      } else {
+        handleDecode(input);
+      }
+    }
+  }, [input, encodeMode, isLiveMode]);
 
   const copyToClipboard = async () => {
     if (!output) return;
@@ -54,6 +76,7 @@ export function UrlEncoder() {
     setInput(output);
     setOutput('');
     setError(null);
+    setLastAction(prev => prev === 'encode' ? 'decode' : 'encode');
   };
 
   const clearAll = () => {
@@ -62,34 +85,44 @@ export function UrlEncoder() {
     setError(null);
   };
 
+  // URL Parser Logic
+  const parsedUrl = useMemo(() => {
+    if (!input.trim()) return null;
+    try {
+      // Add a dummy protocol if missing so URL parser doesn't throw for valid domains
+      let urlString = input.trim();
+      if (!urlString.startsWith('http://') && !urlString.startsWith('https://') && urlString.includes('.')) {
+        urlString = 'https://' + urlString;
+      }
+      const url = new URL(urlString);
+      
+      const params: { key: string; value: string }[] = [];
+      url.searchParams.forEach((value, key) => {
+        params.push({ key, value });
+      });
+
+      return {
+        protocol: url.protocol,
+        host: url.host,
+        pathname: url.pathname,
+        hash: url.hash,
+        params,
+        isValid: true
+      };
+    } catch (e) {
+      return { isValid: false };
+    }
+  }, [input]);
+
   return (
     <>
       <SEO 
         title={`${t('url.title')} - DevToolz`}
         description={t('url.desc')}
         url="/url-encoder"
-        schema={[
-          {
-            "@type": "SoftwareApplication",
-            "name": t('url.title'),
-            "description": t('url.desc'),
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "All",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "HowTo",
-            "name": t('url.help.title'),
-            "step": [
-              { "@type": "HowToStep", "text": t('url.help.1') },
-              { "@type": "HowToStep", "text": t('url.help.2') },
-              { "@type": "HowToStep", "text": t('url.help.3') }
-            ]
-          }
-        ]}
       />
 
-      <div className="max-w-5xl mx-auto h-full flex flex-col">
+      <div className="max-w-6xl mx-auto h-full flex flex-col px-4 py-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
             <LinkIcon className="mr-3 h-8 w-8 text-indigo-600" />
@@ -98,7 +131,55 @@ export function UrlEncoder() {
           <p className="text-gray-500 mt-2">{t('url.desc')}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[500px]">
+        {/* Toolbar */}
+        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm flex flex-wrap gap-4 items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <label className="flex items-center cursor-pointer group">
+              <div className="relative flex items-center">
+                <input 
+                  type="checkbox" 
+                  className="sr-only" 
+                  checked={isLiveMode}
+                  onChange={() => setIsLiveMode(!isLiveMode)}
+                />
+                <div className={`block w-10 h-6 rounded-full transition-colors ${isLiveMode ? 'bg-indigo-500' : 'bg-gray-300'}`}></div>
+                <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'transform translate-x-4' : ''}`}></div>
+              </div>
+              <span className="ml-3 text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">
+                {t('url.liveMode')}
+              </span>
+            </label>
+
+            <div className="h-6 w-px bg-gray-300 hidden sm:block"></div>
+
+            <div className="flex items-center space-x-4">
+              <label className="flex items-center cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="encodeMode" 
+                  value="component"
+                  checked={encodeMode === 'component'}
+                  onChange={() => setEncodeMode('component')}
+                  className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                />
+                <span className="ml-2 text-sm text-gray-700">{t('url.encodeAll')}</span>
+              </label>
+              <label className="flex items-center cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="encodeMode" 
+                  value="uri"
+                  checked={encodeMode === 'uri'}
+                  onChange={() => setEncodeMode('uri')}
+                  className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                />
+                <span className="ml-2 text-sm text-gray-700">{t('url.encodeUrl')}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[400px]">
           {/* Input Area */}
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-2">
@@ -113,24 +194,26 @@ export function UrlEncoder() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm resize-none"
-              placeholder="Type or paste URL/text here..."
+              className="flex-1 w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm resize-none shadow-sm"
+              placeholder="https://example.com/?q=hello world"
               spellCheck="false"
             />
-            <div className="flex space-x-3 mt-4">
-              <button
-                onClick={handleEncode}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                {t('url.encodeBtn')}
-              </button>
-              <button
-                onClick={handleDecode}
-                className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                {t('url.decodeBtn')}
-              </button>
-            </div>
+            {!isLiveMode && (
+              <div className="flex space-x-3 mt-4">
+                <button
+                  onClick={() => handleEncode(input)}
+                  className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-xl transition-colors shadow-sm"
+                >
+                  {t('url.encodeBtn')}
+                </button>
+                <button
+                  onClick={() => handleDecode(input)}
+                  className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 px-4 rounded-xl transition-colors shadow-sm"
+                >
+                  {t('url.decodeBtn')}
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Output Area */}
@@ -160,19 +243,80 @@ export function UrlEncoder() {
               <textarea
                 value={output}
                 readOnly
-                className={`w-full h-full p-4 border rounded-lg font-mono text-sm resize-none focus:outline-none ${
+                className={`w-full h-full p-4 border rounded-xl font-mono text-sm resize-none focus:outline-none shadow-sm ${
                   error ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-300 bg-gray-50 text-gray-800'
                 }`}
                 placeholder=""
               />
               {error && (
-                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 text-red-700 p-3 text-sm rounded-b-lg font-mono overflow-x-auto">
+                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 text-red-700 p-3 text-sm rounded-b-xl font-mono overflow-x-auto">
                   <strong>{t('json.error')}</strong> {error}
                 </div>
               )}
             </div>
           </div>
         </div>
+
+        {/* URL Parser Section */}
+        {input && parsedUrl && (
+          <div className="mt-8 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+              <ListTree className="h-5 w-5 mr-2 text-indigo-600" />
+              {t('url.parserTitle')}
+            </h3>
+            
+            {parsedUrl.isValid ? (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                    <div className="text-xs font-bold text-gray-500 uppercase mb-1">{t('url.protocol')}</div>
+                    <div className="font-mono text-sm text-gray-900 truncate" title={parsedUrl.protocol}>{parsedUrl.protocol || '-'}</div>
+                  </div>
+                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                    <div className="text-xs font-bold text-gray-500 uppercase mb-1">{t('url.host')}</div>
+                    <div className="font-mono text-sm text-gray-900 truncate" title={parsedUrl.host}>{parsedUrl.host || '-'}</div>
+                  </div>
+                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                    <div className="text-xs font-bold text-gray-500 uppercase mb-1">{t('url.path')}</div>
+                    <div className="font-mono text-sm text-gray-900 truncate" title={parsedUrl.pathname}>{parsedUrl.pathname || '-'}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-bold text-gray-700 mb-3 border-b pb-2">{t('url.params')}</h4>
+                  {parsedUrl.params && parsedUrl.params.length > 0 ? (
+                    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                      <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Key</th>
+                            <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {parsedUrl.params.map((param, idx) => (
+                            <tr key={idx} className="hover:bg-gray-50">
+                              <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900 font-mono">
+                                {param.key}
+                              </td>
+                              <td className="px-4 py-2 text-sm text-gray-500 font-mono break-all">
+                                {param.value}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-500 italic">{t('url.noParams')}</p>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-red-500 italic">{t('url.invalidUrl')}</p>
+            )}
+          </div>
+        )}
 
         {/* Help Section */}
         <div className="mt-8 bg-indigo-50 rounded-xl p-6 border border-indigo-100">
@@ -181,9 +325,9 @@ export function UrlEncoder() {
             {t('url.help.title')}
           </h3>
           <ul className="space-y-2 text-indigo-800 text-sm list-disc list-inside">
-            <li>{t('url.help.1')}</li>
-            <li>{t('url.help.2')}</li>
-            <li>{t('url.help.3')}</li>
+            {[1, 2, 3, 4, 5].map(num => (
+              <li key={num}>{t(`url.help.${num}`)}</li>
+            ))}
           </ul>
         </div>
       </div>

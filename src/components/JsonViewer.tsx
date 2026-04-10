@@ -5,6 +5,7 @@ interface JsonViewerProps {
   data: any;
   name?: string;
   isLast?: boolean;
+  key?: string | number;
 }
 
 export function JsonViewer({ data, name, isLast = true }: JsonViewerProps) {

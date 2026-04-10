@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SEO } from '../components/SEO';
-import { Copy, Check, Trash2, Binary, Info, ArrowDownUp } from 'lucide-react';
+import { Copy, Check, Trash2, Binary, Info, ArrowDownUp, Upload, Download, ToggleLeft, ToggleRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function Base64Converter() {
@@ -8,63 +8,84 @@ export function Base64Converter() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isUrlSafe, setIsUrlSafe] = useState(false);
+  const [isLiveMode, setIsLiveMode] = useState(false);
+  const [lastAction, setLastAction] = useState<'encode' | 'decode'>('encode');
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
 
-  const handleEncode = () => {
-    if (!input && !output) {
+  const handleEncode = (textToEncode: string = input) => {
+    if (!textToEncode) {
       setOutput('');
       setError(null);
       return;
     }
     try {
-      const textToEncode = input || output;
       // Use encodeURIComponent to handle Unicode characters properly
-      const encoded = btoa(encodeURIComponent(textToEncode).replace(/%([0-9A-F]{2})/g,
+      let encoded = btoa(encodeURIComponent(textToEncode).replace(/%([0-9A-F]{2})/g,
         function toSolidBytes(match, p1) {
           return String.fromCharCode(Number('0x' + p1));
         }));
-      if (!input && output) {
-        setInput(output);
+      
+      if (isUrlSafe) {
+        encoded = encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       }
+      
       setOutput(encoded);
       setError(null);
+      setLastAction('encode');
     } catch (err) {
       setError((err as Error).message);
     }
   };
 
-  const handleDecode = () => {
-    if (!input && !output) {
+  const handleDecode = (textToDecode: string = input) => {
+    if (!textToDecode) {
       setOutput('');
       setError(null);
       return;
     }
     try {
-      if (!input) throw new Error("Empty input");
-      // Decode properly handling Unicode
-      const decoded = decodeURIComponent(atob(input).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      setOutput(decoded);
-      setError(null);
-    } catch (err) {
-      // Auto-swap logic: if input is invalid but output is valid Base64
-      if (output) {
-        try {
-          const decodedOutput = decodeURIComponent(atob(output).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          }).join(''));
-          setInput(output);
-          setOutput(decodedOutput);
-          setError(null);
-          return;
-        } catch (e) {
-          // Fall through to error
+      let base64Str = textToDecode;
+      
+      // Handle URL-safe conversion back to standard base64
+      base64Str = base64Str.replace(/-/g, '+').replace(/_/g, '/');
+      while (base64Str.length % 4) {
+        base64Str += '=';
+      }
+
+      // Check if it's a Data URI
+      if (base64Str.startsWith('data:')) {
+        const parts = base64Str.split(',');
+        if (parts.length === 2) {
+          base64Str = parts[1];
         }
       }
+
+      // Decode properly handling Unicode
+      const decoded = decodeURIComponent(atob(base64Str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      
+      setOutput(decoded);
+      setError(null);
+      setLastAction('decode');
+    } catch (err) {
       setError("Invalid Base64 string");
     }
   };
+
+  // Live Mode Effect
+  useEffect(() => {
+    if (isLiveMode) {
+      if (lastAction === 'encode') {
+        handleEncode(input);
+      } else {
+        handleDecode(input);
+      }
+    }
+  }, [input, isUrlSafe, isLiveMode]);
 
   const copyToClipboard = async () => {
     if (!output) return;
@@ -82,12 +103,57 @@ export function Base64Converter() {
     setInput(output);
     setOutput('');
     setError(null);
+    // Automatically switch action type when swapping
+    setLastAction(prev => prev === 'encode' ? 'decode' : 'encode');
   };
 
   const clearAll = () => {
     setInput('');
     setOutput('');
     setError(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      setInput(result);
+      if (isLiveMode) {
+        // If it's a file, we usually want to encode it to base64
+        setLastAction('encode');
+      }
+    };
+    // Read as Data URL to get the base64 representation directly
+    reader.readAsDataURL(file);
+  };
+
+  const handleDownload = () => {
+    if (!output) return;
+    
+    try {
+      let dataUrl = output;
+      
+      // If the output is already a data URI, use it directly
+      if (!dataUrl.startsWith('data:')) {
+        // Otherwise, assume it's plain text and create a data URI
+        dataUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(output)}`;
+      }
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'downloaded_file';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      setError("Failed to download file.");
+    }
   };
 
   return (
@@ -96,28 +162,9 @@ export function Base64Converter() {
         title={`${t('base64.title')} - DevToolz`}
         description={t('base64.desc')}
         url="/base64-converter"
-        schema={[
-          {
-            "@type": "SoftwareApplication",
-            "name": t('base64.title'),
-            "description": t('base64.desc'),
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "All",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          },
-          {
-            "@type": "HowTo",
-            "name": t('base64.help.title'),
-            "step": [
-              { "@type": "HowToStep", "text": t('base64.help.1') },
-              { "@type": "HowToStep", "text": t('base64.help.2') },
-              { "@type": "HowToStep", "text": t('base64.help.3') }
-            ]
-          }
-        ]}
       />
 
-      <div className="max-w-5xl mx-auto h-full flex flex-col">
+      <div className="max-w-6xl mx-auto h-full flex flex-col px-4 py-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
             <Binary className="mr-3 h-8 w-8 text-orange-600" />
@@ -126,7 +173,73 @@ export function Base64Converter() {
           <p className="text-gray-500 mt-2">{t('base64.desc')}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[500px]">
+        {/* Toolbar */}
+        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm flex flex-wrap gap-4 items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <label className="flex items-center cursor-pointer group">
+              <div className="relative flex items-center">
+                <input 
+                  type="checkbox" 
+                  className="sr-only" 
+                  checked={isLiveMode}
+                  onChange={() => setIsLiveMode(!isLiveMode)}
+                />
+                <div className={`block w-10 h-6 rounded-full transition-colors ${isLiveMode ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
+                <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'transform translate-x-4' : ''}`}></div>
+              </div>
+              <span className="ml-3 text-sm font-medium text-gray-700 group-hover:text-orange-600 transition-colors">
+                {t('base64.liveMode')}
+              </span>
+            </label>
+
+            <label className="flex items-center cursor-pointer group">
+              <div className="relative flex items-center">
+                <input 
+                  type="checkbox" 
+                  className="sr-only" 
+                  checked={isUrlSafe}
+                  onChange={() => {
+                    setIsUrlSafe(!isUrlSafe);
+                    if (isLiveMode && input) {
+                      lastAction === 'encode' ? handleEncode(input) : handleDecode(input);
+                    }
+                  }}
+                />
+                <div className={`block w-10 h-6 rounded-full transition-colors ${isUrlSafe ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
+                <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isUrlSafe ? 'transform translate-x-4' : ''}`}></div>
+              </div>
+              <span className="ml-3 text-sm font-medium text-gray-700 group-hover:text-orange-600 transition-colors">
+                {t('base64.urlSafe')}
+              </span>
+            </label>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handleFileUpload} 
+              className="hidden" 
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              {t('base64.uploadFile')}
+            </button>
+            <button
+              onClick={handleDownload}
+              disabled={!output}
+              className="flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 text-sm font-medium rounded-lg transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              {t('base64.downloadFile')}
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[400px]">
           {/* Input Area */}
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-2">
@@ -141,24 +254,26 @@ export function Base64Converter() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-mono text-sm resize-none"
+              className="flex-1 w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-mono text-sm resize-none shadow-sm"
               placeholder="Type or paste text/Base64 here..."
               spellCheck="false"
             />
-            <div className="flex space-x-3 mt-4">
-              <button
-                onClick={handleEncode}
-                className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                {t('base64.encodeBtn')}
-              </button>
-              <button
-                onClick={handleDecode}
-                className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                {t('base64.decodeBtn')}
-              </button>
-            </div>
+            {!isLiveMode && (
+              <div className="flex space-x-3 mt-4">
+                <button
+                  onClick={() => handleEncode(input)}
+                  className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-medium py-2.5 px-4 rounded-xl transition-colors shadow-sm"
+                >
+                  {t('base64.encodeBtn')}
+                </button>
+                <button
+                  onClick={() => handleDecode(input)}
+                  className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 px-4 rounded-xl transition-colors shadow-sm"
+                >
+                  {t('base64.decodeBtn')}
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Output Area */}
@@ -188,13 +303,13 @@ export function Base64Converter() {
               <textarea
                 value={output}
                 readOnly
-                className={`w-full h-full p-4 border rounded-lg font-mono text-sm resize-none focus:outline-none ${
+                className={`w-full h-full p-4 border rounded-xl font-mono text-sm resize-none focus:outline-none shadow-sm ${
                   error ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-300 bg-gray-50 text-gray-800'
                 }`}
                 placeholder=""
               />
               {error && (
-                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 text-red-700 p-3 text-sm rounded-b-lg font-mono overflow-x-auto">
+                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 text-red-700 p-3 text-sm rounded-b-xl font-mono overflow-x-auto">
                   <strong>{t('json.error')}</strong> {error}
                 </div>
               )}
@@ -209,9 +324,9 @@ export function Base64Converter() {
             {t('base64.help.title')}
           </h3>
           <ul className="space-y-2 text-orange-800 text-sm list-disc list-inside">
-            <li>{t('base64.help.1')}</li>
-            <li>{t('base64.help.2')}</li>
-            <li>{t('base64.help.3')}</li>
+            {[1, 2, 3, 4, 5].map(num => (
+              <li key={num}>{t(`base64.help.${num}`)}</li>
+            ))}
           </ul>
         </div>
       </div>
