@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AdPlaceholder } from './AdPlaceholder';
 import { cn } from '../lib/utils';
@@ -17,6 +17,8 @@ export function Layout() {
     { name: t('nav.text'), path: '/text-analyzer', icon: Type },
     { name: t('nav.base64'), path: '/base64-converter', icon: Binary },
     { name: t('nav.url'), path: '/url-encoder', icon: LinkIcon },
+    { name: t('nav.jwt'), path: '/jwt-decoder', icon: FileJson },
+    { name: t('nav.color'), path: '/color-converter', icon: Palette },
   ];
 
   return (

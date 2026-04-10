@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
@@ -34,6 +34,22 @@ export function Home() {
       category: 'developer'
     },
     {
+      name: t('home.tools.jwt.name'),
+      description: t('home.tools.jwt.desc'),
+      icon: FileJson,
+      path: '/jwt-decoder',
+      color: 'bg-teal-500',
+      category: 'developer'
+    },
+    {
+      name: t('home.tools.color.name'),
+      description: t('home.tools.color.desc'),
+      icon: Palette,
+      path: '/color-converter',
+      color: 'bg-pink-500',
+      category: 'design'
+    },
+    {
       name: t('home.tools.text.name'),
       description: t('home.tools.text.desc'),
       icon: Type,
@@ -53,6 +69,7 @@ export function Home() {
 
   const categories = [
     { id: 'developer', name: t('home.category.developer'), icon: Terminal },
+    { id: 'design', name: t('home.category.design'), icon: Palette },
     { id: 'text', name: t('home.category.text'), icon: FileText },
     { id: 'security', name: t('home.category.security'), icon: Shield },
   ];
