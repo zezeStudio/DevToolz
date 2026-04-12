@@ -220,7 +220,7 @@ export function PasswordGenerator() {
   return (
     <>
       <SEO 
-        title={`${t('pass.title')} - DevToolz`}
+        title={t('pass.seoTitle')}
         description={t('pass.desc')}
         url="/password-generator"
       />
@@ -514,6 +514,28 @@ export function PasswordGenerator() {
                   {t('pass.help.3')}
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* SEO Detailed Description Section */}
+        <div className="mt-12 bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('pass.longDesc.title')}</h2>
+          <div className="prose prose-green max-w-none text-gray-700 space-y-6">
+            <div>
+              <p className="mb-4 leading-relaxed">
+                {t('pass.longDesc.p1').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
+              <p className="mb-4 leading-relaxed">
+                {t('pass.longDesc.p2')}
+              </p>
+              <p className="leading-relaxed">
+                {t('pass.longDesc.p3').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AdPlaceholder } from './AdPlaceholder';
 import { cn } from '../lib/utils';
@@ -19,6 +19,11 @@ export function Layout() {
     { name: t('nav.url'), path: '/url-encoder', icon: LinkIcon },
     { name: t('nav.jwt'), path: '/jwt-decoder', icon: FileJson },
     { name: t('nav.color'), path: '/color-converter', icon: Palette },
+    { name: t('nav.markdown'), path: '/markdown-editor', icon: FileText },
+    { name: t('nav.uuid'), path: '/uuid-generator', icon: Fingerprint },
+    { name: t('nav.hash'), path: '/hash-generator', icon: Hash },
+    { name: t('nav.unix'), path: '/unix-timestamp', icon: Clock },
+    { name: t('nav.qr'), path: '/qr-code', icon: QrCode },
   ];
 
   return (
@@ -60,11 +65,11 @@ export function Layout() {
         {/* Sidebar Navigation */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-20 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:h-[calc(100vh-6rem)] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
+            "fixed inset-y-0 left-0 z-20 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:h-[1020px] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
             isSidebarOpen ? "translate-x-0 mt-16" : "-translate-x-full mt-16 md:mt-0"
           )}
         >
-          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -90,7 +95,7 @@ export function Layout() {
               );
             })}
             
-            <div className="mt-8 pt-8 border-t border-gray-200">
+            <div className="mt-4 pt-4 border-t border-gray-200">
               <AdPlaceholder format="square" className="mx-auto" />
             </div>
           </nav>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SEO } from '../components/SEO';
-import { Info, Palette, Copy, Check, RefreshCw, Pipette, Type, Wand2, HelpCircle } from 'lucide-react';
+import { Info, Palette, Copy, Check, RefreshCw, Pipette, Type, Wand2, HelpCircle, History, Eye, UploadCloud, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import Markdown from 'react-markdown';
 import { colord, extend, AnyColor } from 'colord';
 import harmoniesPlugin from 'colord/plugins/harmonies';
 import cmykPlugin from 'colord/plugins/cmyk';
@@ -35,12 +36,48 @@ const TAILWIND_COLORS: Record<string, string> = {
   'rose-50': '#fff1f2', 'rose-100': '#ffe4e6', 'rose-300': '#fda4af', 'rose-500': '#f43f5e', 'rose-700': '#be123c', 'rose-900': '#881337',
 };
 
+// Color Blindness Simulation Matrices
+const simulateColorBlindness = (rgb: {r: number, g: number, b: number}, type: string) => {
+  let { r, g, b } = rgb;
+  let nr = r, ng = g, nb = b;
+  
+  if (type === 'protanopia') {
+    nr = 0.567 * r + 0.433 * g + 0 * b;
+    ng = 0.558 * r + 0.442 * g + 0 * b;
+    nb = 0 * r + 0.242 * g + 0.758 * b;
+  } else if (type === 'deuteranopia') {
+    nr = 0.625 * r + 0.375 * g + 0 * b;
+    ng = 0.7 * r + 0.3 * g + 0 * b;
+    nb = 0 * r + 0.3 * g + 0.7 * b;
+  } else if (type === 'tritanopia') {
+    nr = 0.95 * r + 0.05 * g + 0 * b;
+    ng = 0 * r + 0.433 * g + 0.567 * b;
+    nb = 0 * r + 0.475 * g + 0.525 * b;
+  } else if (type === 'achromatopsia') {
+    const v = 0.299 * r + 0.587 * g + 0.114 * b;
+    nr = v; ng = v; nb = v;
+  }
+  
+  return colord({ 
+    r: Math.min(255, Math.max(0, nr)), 
+    g: Math.min(255, Math.max(0, ng)), 
+    b: Math.min(255, Math.max(0, nb)) 
+  }).toHex();
+};
+
 export function ColorConverter() {
   const { t } = useTranslation();
   const [color, setColor] = useState(colord('#3b82f6'));
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
   const [isEyeDropperSupported, setIsEyeDropperSupported] = useState(false);
   const [showContrastInfo, setShowContrastInfo] = useState(false);
+  
+  // New Pro Features State
+  const [history, setHistory] = useState<string[]>(['#3b82f6']);
+  const [extractedPalette, setExtractedPalette] = useState<string[]>([]);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setIsEyeDropperSupported('EyeDropper' in window);
@@ -62,10 +99,20 @@ export function ColorConverter() {
     setAlpha(color.alpha());
   }, [color]);
 
-  const handleColorChange = (newColorStr: AnyColor) => {
+  const addToHistory = useCallback((hex: string) => {
+    setHistory(prev => {
+      const newHistory = [hex, ...prev.filter(h => h !== hex)].slice(0, 10);
+      return newHistory;
+    });
+  }, []);
+
+  const handleColorChange = (newColorStr: AnyColor, saveToHistory = false) => {
     const newColor = colord(newColorStr);
     if (newColor.isValid()) {
       setColor(newColor);
+      if (saveToHistory) {
+        addToHistory(newColor.toHex());
+      }
     }
   };
 
@@ -76,7 +123,7 @@ export function ColorConverter() {
 
   const generateRandomColor = () => {
     const randomHex = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
-    setColor(colord(randomHex));
+    handleColorChange(randomHex, true);
   };
 
   const openEyeDropper = async () => {
@@ -84,10 +131,89 @@ export function ColorConverter() {
       try {
         const eyeDropper = new (window as any).EyeDropper();
         const result = await eyeDropper.open();
-        handleColorChange(result.sRGBHex);
+        handleColorChange(result.sRGBHex, true);
       } catch (e) {
         console.log('EyeDropper canceled or failed');
       }
+    }
+  };
+
+  const processImageFile = (file: File) => {
+    setIsExtracting(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          setIsExtracting(false);
+          return;
+        }
+        
+        const MAX_DIM = 150;
+        let width = img.width;
+        let height = img.height;
+        if (width > height && width > MAX_DIM) {
+          height *= MAX_DIM / width;
+          width = MAX_DIM;
+        } else if (height > MAX_DIM) {
+          width *= MAX_DIM / height;
+          height = MAX_DIM;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        const imageData = ctx.getImageData(0, 0, width, height).data;
+        const colorCounts: Record<string, number> = {};
+        
+        for (let i = 0; i < imageData.length; i += 4 * 10) {
+          const r = Math.round(imageData[i] / 24) * 24;
+          const g = Math.round(imageData[i+1] / 24) * 24;
+          const b = Math.round(imageData[i+2] / 24) * 24;
+          const a = imageData[i+3];
+          if (a < 128) continue;
+          
+          const hex = colord({r, g, b}).toHex();
+          colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+        }
+        
+        const sortedColors = Object.entries(colorCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 6)
+          .map(entry => entry[0]);
+          
+        setExtractedPalette(sortedColors);
+        setIsExtracting(false);
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processImageFile(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      processImageFile(file);
     }
   };
 
@@ -167,7 +293,7 @@ export function ColorConverter() {
   return (
     <>
       <SEO 
-        title={`${t('color.title')} - DevToolz`}
+        title={t('color.seoTitle')}
         description={t('color.desc')}
         url="/color-converter"
       />
@@ -251,6 +377,7 @@ export function ColorConverter() {
                     setHexInput(e.target.value);
                     handleColorChange(e.target.value);
                   }}
+                  onBlur={() => addToHistory(color.toHex())}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
                 />
               </div>
@@ -271,6 +398,7 @@ export function ColorConverter() {
                     setRgbInput(e.target.value);
                     handleColorChange(e.target.value);
                   }}
+                  onBlur={() => addToHistory(color.toHex())}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
                 />
               </div>
@@ -291,6 +419,7 @@ export function ColorConverter() {
                     setHslInput(e.target.value);
                     handleColorChange(e.target.value);
                   }}
+                  onBlur={() => addToHistory(color.toHex())}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
                 />
               </div>
@@ -315,110 +444,214 @@ export function ColorConverter() {
                 />
               </div>
             </div>
+
+            {/* Closest Tailwind Color */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-gray-900 mb-4 flex items-center">
+                <Wand2 className="w-5 h-5 mr-2 text-pink-500" />
+                {t('color.tailwind.title')}
+              </h3>
+              <div 
+                className="flex flex-col items-center justify-center p-4 rounded-xl border border-gray-100 cursor-pointer transition-transform hover:scale-105"
+                onClick={() => handleColorChange(closestTw.hex, true)}
+                title="Click to use this color"
+              >
+                <div className="w-full h-12 rounded-lg shadow-inner mb-3" style={{ backgroundColor: closestTw.hex }} />
+                <div className="flex justify-between w-full items-center">
+                  <span className="font-bold text-gray-700">{closestTw.name}</span>
+                  <span className="text-xs font-mono text-gray-500 uppercase">{closestTw.hex}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Color History */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-gray-900 flex items-center">
+                  <History className="w-5 h-5 mr-2 text-pink-500" />
+                  {t('color.history.title')}
+                </h3>
+                {history.length > 0 && (
+                  <button 
+                    onClick={() => setHistory([])}
+                    className="text-xs text-gray-500 hover:text-red-500 flex items-center transition-colors"
+                  >
+                    <Trash2 className="w-3 h-3 mr-1" /> {t('color.history.clear')}
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {history.length === 0 ? (
+                  <p className="text-sm text-gray-400 italic">No history yet.</p>
+                ) : (
+                  history.map((h, i) => (
+                    <div 
+                      key={i}
+                      onClick={() => handleColorChange(h, true)}
+                      className="w-8 h-8 rounded-full border border-gray-200 shadow-sm cursor-pointer hover:scale-110 transition-transform"
+                      style={{ backgroundColor: h }}
+                      title={h}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Right Column: Harmonies & Pro Features */}
           <div className="lg:col-span-7 space-y-6">
             
-            {/* Pro Features: Contrast & Tailwind */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* WCAG Contrast Checker */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold text-gray-900 flex items-center">
-                    <Type className="w-5 h-5 mr-2 text-pink-500" />
-                    {t('color.contrast.title')}
-                  </h3>
-                  <button 
-                    onClick={() => setShowContrastInfo(!showContrastInfo)}
-                    className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-pink-100 text-pink-600' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}
-                    title="What do these scores mean?"
-                  >
-                    <HelpCircle className="w-4 h-4" />
-                  </button>
-                </div>
-
-                {showContrastInfo && (
-                  <div className="mb-4 p-4 bg-blue-50/80 border border-blue-100 rounded-xl text-sm text-blue-900 animate-in fade-in slide-in-from-top-2">
-                    <p className="font-bold mb-2 flex items-center">
-                      <Info className="w-4 h-4 mr-1.5 text-blue-600" />
-                      {t('color.contrast.helpTitle')}
-                    </p>
-                    <ul className="space-y-2 text-xs leading-relaxed">
-                      <li><strong className="text-blue-700">AA Normal:</strong> {t('color.contrast.helpNormal')}</li>
-                      <li><strong className="text-blue-700">AA Large:</strong> {t('color.contrast.helpLarge')}</li>
-                      <li><strong className="text-blue-700">AAA:</strong> {t('color.contrast.helpAAA')}</li>
-                    </ul>
-                  </div>
-                )}
-
-                <div className="space-y-4 flex-1">
-                  {/* White Text Card */}
-                  <div className="relative overflow-hidden rounded-xl border border-gray-200 p-4">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
-                      backgroundSize: '10px 10px'
-                    }} />
-                    <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
-                    
-                    <div className="relative z-10 flex justify-between items-center">
-                      <div>
-                        <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#ffffff' }}>{t('color.contrast.white')}</span>
-                        <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#ffffff' }}>{contrastWhite.toFixed(2)}:1</span>
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Black Text Card */}
-                  <div className="relative overflow-hidden rounded-xl border border-gray-200 p-4">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
-                      backgroundSize: '10px 10px'
-                    }} />
-                    <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
-                    
-                    <div className="relative z-10 flex justify-between items-center">
-                      <div>
-                        <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#000000' }}>{t('color.contrast.black')}</span>
-                        <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#000000' }}>{contrastBlack.toFixed(2)}:1</span>
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* Pro Features: Contrast */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-gray-900 flex items-center">
+                  <Type className="w-5 h-5 mr-2 text-pink-500" />
+                  {t('color.contrast.title')}
+                </h3>
+                <button 
+                  onClick={() => setShowContrastInfo(!showContrastInfo)}
+                  className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-pink-100 text-pink-600' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}
+                  title="What do these scores mean?"
+                >
+                  <HelpCircle className="w-4 h-4" />
+                </button>
               </div>
 
-              {/* Closest Tailwind Color */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center">
-                  <Wand2 className="w-5 h-5 mr-2 text-pink-500" />
-                  {t('color.tailwind.title')}
-                </h3>
-                <div 
-                  className="flex flex-col items-center justify-center p-4 rounded-xl border border-gray-100 cursor-pointer transition-transform hover:scale-105"
-                  onClick={() => handleColorChange(closestTw.hex)}
-                  title="Click to use this color"
-                >
-                  <div className="w-full h-12 rounded-lg shadow-inner mb-3" style={{ backgroundColor: closestTw.hex }} />
-                  <div className="flex justify-between w-full items-center">
-                    <span className="font-bold text-gray-700">{closestTw.name}</span>
-                    <span className="text-xs font-mono text-gray-500 uppercase">{closestTw.hex}</span>
+              {showContrastInfo && (
+                <div className="mb-4 p-4 bg-blue-50/80 border border-blue-100 rounded-xl text-sm text-blue-900 animate-in fade-in slide-in-from-top-2">
+                  <p className="font-bold mb-2 flex items-center">
+                    <Info className="w-4 h-4 mr-1.5 text-blue-600" />
+                    {t('color.contrast.helpTitle')}
+                  </p>
+                  <ul className="space-y-2 text-xs leading-relaxed">
+                    <li><strong className="text-blue-700">AA Normal:</strong> {t('color.contrast.helpNormal')}</li>
+                    <li><strong className="text-blue-700">AA Large:</strong> {t('color.contrast.helpLarge')}</li>
+                    <li><strong className="text-blue-700">AAA:</strong> {t('color.contrast.helpAAA')}</li>
+                  </ul>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* White Text Card */}
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 p-4">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
+                    backgroundSize: '10px 10px'
+                  }} />
+                  <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
+                  
+                  <div className="relative z-10 flex justify-between items-center">
+                    <div>
+                      <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#ffffff' }}>{t('color.contrast.white')}</span>
+                      <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#ffffff' }}>{contrastWhite.toFixed(2)}:1</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Black Text Card */}
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 p-4">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
+                    backgroundSize: '10px 10px'
+                  }} />
+                  <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
+                  
+                  <div className="relative z-10 flex justify-between items-center">
+                    <div>
+                      <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#000000' }}>{t('color.contrast.black')}</span>
+                      <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#000000' }}>{contrastBlack.toFixed(2)}:1</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
+                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* Color Blindness Simulator */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-6 flex items-center">
+                <Eye className="w-5 h-5 mr-2 text-pink-500" />
+                {t('color.blindness.title')}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { id: 'protanopia', name: t('color.blindness.protanopia') },
+                  { id: 'deuteranopia', name: t('color.blindness.deuteranopia') },
+                  { id: 'tritanopia', name: t('color.blindness.tritanopia') },
+                  { id: 'achromatopsia', name: t('color.blindness.achromatopsia') },
+                ].map(type => {
+                  const simulatedHex = simulateColorBlindness(color.toRgb(), type.id);
+                  return (
+                    <div key={type.id} className="flex flex-col items-center">
+                      <div 
+                        className="w-full h-16 rounded-lg shadow-sm border border-gray-200 mb-2"
+                        style={{ backgroundColor: simulatedHex }}
+                      />
+                      <span className="text-xs font-bold text-gray-700 text-center mb-1">{type.name}</span>
+                      <span className="text-[10px] font-mono text-gray-500 uppercase">{simulatedHex}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Image Palette Extractor */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-xl text-gray-900 mb-4 flex items-center">
+                <UploadCloud className="w-5 h-5 mr-2 text-pink-500" />
+                {t('color.image.title')}
+              </h3>
+              
+              <div 
+                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer ${isDragging ? 'border-pink-500 bg-pink-50' : 'border-gray-300 hover:bg-gray-50'}`}
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handleImageUpload} 
+                  accept="image/*" 
+                  className="hidden" 
+                />
+                <UploadCloud className={`w-8 h-8 mx-auto mb-3 transition-colors ${isDragging ? 'text-pink-500' : 'text-gray-400'}`} />
+                <p className={`text-sm font-medium ${isDragging ? 'text-pink-600' : 'text-gray-600'}`}>
+                  {isExtracting ? t('color.image.extracting') : t('color.image.drop')}
+                </p>
+              </div>
+
+              {extractedPalette.length > 0 && (
+                <div className="mt-6">
+                  <div className="flex space-x-2">
+                    {extractedPalette.map((hex, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center">
+                        <div 
+                          className="w-full h-16 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition-transform hover:scale-105"
+                          style={{ backgroundColor: hex }}
+                          onClick={() => handleColorChange(hex, true)}
+                          title="Click to use this color"
+                        />
+                        <span className="text-xs font-mono text-gray-500 mt-2 uppercase">{hex}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Harmonies */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm h-full">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
               <h3 className="font-bold text-xl text-gray-900 mb-6 flex items-center">
                 <Palette className="w-5 h-5 mr-2 text-pink-500" />
                 {t('color.harmonies')}
@@ -459,6 +692,21 @@ export function ColorConverter() {
               <li key={num}>{t(`color.help.${num}`)}</li>
             ))}
           </ul>
+        </div>
+        {/* SEO Detailed Description */}
+        <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">{t('color.longDesc.title')}</h2>
+          <div className="prose prose-pink max-w-none text-gray-700">
+            <div className="mb-4 leading-relaxed">
+              <Markdown>{t('color.longDesc.p1')}</Markdown>
+            </div>
+            <div className="mb-4 leading-relaxed">
+              <Markdown>{t('color.longDesc.p2')}</Markdown>
+            </div>
+            <div className="leading-relaxed">
+              <Markdown>{t('color.longDesc.p3')}</Markdown>
+            </div>
+          </div>
         </div>
       </div>
     </>

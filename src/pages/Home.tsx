@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
@@ -58,12 +58,52 @@ export function Home() {
       category: 'text'
     },
     {
+      name: t('home.tools.markdown.name'),
+      description: t('home.tools.markdown.desc'),
+      icon: FileText,
+      path: '/markdown-editor',
+      color: 'bg-slate-700',
+      category: 'text'
+    },
+    {
       name: t('home.tools.password.name'),
       description: t('home.tools.password.desc'),
       icon: Key,
       path: '/password-generator',
       color: 'bg-green-500',
       category: 'security'
+    },
+    {
+      name: t('home.tools.uuid.name'),
+      description: t('home.tools.uuid.desc'),
+      icon: Fingerprint,
+      path: '/uuid-generator',
+      color: 'bg-indigo-600',
+      category: 'developer'
+    },
+    {
+      name: t('home.tools.hash.name'),
+      description: t('home.tools.hash.desc'),
+      icon: Hash,
+      path: '/hash-generator',
+      color: 'bg-red-500',
+      category: 'security'
+    },
+    {
+      name: t('home.tools.unix.name'),
+      description: t('home.tools.unix.desc'),
+      icon: Clock,
+      path: '/unix-timestamp',
+      color: 'bg-cyan-600',
+      category: 'developer'
+    },
+    {
+      name: t('home.tools.qr.name'),
+      description: t('home.tools.qr.desc'),
+      icon: QrCode,
+      path: '/qr-code',
+      color: 'bg-yellow-500',
+      category: 'design'
     },
   ];
 

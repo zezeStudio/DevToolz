@@ -14,6 +14,11 @@ import { Base64Converter } from './pages/Base64Converter';
 import { UrlEncoder } from './pages/UrlEncoder';
 import { JwtDecoder } from './pages/JwtDecoder';
 import { ColorConverter } from './pages/ColorConverter';
+import { MarkdownEditor } from './pages/MarkdownEditor';
+import { UuidGenerator } from './pages/UuidGenerator';
+import { HashGenerator } from './pages/HashGenerator';
+import { UnixTimestampConverter } from './pages/UnixTimestampConverter';
+import { QrCodeGenerator } from './pages/QrCodeGenerator';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { Contact } from './pages/Contact';
@@ -32,6 +37,11 @@ export default function App() {
             <Route path="url-encoder" element={<UrlEncoder />} />
             <Route path="jwt-decoder" element={<JwtDecoder />} />
             <Route path="color-converter" element={<ColorConverter />} />
+            <Route path="markdown-editor" element={<MarkdownEditor />} />
+            <Route path="uuid-generator" element={<UuidGenerator />} />
+            <Route path="hash-generator" element={<HashGenerator />} />
+            <Route path="unix-timestamp" element={<UnixTimestampConverter />} />
+            <Route path="qr-code" element={<QrCodeGenerator />} />
             <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="terms" element={<TermsOfService />} />
             <Route path="contact" element={<Contact />} />

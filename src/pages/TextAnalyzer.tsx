@@ -150,7 +150,7 @@ export function TextAnalyzer() {
   return (
     <>
       <SEO 
-        title={`${t('text.title')} - DevToolz`}
+        title={t('text.seoTitle')}
         description={t('text.desc')}
         url="/text-analyzer"
       />
@@ -406,6 +406,28 @@ export function TextAnalyzer() {
               <li key={num}>{t(`text.help.${num}`)}</li>
             ))}
           </ul>
+        </div>
+
+        {/* SEO Detailed Description Section */}
+        <div className="mt-12 bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('text.longDesc.title')}</h2>
+          <div className="prose prose-purple max-w-none text-gray-700 space-y-6">
+            <div>
+              <p className="mb-4 leading-relaxed">
+                {t('text.longDesc.p1').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
+              <p className="mb-4 leading-relaxed">
+                {t('text.longDesc.p2')}
+              </p>
+              <p className="leading-relaxed">
+                {t('text.longDesc.p3').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -117,7 +117,7 @@ export function UrlEncoder() {
   return (
     <>
       <SEO 
-        title={`${t('url.title')} - DevToolz`}
+        title={t('url.seoTitle')}
         description={t('url.desc')}
         url="/url-encoder"
       />
@@ -329,6 +329,28 @@ export function UrlEncoder() {
               <li key={num}>{t(`url.help.${num}`)}</li>
             ))}
           </ul>
+        </div>
+
+        {/* SEO Detailed Description Section */}
+        <div className="mt-12 bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('url.longDesc.title')}</h2>
+          <div className="prose prose-indigo max-w-none text-gray-700 space-y-6">
+            <div>
+              <p className="mb-4 leading-relaxed">
+                {t('url.longDesc.p1').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
+              <p className="mb-4 leading-relaxed">
+                {t('url.longDesc.p2')}
+              </p>
+              <p className="leading-relaxed">
+                {t('url.longDesc.p3').split('**').map((part, i) => 
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                )}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </>
