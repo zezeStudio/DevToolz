@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { SEO } from '../components/SEO';
 import { Copy, Check, Trash2, Binary, Info, ArrowDownUp, Upload, Download, ToggleLeft, ToggleRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 export function Base64Converter() {
   const [input, setInput] = useState('');
@@ -14,6 +15,8 @@ export function Base64Converter() {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
+  const { lang } = useParams();
+  const currentLang = lang || 'en';
 
   const handleEncode = (textToEncode: string = input) => {
     if (!textToEncode) {
@@ -161,20 +164,20 @@ export function Base64Converter() {
       <SEO 
         title={t('base64.seoTitle')}
         description={t('base64.desc')}
-        url="/base64-converter"
+        url={`/${currentLang}/base64-converter`}
       />
 
       <div className="max-w-6xl mx-auto h-full flex flex-col px-4 py-6">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
             <Binary className="mr-3 h-8 w-8 text-orange-600" />
             {t('base64.title')}
           </h1>
-          <p className="text-gray-500 mt-2">{t('base64.desc')}</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">{t('base64.desc')}</p>
         </div>
 
         {/* Toolbar */}
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm flex flex-wrap gap-4 items-center justify-between">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-6 shadow-sm flex flex-wrap gap-4 items-center justify-between">
           <div className="flex items-center space-x-6">
             <label className="flex items-center cursor-pointer group">
               <div className="relative flex items-center">
@@ -185,9 +188,9 @@ export function Base64Converter() {
                   onChange={() => setIsLiveMode(!isLiveMode)}
                 />
                 <div className={`block w-10 h-6 rounded-full transition-colors ${isLiveMode ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-                <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'transform translate-x-4' : ''}`}></div>
+                <div className={`absolute left-1 top-1 bg-white dark:bg-gray-800 w-4 h-4 rounded-full transition-transform ${isLiveMode ? 'transform translate-x-4' : ''}`}></div>
               </div>
-              <span className="ml-3 text-sm font-medium text-gray-700 group-hover:text-orange-600 transition-colors">
+              <span className="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-orange-600 transition-colors">
                 {t('base64.liveMode')}
               </span>
             </label>
@@ -206,9 +209,9 @@ export function Base64Converter() {
                   }}
                 />
                 <div className={`block w-10 h-6 rounded-full transition-colors ${isUrlSafe ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-                <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isUrlSafe ? 'transform translate-x-4' : ''}`}></div>
+                <div className={`absolute left-1 top-1 bg-white dark:bg-gray-800 w-4 h-4 rounded-full transition-transform ${isUrlSafe ? 'transform translate-x-4' : ''}`}></div>
               </div>
-              <span className="ml-3 text-sm font-medium text-gray-700 group-hover:text-orange-600 transition-colors">
+              <span className="ml-3 text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-orange-600 transition-colors">
                 {t('base64.urlSafe')}
               </span>
             </label>
@@ -223,7 +226,7 @@ export function Base64Converter() {
             />
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors"
+              className="flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg transition-colors"
             >
               <Upload className="w-4 h-4 mr-2" />
               {t('base64.uploadFile')}
@@ -231,7 +234,7 @@ export function Base64Converter() {
             <button
               onClick={handleDownload}
               disabled={!output}
-              className="flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 text-sm font-medium rounded-lg transition-colors"
+              className="flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg transition-colors"
             >
               <Download className="w-4 h-4 mr-2" />
               {t('base64.downloadFile')}
@@ -243,10 +246,10 @@ export function Base64Converter() {
           {/* Input Area */}
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-2">
-              <label className="font-semibold text-gray-700">{t('base64.inputLabel')}</label>
+              <label className="font-semibold text-gray-700 dark:text-gray-300">{t('base64.inputLabel')}</label>
               <button
                 onClick={clearAll}
-                className="text-sm text-red-600 hover:text-red-700 flex items-center px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center px-2 py-1 rounded hover:bg-red-50 dark:bg-red-900/30 transition-colors"
               >
                 <Trash2 className="h-4 w-4 mr-1" /> {t('json.clear')}
               </button>
@@ -254,7 +257,7 @@ export function Base64Converter() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-mono text-sm resize-none shadow-sm"
+              className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-mono text-sm resize-none shadow-sm"
               placeholder="Type or paste text/Base64 here..."
               spellCheck="false"
             />
@@ -279,12 +282,12 @@ export function Base64Converter() {
           {/* Output Area */}
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-2">
-              <label className="font-semibold text-gray-700">{t('base64.outputLabel')}</label>
+              <label className="font-semibold text-gray-700 dark:text-gray-300">{t('base64.outputLabel')}</label>
               <div className="flex space-x-2">
                 <button
                   onClick={swapInputOutput}
                   disabled={!output}
-                  className="text-sm text-blue-600 hover:text-blue-800 flex items-center px-2 py-1 rounded hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-sm text-blue-600 hover:text-blue-800 flex items-center px-2 py-1 rounded hover:bg-blue-50 dark:bg-blue-900/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   title="Swap Input and Output"
                 >
                   <ArrowDownUp className="h-4 w-4 mr-1" /> Swap
@@ -292,7 +295,7 @@ export function Base64Converter() {
                 <button
                   onClick={copyToClipboard}
                   disabled={!output}
-                  className="text-sm text-gray-600 hover:text-gray-900 flex items-center px-2 py-1 rounded hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {copied ? <Check className="h-4 w-4 mr-1 text-green-600" /> : <Copy className="h-4 w-4 mr-1" />}
                   {copied ? t('json.copied') : t('json.copy')}
@@ -304,12 +307,12 @@ export function Base64Converter() {
                 value={output}
                 readOnly
                 className={`w-full h-full p-4 border rounded-xl font-mono text-sm resize-none focus:outline-none shadow-sm ${
-                  error ? 'border-red-300 bg-red-50 text-red-900' : 'border-gray-300 bg-gray-50 text-gray-800'
+                  error ? 'border-red-300 bg-red-50 dark:bg-red-900/30 text-red-900' : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200'
                 }`}
                 placeholder=""
               />
               {error && (
-                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 text-red-700 p-3 text-sm rounded-b-xl font-mono overflow-x-auto">
+                <div className="absolute bottom-0 left-0 right-0 bg-red-100 border-t border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-3 text-sm rounded-b-xl font-mono overflow-x-auto">
                   <strong>{t('json.error')}</strong> {error}
                 </div>
               )}
@@ -331,13 +334,13 @@ export function Base64Converter() {
         </div>
 
         {/* SEO Detailed Description Section */}
-        <div className="mt-12 bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('base64.longDesc.title')}</h2>
-          <div className="prose prose-orange max-w-none text-gray-700 space-y-6">
+        <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('base64.longDesc.title')}</h2>
+          <div className="prose prose-orange max-w-none text-gray-700 dark:text-gray-300 space-y-6">
             <div>
               <p className="mb-4 leading-relaxed">
                 {t('base64.longDesc.p1').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
                 )}
               </p>
               <p className="mb-4 leading-relaxed">
@@ -345,7 +348,7 @@ export function Base64Converter() {
               </p>
               <p className="leading-relaxed">
                 {t('base64.longDesc.p3').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-gray-900">{part}</strong> : part
+                  i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
                 )}
               </p>
             </div>

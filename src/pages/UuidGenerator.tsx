@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Fingerprint, Copy, Check, RefreshCw } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { useParams } from 'react-router-dom';
 import { v1 as uuidv1, v3 as uuidv3, v4 as uuidv4, v5 as uuidv5, v7 as uuidv7, validate as uuidValidate, version as uuidVersion } from 'uuid';
 
 export function UuidGenerator() {
   const { t } = useTranslation();
+  const { lang } = useParams();
+  const currentLang = lang || 'en';
   const [count, setCount] = useState(1);
   const [version, setVersion] = useState<'v1' | 'v3' | 'v4' | 'v5' | 'v7'>('v4');
   const [namespace, setNamespace] = useState('6ba7b810-9dad-11d1-80b4-00c04fd430c8'); // Default DNS namespace
@@ -99,25 +102,25 @@ export function UuidGenerator() {
       <SEO 
         title={t('uuid.seoTitle')}
         description={t('uuid.desc')}
-        url="/uuid-generator"
+        url={`/${currentLang}/uuid-generator`}
       />
 
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center p-3 bg-indigo-100 rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center p-3 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl mb-4">
             <Fingerprint className="h-8 w-8 text-indigo-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('uuid.title')}</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('uuid.title')}</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('uuid.desc')}
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200 bg-gray-50">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('uuid.countLabel') || 'Count'}
                 </label>
                 <input
@@ -126,18 +129,18 @@ export function UuidGenerator() {
                   max="1000"
                   value={count}
                   onChange={(e) => setCount(Math.min(1000, Math.max(1, parseInt(e.target.value) || 1)))}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('uuid.version') || 'Version'}
                 </label>
                 <select
                   value={version}
                   onChange={(e) => setVersion(e.target.value as 'v1' | 'v3' | 'v4' | 'v5' | 'v7')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800"
                 >
                   <option value="v1">{t('uuid.v1') || 'v1 (Time-based)'}</option>
                   <option value="v3">{t('uuid.v3') || 'v3 (MD5 Namespace)'}</option>
@@ -150,7 +153,7 @@ export function UuidGenerator() {
               {(version === 'v3' || version === 'v5') && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Namespace (UUID)
                     </label>
                     <input
@@ -158,11 +161,11 @@ export function UuidGenerator() {
                       value={namespace}
                       onChange={(e) => setNamespace(e.target.value)}
                       placeholder="e.g., 6ba7b810-9dad-11d1-80b4-00c04fd430c8"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Name
                     </label>
                     <input
@@ -170,20 +173,20 @@ export function UuidGenerator() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g., example.com"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                   </div>
                 </>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('uuid.separator') || 'Separator'}
                 </label>
                 <select
                   value={separator}
                   onChange={(e) => setSeparator(e.target.value as 'newline' | 'comma' | 'space')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800"
                 >
                   <option value="newline">{t('uuid.newline') || 'New Line'}</option>
                   <option value="comma">{t('uuid.comma') || 'Comma (,)'}</option>
@@ -192,13 +195,13 @@ export function UuidGenerator() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('uuid.quotes') || 'Quotes'}
                 </label>
                 <select
                   value={quotes}
                   onChange={(e) => setQuotes(e.target.value as 'none' | 'single' | 'double')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800"
                 >
                   <option value="none">{t('uuid.none') || 'None'}</option>
                   <option value="single">{t('uuid.single') || "Single ('')"}</option>
@@ -212,9 +215,9 @@ export function UuidGenerator() {
                   id="hyphens"
                   checked={hyphens}
                   onChange={(e) => setHyphens(e.target.checked)}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
                 />
-                <label htmlFor="hyphens" className="text-sm text-gray-700">
+                <label htmlFor="hyphens" className="text-sm text-gray-700 dark:text-gray-300">
                   {t('uuid.hyphens') || 'Include Hyphens'}
                 </label>
               </div>
@@ -225,9 +228,9 @@ export function UuidGenerator() {
                   id="uppercase"
                   checked={uppercase}
                   onChange={(e) => setUppercase(e.target.checked)}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600 rounded"
                 />
-                <label htmlFor="uppercase" className="text-sm text-gray-700">
+                <label htmlFor="uppercase" className="text-sm text-gray-700 dark:text-gray-300">
                   {t('uuid.uppercase') || 'Uppercase'}
                 </label>
               </div>
@@ -247,10 +250,10 @@ export function UuidGenerator() {
           {uuids.length > 0 && (
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900">Results ({uuids.length})</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">Results ({uuids.length})</h3>
                 <button
                   onClick={() => copyToClipboard(getJoinedUuids())}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   {copiedAll ? <Check className="h-4 w-4 mr-2 text-green-500" /> : <Copy className="h-4 w-4 mr-2" />}
                   {copiedAll ? t('uuid.copied') : t('uuid.copyAll')}
@@ -258,11 +261,11 @@ export function UuidGenerator() {
               </div>
               
               {separator === 'newline' ? (
-                <div className="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden max-h-96 overflow-y-auto">
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden max-h-96 overflow-y-auto">
                   <ul className="divide-y divide-gray-200">
                     {uuids.map((uuid, index) => (
-                      <li key={index} className="px-4 py-3 flex justify-between items-center hover:bg-gray-100 transition-colors">
-                        <span className="font-mono text-sm text-gray-800">{uuid}</span>
+                      <li key={index} className="px-4 py-3 flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors">
+                        <span className="font-mono text-sm text-gray-800 dark:text-gray-200">{uuid}</span>
                         <button
                           onClick={() => copyToClipboard(uuid, index)}
                           className="text-gray-400 hover:text-indigo-600 focus:outline-none ml-4"
@@ -275,7 +278,7 @@ export function UuidGenerator() {
                   </ul>
                 </div>
               ) : (
-                <div className="bg-gray-50 rounded-xl border border-gray-200 p-4 max-h-96 overflow-y-auto font-mono text-sm text-gray-800 break-all whitespace-pre-wrap">
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 max-h-96 overflow-y-auto font-mono text-sm text-gray-800 dark:text-gray-200 break-all whitespace-pre-wrap">
                   {getJoinedUuids()}
                 </div>
               )}
@@ -284,11 +287,11 @@ export function UuidGenerator() {
         </div>
 
         {/* Decode Section */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-6 border-b border-gray-200 bg-gray-50">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('uuid.decodeTitle') || 'Decode UUID'}</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('uuid.decodeTitle') || 'Decode UUID'}</h2>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 {t('uuid.decodeInput') || 'Enter UUID to decode'}
               </label>
               <input
@@ -299,24 +302,24 @@ export function UuidGenerator() {
                   decodeUuid(e.target.value);
                 }}
                 placeholder="e.g., 123e4567-e89b-12d3-a456-426614174000"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono"
               />
             </div>
             
             {decodeResult && (
-              <div className={`mt-4 p-4 rounded-lg ${decodeResult.valid ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+              <div className={`mt-4 p-4 rounded-lg ${decodeResult.valid ? 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800'}`}>
                 {decodeResult.valid ? (
                   <div>
-                    <div className="flex items-center text-green-800 font-medium mb-2">
+                    <div className="flex items-center text-green-800 dark:text-green-300 font-medium mb-2">
                       <Check className="h-5 w-5 mr-2" />
                       {t('uuid.decodeResult') || 'Valid UUID'}
                     </div>
-                    <div className="text-sm text-green-700">
+                    <div className="text-sm text-green-700 dark:text-green-400">
                       <strong>{t('uuid.version') || 'Version'}:</strong> {decodeResult.version}
                     </div>
                   </div>
                 ) : (
-                  <div className="text-red-700 text-sm">
+                  <div className="text-red-700 dark:text-red-400 text-sm">
                     {decodeResult.error}
                   </div>
                 )}
@@ -326,14 +329,14 @@ export function UuidGenerator() {
         </div>
 
         {/* SEO Content */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('uuid.longDesc.title')}</h2>
-          <div className="prose prose-blue max-w-none text-gray-600">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('uuid.longDesc.title')}</h2>
+          <div className="prose prose-blue dark:prose-invert max-w-none text-gray-600 dark:text-gray-400">
             <p dangerouslySetInnerHTML={{ __html: t('uuid.longDesc.p1') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('uuid.longDesc.p2') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('uuid.longDesc.p3') }}></p>
             
-            <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">{t('uuid.help.title')}</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">{t('uuid.help.title')}</h3>
             <ol className="list-decimal pl-5 space-y-2">
               <li>{t('uuid.help.1')}</li>
               <li>{t('uuid.help.2')}</li>

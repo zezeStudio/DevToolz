@@ -11,7 +11,7 @@ export function AdPlaceholder({ className, format = 'horizontal', label = 'Adver
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 overflow-hidden relative',
+        'flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-400 overflow-hidden relative',
         {
           'w-full h-24 md:h-32': format === 'horizontal',
           'w-full max-w-[300px] h-[600px]': format === 'vertical',

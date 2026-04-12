@@ -1,97 +1,433 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Home Pages -->
   <url>
-    <loc>https://devtoolz.app/</loc>
+    <loc>https://devtoolz.app/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/json-formatter</loc>
+    <loc>https://devtoolz.app/ko</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- JSON Formatter -->
+  <url>
+    <loc>https://devtoolz.app/en/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/json-formatter"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/password-generator</loc>
+    <loc>https://devtoolz.app/ko/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/json-formatter"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/text-analyzer</loc>
+    <loc>https://devtoolz.app/ja/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/json-formatter"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Password Generator -->
+  <url>
+    <loc>https://devtoolz.app/en/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/password-generator"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/base64-converter</loc>
+    <loc>https://devtoolz.app/ko/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/password-generator"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/url-encoder</loc>
+    <loc>https://devtoolz.app/ja/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/password-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Text Analyzer -->
+  <url>
+    <loc>https://devtoolz.app/en/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/text-analyzer"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/jwt-decoder</loc>
+    <loc>https://devtoolz.app/ko/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/text-analyzer"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/color-converter</loc>
+    <loc>https://devtoolz.app/ja/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/text-analyzer"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Base64 Converter -->
+  <url>
+    <loc>https://devtoolz.app/en/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/base64-converter"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/markdown-editor</loc>
+    <loc>https://devtoolz.app/ko/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/base64-converter"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/uuid-generator</loc>
+    <loc>https://devtoolz.app/ja/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/base64-converter"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- URL Encoder -->
+  <url>
+    <loc>https://devtoolz.app/en/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/url-encoder"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/hash-generator</loc>
+    <loc>https://devtoolz.app/ko/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/url-encoder"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/unix-timestamp</loc>
+    <loc>https://devtoolz.app/ja/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/url-encoder"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- JWT Decoder -->
+  <url>
+    <loc>https://devtoolz.app/en/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/jwt-decoder"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/qr-code</loc>
+    <loc>https://devtoolz.app/ko/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/jwt-decoder"/>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/privacy</loc>
+    <loc>https://devtoolz.app/ja/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/jwt-decoder"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Color Converter -->
+  <url>
+    <loc>https://devtoolz.app/en/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/color-converter"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/color-converter"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/color-converter"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Markdown Editor -->
+  <url>
+    <loc>https://devtoolz.app/en/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/markdown-editor"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/markdown-editor"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/markdown-editor"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- UUID Generator -->
+  <url>
+    <loc>https://devtoolz.app/en/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/uuid-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/uuid-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/uuid-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Hash Generator -->
+  <url>
+    <loc>https://devtoolz.app/en/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/hash-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/hash-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/hash-generator"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Unix Timestamp -->
+  <url>
+    <loc>https://devtoolz.app/en/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/unix-timestamp"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/unix-timestamp"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/unix-timestamp"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- QR Code -->
+  <url>
+    <loc>https://devtoolz.app/en/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/qr-code"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/qr-code"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/qr-code"/>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Static Pages -->
+  <url>
+    <loc>https://devtoolz.app/en/privacy</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/terms</loc>
+    <loc>https://devtoolz.app/ko/privacy</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://devtoolz.app/contact</loc>
+    <loc>https://devtoolz.app/ja/privacy</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/en/terms</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/terms</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/terms</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/en/contact</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/contact</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/contact</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

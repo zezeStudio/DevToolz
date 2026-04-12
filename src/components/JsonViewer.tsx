@@ -18,15 +18,15 @@ export function JsonViewer({ data, name, isLast = true }: JsonViewerProps) {
     let valueColor = 'text-blue-600'; // string
     if (typeof data === 'number') valueColor = 'text-green-600';
     else if (typeof data === 'boolean') valueColor = 'text-purple-600';
-    else if (data === null) valueColor = 'text-gray-500';
+    else if (data === null) valueColor = 'text-gray-500 dark:text-gray-400';
 
     return (
       <div className="font-mono text-sm pl-4 leading-6">
-        {name && <span className="text-gray-700">"{name}": </span>}
+        {name && <span className="text-gray-700 dark:text-gray-300">"{name}": </span>}
         <span className={valueColor}>
           {typeof data === 'string' ? `"${data}"` : String(data)}
         </span>
-        {!isLast && <span className="text-gray-500">,</span>}
+        {!isLast && <span className="text-gray-500 dark:text-gray-400">,</span>}
       </div>
     );
   }
@@ -39,22 +39,22 @@ export function JsonViewer({ data, name, isLast = true }: JsonViewerProps) {
   return (
     <div className="font-mono text-sm leading-6">
       <div 
-        className="flex items-center cursor-pointer hover:bg-gray-100 rounded px-1 -ml-1 w-max select-none"
+        className="flex items-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 rounded px-1 -ml-1 w-max select-none"
         onClick={() => setExpanded(!expanded)}
       >
         {!isEmpty && (
-          expanded ? <ChevronDown className="w-3 h-3 mr-1 text-gray-500" /> : <ChevronRight className="w-3 h-3 mr-1 text-gray-500" />
+          expanded ? <ChevronDown className="w-3 h-3 mr-1 text-gray-500 dark:text-gray-400" /> : <ChevronRight className="w-3 h-3 mr-1 text-gray-500 dark:text-gray-400" />
         )}
         {isEmpty && <span className="w-4" />}
-        {name && <span className="text-gray-700">"{name}": </span>}
-        <span className="text-gray-500">{openBracket}</span>
+        {name && <span className="text-gray-700 dark:text-gray-300">"{name}": </span>}
+        <span className="text-gray-500 dark:text-gray-400">{openBracket}</span>
         {!expanded && !isEmpty && <span className="text-gray-400 mx-1">...</span>}
-        {!expanded && !isEmpty && <span className="text-gray-500">{closeBracket}{!isLast ? ',' : ''}</span>}
+        {!expanded && !isEmpty && <span className="text-gray-500 dark:text-gray-400">{closeBracket}{!isLast ? ',' : ''}</span>}
         {!expanded && isArray && <span className="text-gray-400 text-xs ml-2">{keys.length} items</span>}
       </div>
       
       {expanded && !isEmpty && (
-        <div className="pl-4 border-l border-gray-200 ml-1.5">
+        <div className="pl-4 border-l border-gray-200 dark:border-gray-700 ml-1.5">
           {keys.map((key, index) => (
             <JsonViewer 
               key={key} 
@@ -68,8 +68,8 @@ export function JsonViewer({ data, name, isLast = true }: JsonViewerProps) {
       
       {expanded && (
         <div className="pl-1">
-          <span className="text-gray-500">{closeBracket}</span>
-          {!isLast && <span className="text-gray-500">,</span>}
+          <span className="text-gray-500 dark:text-gray-400">{closeBracket}</span>
+          {!isLast && <span className="text-gray-500 dark:text-gray-400">,</span>}
         </div>
       )}
     </div>

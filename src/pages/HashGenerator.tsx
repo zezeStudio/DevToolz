@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Hash, Copy, Check, FileText, Upload, Lock } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { useParams } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
 
 type HashMode = 'text' | 'file';
@@ -9,6 +10,8 @@ type Encoding = 'hex' | 'base64';
 
 export function HashGenerator() {
   const { t } = useTranslation();
+  const { lang } = useParams();
+  const currentLang = lang || 'en';
   const [mode, setMode] = useState<HashMode>('text');
   const [input, setInput] = useState('');
   const [useHmac, setUseHmac] = useState(false);
@@ -170,7 +173,7 @@ export function HashGenerator() {
       <SEO 
         title={t('hash.seoTitle')}
         description={t('hash.desc')}
-        url="/hash-generator"
+        url={`/${currentLang}/hash-generator`}
       />
 
       <div className="max-w-5xl mx-auto space-y-8">
@@ -178,21 +181,21 @@ export function HashGenerator() {
           <div className="inline-flex items-center justify-center p-3 bg-red-100 rounded-2xl mb-4">
             <Hash className="h-8 w-8 text-red-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('hash.title')}</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('hash.title')}</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('hash.desc')}
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
           {/* Tabs */}
-          <div className="flex border-b border-gray-200">
+          <div className="flex border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={() => setMode('text')}
               className={`flex-1 py-4 px-6 text-sm font-medium text-center flex items-center justify-center transition-colors ${
                 mode === 'text' 
-                  ? 'text-red-600 border-b-2 border-red-600 bg-red-50/50' 
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  ? 'text-red-600 border-b-2 border-red-600 bg-red-50 dark:bg-red-900/30/50' 
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'
               }`}
             >
               <FileText className="h-4 w-4 mr-2" />
@@ -202,8 +205,8 @@ export function HashGenerator() {
               onClick={() => setMode('file')}
               className={`flex-1 py-4 px-6 text-sm font-medium text-center flex items-center justify-center transition-colors ${
                 mode === 'file' 
-                  ? 'text-red-600 border-b-2 border-red-600 bg-red-50/50' 
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  ? 'text-red-600 border-b-2 border-red-600 bg-red-50 dark:bg-red-900/30/50' 
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'
               }`}
             >
               <Upload className="h-4 w-4 mr-2" />
@@ -212,13 +215,13 @@ export function HashGenerator() {
           </div>
 
           {/* Settings Bar */}
-          <div className="p-4 border-b border-gray-200 bg-gray-50 flex flex-wrap gap-6 items-center">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex flex-wrap gap-6 items-center">
             <div className="flex items-center space-x-2">
-              <label className="text-sm font-medium text-gray-700">{t('hash.encoding') || 'Encoding'}:</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('hash.encoding') || 'Encoding'}:</label>
               <select
                 value={encoding}
                 onChange={(e) => setEncoding(e.target.value as Encoding)}
-                className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 bg-white"
+                className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-red-500 bg-white dark:bg-gray-800"
               >
                 <option value="hex">{t('hash.hex') || 'Hex'}</option>
                 <option value="base64">{t('hash.base64') || 'Base64'}</option>
@@ -231,9 +234,9 @@ export function HashGenerator() {
                 id="useHmac"
                 checked={useHmac}
                 onChange={(e) => setUseHmac(e.target.checked)}
-                className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 dark:border-gray-600 rounded"
               />
-              <label htmlFor="useHmac" className="text-sm font-medium text-gray-700 flex items-center">
+              <label htmlFor="useHmac" className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center">
                 <Lock className="h-3.5 w-3.5 mr-1" />
                 {t('hash.hmac') || 'HMAC'}
               </label>
@@ -246,28 +249,28 @@ export function HashGenerator() {
                   value={hmacKey}
                   onChange={(e) => setHmacKey(e.target.value)}
                   placeholder={t('hash.hmacKey') || 'Secret Key'}
-                  className="w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500"
+                  className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-red-500"
                 />
               </div>
             )}
           </div>
 
-          <div className="p-6 border-b border-gray-200">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
             {mode === 'text' ? (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('hash.inputLabel')}
                 </label>
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-32 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-y"
+                  className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-y"
                   placeholder="Enter text to hash..."
                 />
               </div>
             ) : (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('hash.fileSelect') || 'Select File'}
                 </label>
                 <div
@@ -276,7 +279,7 @@ export function HashGenerator() {
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
                   className={`w-full h-32 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors ${
-                    isDragging ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:bg-gray-50'
+                    isDragging ? 'border-red-500 bg-red-50 dark:bg-red-900/30' : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'
                   }`}
                 >
                   <input
@@ -286,11 +289,11 @@ export function HashGenerator() {
                     className="hidden"
                   />
                   <Upload className={`h-8 w-8 mb-2 ${isDragging ? 'text-red-500' : 'text-gray-400'}`} />
-                  <p className="text-sm text-gray-600 font-medium">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                     {file ? file.name : (t('hash.fileDrop') || 'Click or drag & drop a file here')}
                   </p>
                   {file && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       {formatFileSize(file.size)}
                     </p>
                   )}
@@ -304,17 +307,17 @@ export function HashGenerator() {
             )}
           </div>
 
-          <div className="p-6 space-y-6 bg-gray-50 relative">
+          <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 relative">
             {isHashing && (
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white dark:bg-gray-800/80 backdrop-blur-sm z-10 flex items-center justify-center">
                 <div className="flex flex-col items-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mb-2"></div>
-                  <p className="text-sm font-medium text-gray-700">{t('hash.hashing') || 'Hashing...'}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('hash.hashing') || 'Hashing...'}</p>
                 </div>
               </div>
             )}
             
-            <h3 className="text-lg font-medium text-gray-900">{t('hash.outputLabel')}</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">{t('hash.outputLabel')}</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -327,13 +330,13 @@ export function HashGenerator() {
               ].map((item) => (
                 <div key={item.key} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="block text-sm font-bold text-gray-700">
+                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
                       {item.label}
                     </label>
                     <button
                       onClick={() => copyToClipboard(item.value, item.key)}
                       disabled={!item.value}
-                      className="text-sm text-red-600 hover:text-red-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                      className="text-sm text-red-600 hover:text-red-800 dark:text-red-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
                       {copiedKey === item.key ? (
                         <><Check className="h-4 w-4 mr-1" /> {t('hash.copied')}</>
@@ -342,7 +345,7 @@ export function HashGenerator() {
                       )}
                     </button>
                   </div>
-                  <div className="bg-white p-3 rounded-lg border border-gray-200 font-mono text-sm break-all text-gray-800 min-h-[3.5rem] flex items-center shadow-sm">
+                  <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm break-all text-gray-800 dark:text-gray-200 min-h-[3.5rem] flex items-center shadow-sm">
                     {item.value || <span className="text-gray-400 italic">Waiting for input...</span>}
                   </div>
                 </div>
@@ -352,14 +355,14 @@ export function HashGenerator() {
         </div>
 
         {/* SEO Content */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('hash.longDesc.title')}</h2>
-          <div className="prose prose-red max-w-none text-gray-600">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('hash.longDesc.title')}</h2>
+          <div className="prose prose-red max-w-none text-gray-600 dark:text-gray-400">
             <p dangerouslySetInnerHTML={{ __html: t('hash.longDesc.p1') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('hash.longDesc.p2') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('hash.longDesc.p3') }}></p>
             
-            <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">{t('hash.help.title')}</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">{t('hash.help.title')}</h3>
             <ol className="list-decimal pl-5 space-y-2">
               <li>{t('hash.help.1')}</li>
               <li>{t('hash.help.2')}</li>

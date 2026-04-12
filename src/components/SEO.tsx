@@ -48,10 +48,10 @@ export function SEO({ title, description, url, schema }: SEOProps) {
       <meta name="twitter:description" content={description} />
 
       {/* Hreflang tags for Internationalization (SEO) */}
-      <link rel="alternate" hrefLang="en" href={`${baseUrl}${url}?lng=en`} />
-      <link rel="alternate" hrefLang="ko" href={`${baseUrl}${url}?lng=ko`} />
-      <link rel="alternate" hrefLang="ja" href={`${baseUrl}${url}?lng=ja`} />
-      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${url}`} />
+      <link rel="alternate" hrefLang="en" href={`${baseUrl}/en${url.replace(/^\/(en|ko|ja)/, '')}`} />
+      <link rel="alternate" hrefLang="ko" href={`${baseUrl}/ko${url.replace(/^\/(en|ko|ja)/, '')}`} />
+      <link rel="alternate" hrefLang="ja" href={`${baseUrl}/ja${url.replace(/^\/(en|ko|ja)/, '')}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en${url.replace(/^\/(en|ko|ja)/, '')}`} />
 
       {/* Structured Data (JSON-LD) for GEO and AEO (Answer Engines) */}
       <script type="application/ld+json">
