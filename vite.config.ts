@@ -30,6 +30,7 @@ export default defineConfig(({mode}) => {
           '/en/hash-generator', '/ko/hash-generator', '/ja/hash-generator',
           '/en/unix-timestamp', '/ko/unix-timestamp', '/ja/unix-timestamp',
           '/en/qr-code', '/ko/qr-code', '/ja/qr-code',
+          '/en/regex-tester', '/ko/regex-tester', '/ja/regex-tester',
           '/en/privacy', '/ko/privacy', '/ja/privacy',
           '/en/terms', '/ko/terms', '/ja/terms',
           '/en/contact', '/ko/contact', '/ja/contact'

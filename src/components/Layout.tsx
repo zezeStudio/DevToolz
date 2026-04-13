@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Sun, Moon } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AdPlaceholder } from './AdPlaceholder';
 import { cn } from '../lib/utils';
@@ -30,6 +30,9 @@ export function Layout() {
     { name: t('nav.hash'), path: `/${currentLang}/hash-generator`, icon: Hash },
     { name: t('nav.unix'), path: `/${currentLang}/unix-timestamp`, icon: Clock },
     { name: t('nav.qr'), path: `/${currentLang}/qr-code`, icon: QrCode },
+    { name: t('nav.regex'), path: `/${currentLang}/regex-tester`, icon: Search },
+    { name: t('nav.diff'), path: `/${currentLang}/diff-checker`, icon: FileDiff },
+    { name: t('nav.imageCompressor'), path: `/${currentLang}/image-compressor`, icon: ImageIcon },
   ];
 
   const handleLanguageChange = (newLang: string) => {

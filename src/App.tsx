@@ -20,6 +20,9 @@ import { UuidGenerator } from './pages/UuidGenerator';
 import { HashGenerator } from './pages/HashGenerator';
 import { UnixTimestampConverter } from './pages/UnixTimestampConverter';
 import { QrCodeGenerator } from './pages/QrCodeGenerator';
+import { RegexTester } from './pages/RegexTester';
+import { DiffChecker } from './pages/DiffChecker';
+import { ImageCompressor } from './pages/ImageCompressor';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { Contact } from './pages/Contact';
@@ -31,8 +34,12 @@ function LanguageWrapper() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    if (lang && ['en', 'ko', 'ja'].includes(lang) && i18n.language !== lang) {
-      i18n.changeLanguage(lang);
+    const supportedLangs = ['en', 'ko', 'ja'];
+    if (lang && supportedLangs.includes(lang)) {
+      if (i18n.language !== lang) {
+        i18n.changeLanguage(lang);
+        document.documentElement.lang = lang;
+      }
     }
   }, [lang, i18n]);
 
@@ -77,6 +84,9 @@ export default function App() {
               <Route path="hash-generator" element={<HashGenerator />} />
               <Route path="unix-timestamp" element={<UnixTimestampConverter />} />
               <Route path="qr-code" element={<QrCodeGenerator />} />
+              <Route path="regex-tester" element={<RegexTester />} />
+              <Route path="diff-checker" element={<DiffChecker />} />
+              <Route path="image-compressor" element={<ImageCompressor />} />
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfService />} />
               <Route path="contact" element={<Contact />} />

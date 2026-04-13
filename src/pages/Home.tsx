@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
@@ -108,6 +108,30 @@ export function Home() {
       color: 'bg-yellow-500',
       category: 'design'
     },
+    {
+      name: t('home.tools.regex.name'),
+      description: t('home.tools.regex.desc'),
+      icon: Search,
+      path: `/${currentLang}/regex-tester`,
+      color: 'bg-orange-600',
+      category: 'developer'
+    },
+    {
+      name: t('home.tools.diff.name'),
+      description: t('home.tools.diff.desc'),
+      icon: FileDiff,
+      path: `/${currentLang}/diff-checker`,
+      color: 'bg-emerald-600',
+      category: 'developer'
+    },
+    {
+      name: t('home.tools.imageCompressor.name'),
+      description: t('home.tools.imageCompressor.desc'),
+      icon: ImageIcon,
+      path: `/${currentLang}/image-compressor`,
+      color: 'bg-rose-500',
+      category: 'design'
+    },
   ];
 
   const categories = [
@@ -161,24 +185,24 @@ export function Home() {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-6">
+        <div className="text-center mb-10 md:mb-16">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-4 md:6">
             {t('home.title1')} <span className="text-blue-600">{t('home.title2')}</span>
           </h1>
-          <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+          <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-8 md:10 px-2">
             {t('home.subtitle')}
           </p>
 
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-6 w-6 text-gray-400" />
+          <div className="max-w-2xl mx-auto relative px-2 sm:px-0">
+            <div className="absolute inset-y-0 left-0 pl-6 sm:pl-4 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 md:h-6 md:w-6 text-gray-400" />
             </div>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl leading-5 bg-white dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-0 sm:text-lg transition-colors shadow-sm"
+              className="block w-full pl-12 pr-4 py-3 md:py-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl leading-5 bg-white dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-0 text-base md:text-lg transition-colors shadow-sm"
               placeholder={t('home.searchPlaceholder')}
             />
           </div>
@@ -204,13 +228,13 @@ export function Home() {
                         to={tool.path}
                         className="group relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
                       >
-                        <div className={`inline-flex p-3 rounded-xl ${tool.color} text-white mb-5 w-fit shadow-sm`}>
-                          <tool.icon className="h-6 w-6" />
+                        <div className={`inline-flex p-2.5 md:p-3 rounded-xl ${tool.color} text-white mb-4 md:5 w-fit shadow-sm`}>
+                          <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 md:3 group-hover:text-blue-600 transition-colors">
                           {tool.name}
                         </h3>
-                        <p className="text-gray-500 dark:text-gray-400 flex-1 mb-6 leading-relaxed">
+                        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 flex-1 mb-4 md:6 leading-relaxed">
                           {tool.description}
                         </p>
                         <div className="flex items-center text-blue-600 font-bold mt-auto">
