@@ -377,6 +377,93 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Regex Tester -->
+  <url>
+    <loc>https://devtoolz.app/en/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/regex-tester"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/regex-tester"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/regex-tester"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Diff Checker -->
+  <url>
+    <loc>https://devtoolz.app/en/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/diff-checker"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/diff-checker"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/diff-checker"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Image Compressor -->
+  <url>
+    <loc>https://devtoolz.app/en/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/image-compressor"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ko/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/image-compressor"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://devtoolz.app/ja/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devtoolz.app/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://devtoolz.app/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://devtoolz.app/ja/image-compressor"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Static Pages -->
   <url>
     <loc>https://devtoolz.app/en/privacy</loc>
