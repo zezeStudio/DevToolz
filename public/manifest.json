@@ -1,0 +1,28 @@
+{
+  "short_name": "DevToolz",
+  "name": "DevToolz - Expert Developer Tools",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/en/",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#ffffff",
+  "description": "A collection of high-quality, privacy-focused developer tools for formatting, converting, and generating data.",
+  "orientation": "any",
+  "categories": ["developer", "utilities"]
+}

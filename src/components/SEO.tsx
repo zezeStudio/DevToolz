@@ -7,13 +7,14 @@ interface SEOProps {
   description: string;
   url: string;
   schema?: object[];
+  applicationCategory?: string;
 }
 
-export function SEO({ title, description, url, schema }: SEOProps) {
+export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication' }: SEOProps) {
   const { i18n } = useTranslation();
-  // In a real production app, this would be your actual domain
-  const baseUrl = window.location.origin.includes('localhost') ? 'https://devtoolz.app' : window.location.origin;
-  const fullUrl = `${baseUrl}${url}`;
+  const baseUrl = 'https://devtoolz.app';
+  const cleanPath = url.replace(/^\/(en|ko|ja)/, '') || '/';
+  const fullUrl = `${baseUrl}/${i18n.language}${cleanPath === '/' ? '' : cleanPath}`;
 
   const defaultSchema = {
     "@context": "https://schema.org",
@@ -22,10 +23,28 @@ export function SEO({ title, description, url, schema }: SEOProps) {
     "url": baseUrl,
   };
 
-  const finalSchema = schema ? {
+  const softwareSchema = {
     "@context": "https://schema.org",
-    "@graph": [defaultSchema, ...schema]
-  } : defaultSchema;
+    "@type": "SoftwareApplication",
+    "name": title,
+    "description": description,
+    "applicationCategory": applicationCategory,
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
+  const finalSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      defaultSchema,
+      softwareSchema,
+      ...(schema || [])
+    ]
+  };
 
   return (
     <Helmet>
@@ -48,10 +67,10 @@ export function SEO({ title, description, url, schema }: SEOProps) {
       <meta name="twitter:description" content={description} />
 
       {/* Hreflang tags for Internationalization (SEO) */}
-      <link rel="alternate" hrefLang="en" href={`${baseUrl}/en${url.replace(/^\/(en|ko|ja)/, '')}`} />
-      <link rel="alternate" hrefLang="ko" href={`${baseUrl}/ko${url.replace(/^\/(en|ko|ja)/, '')}`} />
-      <link rel="alternate" hrefLang="ja" href={`${baseUrl}/ja${url.replace(/^\/(en|ko|ja)/, '')}`} />
-      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en${url.replace(/^\/(en|ko|ja)/, '')}`} />
+      <link rel="alternate" hrefLang="en" href={`${baseUrl}/en${cleanPath === '/' ? '' : cleanPath}`} />
+      <link rel="alternate" hrefLang="ko" href={`${baseUrl}/ko${cleanPath === '/' ? '' : cleanPath}`} />
+      <link rel="alternate" hrefLang="ja" href={`${baseUrl}/ja${cleanPath === '/' ? '' : cleanPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en${cleanPath === '/' ? '' : cleanPath}`} />
 
       {/* Structured Data (JSON-LD) for GEO and AEO (Answer Engines) */}
       <script type="application/ld+json">

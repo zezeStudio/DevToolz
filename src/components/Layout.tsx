@@ -155,10 +155,19 @@ export function Layout() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {new Date().getFullYear()} DevToolz. {t('footer.rights')}
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to={`/${currentLang}/privacy`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.privacy')}</Link>
-            <Link to={`/${currentLang}/terms`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.terms')}</Link>
-            <Link to={`/${currentLang}/contact`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.contact')}</Link>
+          <div className="flex flex-col items-center md:items-end space-y-4">
+            <div className="flex space-x-6">
+              <Link to={`/${currentLang}/privacy`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.privacy')}</Link>
+              <Link to={`/${currentLang}/terms`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.terms')}</Link>
+              <Link to={`/${currentLang}/contact`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.contact')}</Link>
+            </div>
+            <div className="flex space-x-4 text-xs text-gray-400 dark:text-gray-500">
+              <Link to={`/en${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 transition-colors">English</Link>
+              <span>•</span>
+              <Link to={`/ko${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 transition-colors">한국어</Link>
+              <span>•</span>
+              <Link to={`/ja${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 transition-colors">日本語</Link>
+            </div>
           </div>
         </div>
       </footer>

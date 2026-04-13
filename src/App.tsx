@@ -45,11 +45,23 @@ function RootRedirect() {
   return <Navigate to={`/en${path}`} replace />;
 }
 
+function PrerenderEvent() {
+  useEffect(() => {
+    // Small delay to ensure everything is rendered and i18n is applied
+    const timer = setTimeout(() => {
+      document.dispatchEvent(new Event('render-event'));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+  return null;
+}
+
 export default function App() {
   return (
     <HelmetProvider>
       <ThemeProvider defaultTheme="system" storageKey="devtoolz-theme">
         <BrowserRouter>
+          <PrerenderEvent />
           <Routes>
             <Route path="/:lang" element={<LanguageWrapper />}>
               <Route index element={<Home />} />
