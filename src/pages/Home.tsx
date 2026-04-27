@@ -289,6 +289,16 @@ export function Home() {
             </div>
           </div>
         </div>
+
+        {/* SEO Detailed Text Block */}
+        <div className="mt-16 text-left px-4 md:px-8 max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('home.about.longTitle')}</h2>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-400">
+             {t('home.about.longDesc').split('\n\n').map((paragraph, index) => (
+                <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
+             ))}
+          </div>
+        </div>
       </div>
     </>
   );

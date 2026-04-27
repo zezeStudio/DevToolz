@@ -26,6 +26,8 @@ import { ImageCompressor } from './pages/ImageCompressor';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { Contact } from './pages/Contact';
+import { AboutUs } from './pages/AboutUs';
+import { NotFound } from './pages/NotFound';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -90,6 +92,8 @@ export default function App() {
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfService />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="about" element={<AboutUs />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="*" element={<RootRedirect />} />
           </Routes>

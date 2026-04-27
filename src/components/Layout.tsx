@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { AdPlaceholder } from './AdPlaceholder';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
 
@@ -126,19 +125,12 @@ export function Layout() {
                 </Link>
               );
             })}
-            
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <AdPlaceholder format="square" className="mx-auto" />
-            </div>
           </nav>
         </aside>
 
         {/* Main Content Area */}
         <main className="flex-1 min-w-0 flex flex-col">
-          {/* Top Ad Slot */}
-          <div className="mb-6">
-            <AdPlaceholder format="horizontal" />
-          </div>
+          {/* AdSense Auto Ads will inject here if needed. */}
 
           {/* Page Content */}
           <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 lg:p-8 transition-colors duration-200">
@@ -147,7 +139,7 @@ export function Layout() {
 
           {/* Bottom Ad Slot */}
           <div className="mt-6">
-            <AdPlaceholder format="horizontal" />
+            {/* Removed bottom ad placeholder */}
           </div>
         </main>
       </div>
@@ -160,6 +152,7 @@ export function Layout() {
           </p>
           <div className="flex flex-col items-center md:items-end space-y-4">
             <div className="flex space-x-6">
+              <Link to={`/${currentLang}/about`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.about')}</Link>
               <Link to={`/${currentLang}/privacy`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.privacy')}</Link>
               <Link to={`/${currentLang}/terms`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.terms')}</Link>
               <Link to={`/${currentLang}/contact`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">{t('footer.contact')}</Link>
