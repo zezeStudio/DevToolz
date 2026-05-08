@@ -12,7 +12,7 @@ interface SEOProps {
 
 export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication' }: SEOProps) {
   const { i18n } = useTranslation();
-  const baseUrl = 'https://devtoolz.app';
+  const baseUrl = 'https://www.zezelab.xyz';
   const cleanPath = url.replace(/^\/(en|ko|ja)/, '') || '/';
   const fullUrl = `${baseUrl}/${i18n.language}${cleanPath === '/' ? '' : cleanPath}`;
 

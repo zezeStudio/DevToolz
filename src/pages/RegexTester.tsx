@@ -67,7 +67,7 @@ export function RegexTester() {
   const [mode, setMode] = useState<'test' | 'replace'>('test');
   const [pattern, setPattern] = useState('([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})');
   const [flags, setFlags] = useState('g');
-  const [testText, setTestText] = useState('Contact us at support@devtoolz.app or info@example.com for help.');
+  const [testText, setTestText] = useState('Contact us at support@zezelab.xyz or info@example.com for help.');
   const [replaceText, setReplaceText] = useState('user@domain.com');
   const [copied, setCopied] = useState(false);
   const [showCheatsheet, setShowCheatsheet] = useState(false);

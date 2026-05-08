@@ -4,6 +4,7 @@ import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJ
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
+import { CookieConsent } from './CookieConsent';
 
 export function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -167,6 +168,7 @@ export function Layout() {
           </div>
         </div>
       </footer>
+      <CookieConsent />
     </div>
   );
 }

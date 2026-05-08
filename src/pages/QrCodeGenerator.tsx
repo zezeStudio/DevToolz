@@ -16,7 +16,7 @@ export function QrCodeGenerator() {
   const [payloadType, setPayloadType] = useState<PayloadType>('text');
   
   // Payload states
-  const [textInput, setTextInput] = useState('https://devtoolz.com');
+  const [textInput, setTextInput] = useState('https://www.zezelab.xyz');
   
   // WiFi states
   const [wifiSsid, setWifiSsid] = useState('');
