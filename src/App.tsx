@@ -3,33 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './components/ThemeProvider';
 import { Layout } from './components/Layout';
-import { Home } from './pages/Home';
-import { JsonFormatter } from './pages/JsonFormatter';
-import { PasswordGenerator } from './pages/PasswordGenerator';
-import { TextAnalyzer } from './pages/TextAnalyzer';
-import { Base64Converter } from './pages/Base64Converter';
-import { UrlEncoder } from './pages/UrlEncoder';
-import { JwtDecoder } from './pages/JwtDecoder';
-import { ColorConverter } from './pages/ColorConverter';
-import { MarkdownEditor } from './pages/MarkdownEditor';
-import { UuidGenerator } from './pages/UuidGenerator';
-import { HashGenerator } from './pages/HashGenerator';
-import { UnixTimestampConverter } from './pages/UnixTimestampConverter';
-import { QrCodeGenerator } from './pages/QrCodeGenerator';
-import { RegexTester } from './pages/RegexTester';
-import { DiffChecker } from './pages/DiffChecker';
-import { ImageCompressor } from './pages/ImageCompressor';
-import { PrivacyPolicy } from './pages/PrivacyPolicy';
-import { TermsOfService } from './pages/TermsOfService';
-import { Contact } from './pages/Contact';
-import { AboutUs } from './pages/AboutUs';
-import { NotFound } from './pages/NotFound';
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+// Lazy loaded pages
+const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
+const JsonFormatter = lazy(() => import('./pages/JsonFormatter').then(m => ({ default: m.JsonFormatter })));
+const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator').then(m => ({ default: m.PasswordGenerator })));
+const TextAnalyzer = lazy(() => import('./pages/TextAnalyzer').then(m => ({ default: m.TextAnalyzer })));
+const Base64Converter = lazy(() => import('./pages/Base64Converter').then(m => ({ default: m.Base64Converter })));
+const UrlEncoder = lazy(() => import('./pages/UrlEncoder').then(m => ({ default: m.UrlEncoder })));
+const JwtDecoder = lazy(() => import('./pages/JwtDecoder').then(m => ({ default: m.JwtDecoder })));
+const ColorConverter = lazy(() => import('./pages/ColorConverter').then(m => ({ default: m.ColorConverter })));
+const MarkdownEditor = lazy(() => import('./pages/MarkdownEditor').then(m => ({ default: m.MarkdownEditor })));
+const UuidGenerator = lazy(() => import('./pages/UuidGenerator').then(m => ({ default: m.UuidGenerator })));
+const HashGenerator = lazy(() => import('./pages/HashGenerator').then(m => ({ default: m.HashGenerator })));
+const UnixTimestampConverter = lazy(() => import('./pages/UnixTimestampConverter').then(m => ({ default: m.UnixTimestampConverter })));
+const QrCodeGenerator = lazy(() => import('./pages/QrCodeGenerator').then(m => ({ default: m.QrCodeGenerator })));
+const RegexTester = lazy(() => import('./pages/RegexTester').then(m => ({ default: m.RegexTester })));
+const DiffChecker = lazy(() => import('./pages/DiffChecker').then(m => ({ default: m.DiffChecker })));
+const ImageCompressor = lazy(() => import('./pages/ImageCompressor').then(m => ({ default: m.ImageCompressor })));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
+const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfService })));
+const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
+const AboutUs = lazy(() => import('./pages/AboutUs').then(m => ({ default: m.AboutUs })));
+const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
+
+const PageLoader = () => (
+  <div className="flex h-screen w-full items-center justify-center bg-gray-50 dark:bg-gray-900">
+    <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"></div>
+  </div>
+);
 
 function LanguageWrapper() {
   const { lang } = useParams();
@@ -71,32 +79,34 @@ export default function App() {
       <ThemeProvider defaultTheme="system" storageKey="devtoolz-theme">
         <BrowserRouter>
           <PrerenderEvent />
-          <Routes>
-            <Route path="/:lang" element={<LanguageWrapper />}>
-              <Route index element={<Home />} />
-              <Route path="json-formatter" element={<JsonFormatter />} />
-              <Route path="password-generator" element={<PasswordGenerator />} />
-              <Route path="text-analyzer" element={<TextAnalyzer />} />
-              <Route path="base64-converter" element={<Base64Converter />} />
-              <Route path="url-encoder" element={<UrlEncoder />} />
-              <Route path="jwt-decoder" element={<JwtDecoder />} />
-              <Route path="color-converter" element={<ColorConverter />} />
-              <Route path="markdown-editor" element={<MarkdownEditor />} />
-              <Route path="uuid-generator" element={<UuidGenerator />} />
-              <Route path="hash-generator" element={<HashGenerator />} />
-              <Route path="unix-timestamp" element={<UnixTimestampConverter />} />
-              <Route path="qr-code" element={<QrCodeGenerator />} />
-              <Route path="regex-tester" element={<RegexTester />} />
-              <Route path="diff-checker" element={<DiffChecker />} />
-              <Route path="image-compressor" element={<ImageCompressor />} />
-              <Route path="privacy" element={<PrivacyPolicy />} />
-              <Route path="terms" element={<TermsOfService />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="about" element={<AboutUs />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-            <Route path="*" element={<RootRedirect />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/:lang" element={<LanguageWrapper />}>
+                <Route index element={<Home />} />
+                <Route path="json-formatter" element={<JsonFormatter />} />
+                <Route path="password-generator" element={<PasswordGenerator />} />
+                <Route path="text-analyzer" element={<TextAnalyzer />} />
+                <Route path="base64-converter" element={<Base64Converter />} />
+                <Route path="url-encoder" element={<UrlEncoder />} />
+                <Route path="jwt-decoder" element={<JwtDecoder />} />
+                <Route path="color-converter" element={<ColorConverter />} />
+                <Route path="markdown-editor" element={<MarkdownEditor />} />
+                <Route path="uuid-generator" element={<UuidGenerator />} />
+                <Route path="hash-generator" element={<HashGenerator />} />
+                <Route path="unix-timestamp" element={<UnixTimestampConverter />} />
+                <Route path="qr-code" element={<QrCodeGenerator />} />
+                <Route path="regex-tester" element={<RegexTester />} />
+                <Route path="diff-checker" element={<DiffChecker />} />
+                <Route path="image-compressor" element={<ImageCompressor />} />
+                <Route path="privacy" element={<PrivacyPolicy />} />
+                <Route path="terms" element={<TermsOfService />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="about" element={<AboutUs />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+              <Route path="*" element={<RootRedirect />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>
