@@ -1,540 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- Home Pages -->
-  <url>
-    <loc>https://www.zezelab.xyz/en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 1.0 -->
+  <url><loc>https://www.zezelab.xyz/en</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  
+  <!-- 0.8 -->
+  <url><loc>https://www.zezelab.xyz/en/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
-  <!-- JSON Formatter -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/json-formatter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/json-formatter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/json-formatter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- 0.5 -->
+  <url><loc>https://www.zezelab.xyz/en/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  
+  <url><loc>https://www.zezelab.xyz/en/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
-  <!-- Password Generator -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/password-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/password-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/password-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Text Analyzer -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/text-analyzer</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/text-analyzer</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/text-analyzer</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Base64 Converter -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/base64-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/base64-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/base64-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- URL Encoder -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/url-encoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/url-encoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/url-encoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- JWT Decoder -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/jwt-decoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/jwt-decoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/jwt-decoder</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Color Converter -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/color-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/color-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/color-converter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Markdown Editor -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/markdown-editor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/markdown-editor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/markdown-editor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- UUID Generator -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/uuid-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/uuid-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/uuid-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Hash Generator -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/hash-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/hash-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/hash-generator</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Unix Timestamp -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/unix-timestamp</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/unix-timestamp</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/unix-timestamp</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- QR Code -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/qr-code</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/qr-code</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/qr-code</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Regex Tester -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/regex-tester</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/regex-tester</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/regex-tester</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Diff Checker -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/diff-checker</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/diff-checker</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/diff-checker</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Image Compressor -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/image-compressor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/image-compressor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/image-compressor</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Static Pages -->
-  <url>
-    <loc>https://www.zezelab.xyz/en/about</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/about</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/about</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/en/privacy</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/privacy</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/privacy</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/en/terms</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/terms</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/terms</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/en/contact</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ko/contact</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.zezelab.xyz/ja/contact</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
 </urlset>
