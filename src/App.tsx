@@ -5,7 +5,7 @@
 
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { ThemeProvider } from './components/ThemeProvider';
 import { Layout } from './components/Layout';
 import { useTranslation } from 'react-i18next';
@@ -42,6 +42,7 @@ const PageLoader = () => (
 function LanguageWrapper() {
   const { lang } = useParams();
   const { i18n } = useTranslation();
+  const location = useLocation();
 
   useEffect(() => {
     const supportedLangs = ['en', 'ko', 'ja'];
@@ -53,7 +54,30 @@ function LanguageWrapper() {
     }
   }, [lang, i18n]);
 
-  return <Layout />;
+  const supportedLangs = ['en', 'ko', 'ja'];
+  const basePath = location.pathname.split('/').slice(2).join('/');
+  const trailingPath = basePath ? `/${basePath}` : '';
+
+  return (
+    <>
+      <Helmet>
+        {supportedLangs.map((l) => (
+          <link 
+            key={l}
+            rel="alternate" 
+            hrefLang={l} 
+            href={`https://www.zezelab.xyz/${l}${trailingPath}`} 
+          />
+        ))}
+        <link 
+          rel="alternate" 
+          hrefLang="x-default" 
+          href={`https://www.zezelab.xyz/en${trailingPath}`} 
+        />
+      </Helmet>
+      <Layout />
+    </>
+  );
 }
 
 function RootRedirect() {
