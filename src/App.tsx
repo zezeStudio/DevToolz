@@ -10,8 +10,8 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { Layout } from './components/Layout';
 import { useTranslation } from 'react-i18next';
 
+import { Home } from './pages/Home';
 // Lazy loaded pages
-const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
 const JsonFormatter = lazy(() => import('./pages/JsonFormatter').then(m => ({ default: m.JsonFormatter })));
 const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator').then(m => ({ default: m.PasswordGenerator })));
 const TextAnalyzer = lazy(() => import('./pages/TextAnalyzer').then(m => ({ default: m.TextAnalyzer })));
@@ -34,7 +34,7 @@ const AboutUs = lazy(() => import('./pages/AboutUs').then(m => ({ default: m.Abo
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
 
 const PageLoader = () => (
-  <div className="flex h-screen w-full items-center justify-center bg-gray-50 dark:bg-gray-900">
+  <div className="flex h-[60vh] w-full items-center justify-center">
     <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"></div>
   </div>
 );
@@ -103,34 +103,112 @@ export default function App() {
       <ThemeProvider defaultTheme="system" storageKey="devtoolz-theme">
         <BrowserRouter>
           <PrerenderEvent />
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/:lang" element={<LanguageWrapper />}>
-                <Route index element={<Home />} />
-                <Route path="json-formatter" element={<JsonFormatter />} />
-                <Route path="password-generator" element={<PasswordGenerator />} />
-                <Route path="text-analyzer" element={<TextAnalyzer />} />
-                <Route path="base64-converter" element={<Base64Converter />} />
-                <Route path="url-encoder" element={<UrlEncoder />} />
-                <Route path="jwt-decoder" element={<JwtDecoder />} />
-                <Route path="color-converter" element={<ColorConverter />} />
-                <Route path="markdown-editor" element={<MarkdownEditor />} />
-                <Route path="uuid-generator" element={<UuidGenerator />} />
-                <Route path="hash-generator" element={<HashGenerator />} />
-                <Route path="unix-timestamp" element={<UnixTimestampConverter />} />
-                <Route path="qr-code" element={<QrCodeGenerator />} />
-                <Route path="regex-tester" element={<RegexTester />} />
-                <Route path="diff-checker" element={<DiffChecker />} />
-                <Route path="image-compressor" element={<ImageCompressor />} />
-                <Route path="privacy" element={<PrivacyPolicy />} />
-                <Route path="terms" element={<TermsOfService />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="about" element={<AboutUs />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-              <Route path="*" element={<RootRedirect />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/:lang" element={<LanguageWrapper />}>
+              <Route index element={<Home />} />
+              <Route path="json-formatter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JsonFormatter />
+                </Suspense>
+              } />
+              <Route path="password-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PasswordGenerator />
+                </Suspense>
+              } />
+              <Route path="text-analyzer" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TextAnalyzer />
+                </Suspense>
+              } />
+              <Route path="base64-converter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Base64Converter />
+                </Suspense>
+              } />
+              <Route path="url-encoder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UrlEncoder />
+                </Suspense>
+              } />
+              <Route path="jwt-decoder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JwtDecoder />
+                </Suspense>
+              } />
+              <Route path="color-converter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ColorConverter />
+                </Suspense>
+              } />
+              <Route path="markdown-editor" element={
+                <Suspense fallback={<PageLoader />}>
+                  <MarkdownEditor />
+                </Suspense>
+              } />
+              <Route path="uuid-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UuidGenerator />
+                </Suspense>
+              } />
+              <Route path="hash-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <HashGenerator />
+                </Suspense>
+              } />
+              <Route path="unix-timestamp" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UnixTimestampConverter />
+                </Suspense>
+              } />
+              <Route path="qr-code" element={
+                <Suspense fallback={<PageLoader />}>
+                  <QrCodeGenerator />
+                </Suspense>
+              } />
+              <Route path="regex-tester" element={
+                <Suspense fallback={<PageLoader />}>
+                  <RegexTester />
+                </Suspense>
+              } />
+              <Route path="diff-checker" element={
+                <Suspense fallback={<PageLoader />}>
+                  <DiffChecker />
+                </Suspense>
+              } />
+              <Route path="image-compressor" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ImageCompressor />
+                </Suspense>
+              } />
+              <Route path="privacy" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PrivacyPolicy />
+                </Suspense>
+              } />
+              <Route path="terms" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TermsOfService />
+                </Suspense>
+              } />
+              <Route path="contact" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Contact />
+                </Suspense>
+              } />
+              <Route path="about" element={
+                <Suspense fallback={<PageLoader />}>
+                  <AboutUs />
+                </Suspense>
+              } />
+              <Route path="*" element={
+                <Suspense fallback={<PageLoader />}>
+                  <NotFound />
+                </Suspense>
+              } />
+            </Route>
+            <Route path="*" element={<RootRedirect />} />
+          </Routes>
         </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>
