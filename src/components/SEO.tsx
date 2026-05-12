@@ -8,9 +8,10 @@ interface SEOProps {
   url: string;
   schema?: object[];
   applicationCategory?: string;
+  noindex?: boolean;
 }
 
-export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication' }: SEOProps) {
+export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication', noindex = false }: SEOProps) {
   const { i18n } = useTranslation();
   const baseUrl = 'https://www.zezelab.xyz';
   const cleanPath = url.replace(/^\/(en|ko|ja)/, '') || '/';
@@ -52,6 +53,7 @@ export function SEO({ title, description, url, schema, applicationCategory = 'De
       <html lang={i18n.language} />
       <title>{title}</title>
       <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       <link rel="canonical" href={fullUrl} />
       
       {/* Open Graph / Facebook (for Social Media & AI Crawlers) */}
