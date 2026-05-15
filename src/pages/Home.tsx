@@ -164,7 +164,7 @@ export function Home() {
   return (
     <>
       <SEO 
-        title={`${t('home.title1')} ${t('home.title2')} - DevToolz`}
+        title={t('home.pageTitle')}
         description={t('home.subtitle')}
         url={`/${currentLang}`}
         schema={[

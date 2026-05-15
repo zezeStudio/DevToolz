@@ -129,6 +129,7 @@ const resources = {
       "notfound.desc": "Oops! The page you are looking for doesn't exist or has been moved.",
       "notfound.back": "Go Back Home",
       
+      "home.pageTitle": "DevToolz - Essential Dev Tools",
       "home.title1": "Essential Tools for",
       "home.title2": "Global Developers",
       "home.subtitle": "Boost your productivity with our suite of free, fast, and secure online utilities. No registration required.",
@@ -820,6 +821,7 @@ const resources = {
       "notfound.desc": "앗! 찾으시는 페이지가 존재하지 않거나 이동되었습니다.",
       "notfound.back": "홈으로 돌아가기",
 
+      "home.pageTitle": "DevToolz - 글로벌 개발자 필수 도구",
       "home.title1": "글로벌 개발자를 위한",
       "home.title2": "필수 도구",
       "home.subtitle": "무료로 제공되는 빠르고 안전한 온라인 유틸리티로 생산성을 높이세요. 회원가입이 필요 없습니다.",
@@ -1511,6 +1513,7 @@ const resources = {
       "notfound.desc": "お探しのページは存在しないか、移動した可能性があります。",
       "notfound.back": "ホームに戻る",
 
+      "home.pageTitle": "DevToolz - 必須の開発者ツール",
       "home.title1": "グローバル開発者のための",
       "home.title2": "必須ツール",
       "home.subtitle": "無料で高速、安全なオンラインユーティリティで生産性を向上させましょう。登録は不要です。",
