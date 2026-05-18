@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const routes = [
-  '/en', '/ko', '/ja',
+  '/', '/en', '/ko', '/ja',
   '/en/json-formatter', '/ko/json-formatter', '/ja/json-formatter',
   '/en/password-generator', '/ko/password-generator', '/ja/password-generator',
   '/en/text-analyzer', '/ko/text-analyzer', '/ja/text-analyzer',
@@ -48,18 +48,15 @@ async function prerender() {
         const renderedRoutes = await prerenderer.renderRoutes(batch);
         
         for (const render of renderedRoutes) {
-           let routePath = render.route === '/' ? '/index.html' : render.route;
-           if (!routePath.endsWith('.html')) {
-               routePath += '/index.html';
-           }
+           let routePath = render.route === '/' ? '/index.html' : `${render.route}.html`;
            
            const outputPath = path.join(__dirname, 'dist', routePath);
            const dir = path.dirname(outputPath);
            if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
            
            let html = render.html;
-           html = html.replace(/http:\/\/localhost:8085/g, 'https://devtoolz.app')
-                      .replace(/http:\/\/127\.0\.0\.1:8085/g, 'https://devtoolz.app');
+           html = html.replace(/http:\/\/localhost:8085/g, 'https://www.zezelab.xyz')
+                      .replace(/http:\/\/127\.0\.0\.1:8085/g, 'https://www.zezelab.xyz');
            fs.writeFileSync(outputPath, html);
            console.log('Saved', routePath);
         }

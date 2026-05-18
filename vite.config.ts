@@ -11,7 +11,7 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   
   const routes = [
-    '/en', '/ko', '/ja',
+    '/', '/en', '/ko', '/ja',
     '/en/json-formatter', '/ko/json-formatter', '/ja/json-formatter',
     '/en/password-generator', '/ko/password-generator', '/ja/password-generator',
     '/en/text-analyzer', '/ko/text-analyzer', '/ja/text-analyzer',
@@ -37,7 +37,7 @@ export default defineConfig(({mode}) => {
       react(), 
       tailwindcss(),
       Sitemap({
-        hostname: 'https://devtoolz.app',
+        hostname: 'https://www.zezelab.xyz',
         dynamicRoutes: routes,
         robots: [{ userAgent: '*', allow: '/' }]
       })

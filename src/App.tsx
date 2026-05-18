@@ -40,7 +40,7 @@ const PageLoader = () => (
 );
 
 function LanguageWrapper() {
-  const { lang } = useParams();
+  const { lang = 'en' } = useParams();
   const { i18n } = useTranslation();
   const location = useLocation();
 
@@ -55,7 +55,11 @@ function LanguageWrapper() {
   }, [lang, i18n]);
 
   const supportedLangs = ['en', 'ko', 'ja'];
-  const basePath = location.pathname.split('/').slice(2).join('/');
+  
+  // Extract path without lang prefix
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const hasLangPrefix = pathParts.length > 0 && supportedLangs.includes(pathParts[0]);
+  const basePath = hasLangPrefix ? pathParts.slice(1).join('/') : pathParts.join('/');
   const trailingPath = basePath ? `/${basePath}` : '';
 
   return (
@@ -74,17 +78,16 @@ function LanguageWrapper() {
           hrefLang="x-default" 
           href={`https://www.zezelab.xyz/en${trailingPath}`} 
         />
+        <link 
+          rel="canonical" 
+          href={`https://www.zezelab.xyz/${lang}${trailingPath}`} 
+        />
       </Helmet>
       <Layout />
     </>
   );
 }
 
-function RootRedirect() {
-  const location = useLocation();
-  const path = location.pathname === '/' ? '' : location.pathname;
-  return <Navigate to={`/en${path}`} replace />;
-}
 
 function PrerenderEvent() {
   useEffect(() => {
@@ -207,8 +210,110 @@ export default function App() {
                 </Suspense>
               } />
             </Route>
-            <Route path="*" element={<RootRedirect />} />
-          </Routes>
+            <Route path="/" element={<LanguageWrapper />}>
+              <Route index element={<Home />} />
+              <Route path="json-formatter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JsonFormatter />
+                </Suspense>
+              } />
+              <Route path="password-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PasswordGenerator />
+                </Suspense>
+              } />
+              <Route path="text-analyzer" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TextAnalyzer />
+                </Suspense>
+              } />
+              <Route path="base64-converter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Base64Converter />
+                </Suspense>
+              } />
+              <Route path="url-encoder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UrlEncoder />
+                </Suspense>
+              } />
+              <Route path="jwt-decoder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JwtDecoder />
+                </Suspense>
+              } />
+              <Route path="color-converter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ColorConverter />
+                </Suspense>
+              } />
+              <Route path="markdown-editor" element={
+                <Suspense fallback={<PageLoader />}>
+                  <MarkdownEditor />
+                </Suspense>
+              } />
+              <Route path="uuid-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UuidGenerator />
+                </Suspense>
+              } />
+              <Route path="hash-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <HashGenerator />
+                </Suspense>
+              } />
+              <Route path="unix-timestamp" element={
+                <Suspense fallback={<PageLoader />}>
+                  <UnixTimestampConverter />
+                </Suspense>
+              } />
+              <Route path="qr-code" element={
+                <Suspense fallback={<PageLoader />}>
+                  <QrCodeGenerator />
+                </Suspense>
+              } />
+              <Route path="regex-tester" element={
+                <Suspense fallback={<PageLoader />}>
+                  <RegexTester />
+                </Suspense>
+              } />
+              <Route path="diff-checker" element={
+                <Suspense fallback={<PageLoader />}>
+                  <DiffChecker />
+                </Suspense>
+              } />
+              <Route path="image-compressor" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ImageCompressor />
+                </Suspense>
+              } />
+              <Route path="privacy" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PrivacyPolicy />
+                </Suspense>
+              } />
+              <Route path="terms" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TermsOfService />
+                </Suspense>
+              } />
+              <Route path="contact" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Contact />
+                </Suspense>
+              } />
+              <Route path="about" element={
+                <Suspense fallback={<PageLoader />}>
+                  <AboutUs />
+                </Suspense>
+              } />
+              <Route path="*" element={
+                <Suspense fallback={<PageLoader />}>
+                  <NotFound />
+                </Suspense>
+              } />
+            </Route>
+                      </Routes>
         </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>
