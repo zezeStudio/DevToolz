@@ -97,23 +97,23 @@ export function QrCodeGenerator() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.wifiSsid') || 'Network Name (SSID)'}</label>
-              <input type="text" value={wifiSsid} onChange={e => setWifiSsid(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="text" value={wifiSsid} onChange={e => setWifiSsid(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.wifiPassword') || 'Password'}</label>
-              <input type="text" value={wifiPassword} onChange={e => setWifiPassword(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="text" value={wifiPassword} onChange={e => setWifiPassword(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.wifiEncryption') || 'Encryption'}</label>
-                <select value={wifiEncryption} onChange={e => setWifiEncryption(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 bg-white dark:bg-gray-800">
+                <select value={wifiEncryption} onChange={e => setWifiEncryption(e.target.value)} className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 bg-white dark:bg-gray-800">
                   <option value="WPA">WPA/WPA2</option>
                   <option value="WEP">WEP</option>
                   <option value="nopass">None</option>
                 </select>
               </div>
               <div className="flex items-center pt-6">
-                <input type="checkbox" id="wifiHidden" checked={wifiHidden} onChange={e => setWifiHidden(e.target.checked)} className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 dark:border-gray-600 rounded" />
+                <input type="checkbox" id="wifiHidden" checked={wifiHidden} onChange={e => setWifiHidden(e.target.checked)} className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 dark:border-gray-600 rounded" />
                 <label htmlFor="wifiHidden" className="ml-2 text-sm text-gray-700 dark:text-gray-300">Hidden Network</label>
               </div>
             </div>
@@ -124,19 +124,19 @@ export function QrCodeGenerator() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.vcardName') || 'Full Name'}</label>
-              <input type="text" value={vcardName} onChange={e => setVcardName(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="text" value={vcardName} onChange={e => setVcardName(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Organization</label>
-              <input type="text" value={vcardOrg} onChange={e => setVcardOrg(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="text" value={vcardOrg} onChange={e => setVcardOrg(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.vcardPhone') || 'Phone Number'}</label>
-              <input type="tel" value={vcardPhone} onChange={e => setVcardPhone(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="tel" value={vcardPhone} onChange={e => setVcardPhone(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.vcardEmail') || 'Email Address'}</label>
-              <input type="email" value={vcardEmail} onChange={e => setVcardEmail(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="email" value={vcardEmail} onChange={e => setVcardEmail(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
           </div>
         );
@@ -145,15 +145,15 @@ export function QrCodeGenerator() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.emailTo') || 'To Email'}</label>
-              <input type="email" value={emailTo} onChange={e => setEmailTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="email" value={emailTo} onChange={e => setEmailTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.emailSubject') || 'Subject'}</label>
-              <input type="text" value={emailSubject} onChange={e => setEmailSubject(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="text" value={emailSubject} onChange={e => setEmailSubject(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.emailBody') || 'Message Body'}</label>
-              <textarea value={emailBody} onChange={e => setEmailBody(e.target.value)} className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 resize-y" />
+              <textarea value={emailBody} onChange={e => setEmailBody(e.target.value)} className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-y" />
             </div>
           </div>
         );
@@ -162,11 +162,11 @@ export function QrCodeGenerator() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.smsPhone') || 'Phone Number'}</label>
-              <input type="tel" value={smsPhone} onChange={e => setSmsPhone(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500" />
+              <input type="tel" value={smsPhone} onChange={e => setSmsPhone(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('qr.smsMessage') || 'Message'}</label>
-              <textarea value={smsMessage} onChange={e => setSmsMessage(e.target.value)} className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 resize-y" />
+              <textarea value={smsMessage} onChange={e => setSmsMessage(e.target.value)} className="w-full h-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-y" />
             </div>
           </div>
         );
@@ -180,7 +180,7 @@ export function QrCodeGenerator() {
             <textarea
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
-              className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 resize-y"
+              className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 resize-y"
               placeholder="Enter text or URL..."
             />
           </div>
@@ -198,8 +198,8 @@ export function QrCodeGenerator() {
 
       <div className="max-w-5xl mx-auto space-y-8">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center p-3 bg-yellow-100 rounded-2xl mb-4">
-            <QrCode className="h-8 w-8 text-yellow-600" />
+          <div className="inline-flex items-center justify-center p-3 bg-emerald-100 rounded-2xl mb-4">
+            <QrCode className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('qr.title')}</h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -222,10 +222,10 @@ export function QrCodeGenerator() {
                 <button
                   key={type.id}
                   onClick={() => setPayloadType(type.id as PayloadType)}
-                  className={`flex-1 min-w-[80px] py-3 px-2 text-xs font-medium text-center flex flex-col items-center justify-center transition-colors ${
+                  className={`flex-1 min-w-[80px] py-3 px-2 text-xs font-medium text-center flex flex-col items-center justify-center transition-all ${
                     payloadType === type.id 
-                      ? 'text-yellow-600 border-b-2 border-yellow-600 bg-yellow-50/50' 
-                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'
+                      ? 'text-white bg-emerald-600 shadow-sm' 
+                      : 'text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                   }`}
                 >
                   <type.icon className="h-4 w-4 mb-1" />
@@ -250,7 +250,7 @@ export function QrCodeGenerator() {
                   <select
                     value={errorCorrection}
                     onChange={(e) => setErrorCorrection(e.target.value as ErrorCorrectionLevel)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 bg-white dark:bg-gray-800"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 bg-white dark:bg-gray-800"
                   >
                     <option value="L">{t('qr.levelL') || 'L (Low ~7%)'}</option>
                     <option value="M">{t('qr.levelM') || 'M (Medium ~15%)'}</option>
@@ -270,7 +270,7 @@ export function QrCodeGenerator() {
                       value={logoUrl}
                       onChange={(e) => setLogoUrl(e.target.value)}
                       placeholder={t('qr.logoPlaceholder') || "https://example.com/logo.png"}
-                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -286,7 +286,7 @@ export function QrCodeGenerator() {
                     step="32"
                     value={size}
                     onChange={(e) => setSize(parseInt(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-yellow-500"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                   />
                 </div>
 
@@ -306,7 +306,7 @@ export function QrCodeGenerator() {
                         type="text"
                         value={fgColor}
                         onChange={(e) => setFgColor(e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 font-mono text-sm"
+                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
                       />
                     </div>
                   </div>
@@ -325,7 +325,7 @@ export function QrCodeGenerator() {
                         type="text"
                         value={bgColor}
                         onChange={(e) => setBgColor(e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 font-mono text-sm"
+                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
                       />
                     </div>
                   </div>
@@ -342,7 +342,7 @@ export function QrCodeGenerator() {
                     step="1"
                     value={margin}
                     onChange={(e) => setMargin(parseInt(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-yellow-500"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                   />
                 </div>
               </div>
@@ -394,14 +394,19 @@ export function QrCodeGenerator() {
                   </div>
                 </div>
               ) : (
-                <div className="text-gray-400 italic">Enter data to generate QR code</div>
+                <div className="flex flex-col items-center justify-center w-full h-full">
+                  <div className="w-64 h-64 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl flex flex-col items-center justify-center bg-gray-50/50 dark:bg-gray-800/30">
+                    <QrCode className="h-16 w-16 text-gray-300 dark:text-gray-600 mb-4" />
+                    <p className="text-gray-500 dark:text-gray-400 text-sm font-medium text-center px-4">Enter data to generate QR code</p>
+                  </div>
+                </div>
               )}
             </div>
             <div className="p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={downloadPng}
                 disabled={!qrValue}
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm sm:text-base font-medium rounded-xl shadow-sm text-white bg-emerald-600 hover:bg-emerald-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
               >
                 <Download className="h-5 w-5 mr-2" />
                 {t('qr.downloadPng')}
@@ -409,7 +414,7 @@ export function QrCodeGenerator() {
               <button
                 onClick={downloadSvg}
                 disabled={!qrValue}
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-xl shadow-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-sm sm:text-base font-medium rounded-xl shadow-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
               >
                 <Download className="h-5 w-5 mr-2" />
                 {t('qr.downloadSvg')}
@@ -421,10 +426,12 @@ export function QrCodeGenerator() {
         {/* SEO Content */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mt-12">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('qr.longDesc.title')}</h2>
-          <div className="prose prose-yellow max-w-none text-gray-600 dark:text-gray-400">
+          <div className="prose prose-yellow dark:prose-invert max-w-none text-gray-600 dark:text-gray-400">
             <p dangerouslySetInnerHTML={{ __html: t('qr.longDesc.p1') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('qr.longDesc.p2') }}></p>
             <p dangerouslySetInnerHTML={{ __html: t('qr.longDesc.p3') }}></p>
+            <p dangerouslySetInnerHTML={{ __html: t('qr.longDesc.p4') }} className="mt-4"></p>
+            <p dangerouslySetInnerHTML={{ __html: t('qr.longDesc.p5') }} className="mt-4"></p>
             
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">{t('qr.help.title')}</h3>
             <ol className="list-decimal pl-5 space-y-2">

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon } from 'lucide-react';
 import { SEO } from '../components/SEO';
@@ -8,6 +8,22 @@ export function Home() {
   const { t } = useTranslation();
   const { lang } = useParams();
   const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      } else if (e.key === '/' && document.activeElement !== searchInputRef.current) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const currentLang = lang || 'en';
 
@@ -17,7 +33,7 @@ export function Home() {
       description: t('home.tools.json.desc'),
       icon: Code2,
       path: `/${currentLang}/json-formatter`,
-      color: 'bg-blue-500',
+      color: 'bg-emerald-500',
       category: 'developer'
     },
     {
@@ -25,7 +41,7 @@ export function Home() {
       description: t('home.tools.base64.desc'),
       icon: Binary,
       path: `/${currentLang}/base64-converter`,
-      color: 'bg-orange-500',
+      color: 'bg-slate-800',
       category: 'developer'
     },
     {
@@ -113,7 +129,7 @@ export function Home() {
       description: t('home.tools.regex.desc'),
       icon: Search,
       path: `/${currentLang}/regex-tester`,
-      color: 'bg-orange-600',
+      color: 'bg-slate-800',
       category: 'developer'
     },
     {
@@ -178,7 +194,18 @@ export function Home() {
               "@type": "Offer",
               "price": "0",
               "priceCurrency": "USD"
-            }
+            },
+            "featureList": tools.map(t => t.name)
+          },
+          {
+            "@type": "ItemList",
+            "itemListElement": tools.map((tool, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "url": `https://www.zezelab.xyz${tool.path}`,
+              "name": tool.name,
+              "description": tool.description
+            }))
           }
         ]}
       />
@@ -186,25 +213,31 @@ export function Home() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-10 md:mb-16">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight mb-4 md:6">
-            {t('home.title1')} <span className="text-blue-600">{t('home.title2')}</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-[1.15] mb-4 md:mb-6">
+            {t('home.title1')} <span className="text-emerald-600 dark:text-emerald-400">{t('home.title2')}</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-8 md:10 px-2">
+          <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8 md:mb-10 px-2">
             {t('home.subtitle')}
           </p>
 
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto relative px-2 sm:px-0">
             <div className="absolute inset-y-0 left-0 pl-6 sm:pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 md:h-6 md:w-6 text-gray-400" />
+              <Search className="h-5 w-5 md:h-6 md:w-6 text-slate-400" />
             </div>
             <input
+              ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-12 pr-4 py-3 md:py-4 border-2 border-gray-200 dark:border-gray-700 rounded-2xl leading-5 bg-white dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-0 text-base md:text-lg transition-colors shadow-sm"
+              className="block w-full pl-12 pr-20 py-3 md:py-4 border-2 border-slate-200 dark:border-slate-700 rounded-2xl leading-5 bg-white dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 text-base md:text-lg transition-all shadow-sm"
               placeholder={t('home.searchPlaceholder')}
             />
+            <div className="absolute inset-y-0 right-0 pr-6 sm:pr-4 flex items-center pointer-events-none">
+              <span className="hidden sm:inline-block bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-mono text-xs font-bold px-2 py-1 rounded shadow-sm border border-slate-200 dark:border-slate-700/50">
+                ⌘K
+              </span>
+            </div>
           </div>
         </div>
 
@@ -218,27 +251,27 @@ export function Home() {
               return (
                 <div key={category.id}>
                   <div className="flex items-center mb-6">
-                    <category.icon className="h-6 w-6 text-gray-400 mr-3" />
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{category.name}</h2>
+                    <category.icon className="h-6 w-6 text-slate-400 mr-3" />
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{category.name}</h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {categoryTools.map((tool) => (
                       <Link
                         key={tool.name}
                         to={tool.path}
-                        className="group relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
+                        className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 pb-8 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
                       >
-                        <div className={`inline-flex p-2.5 md:p-3 rounded-xl ${tool.color} text-white mb-4 md:5 w-fit shadow-sm`}>
+                        <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/20 mb-4 md:mb-5 w-fit shadow-sm transition-colors">
                           <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
-                        <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 md:3 group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:text-emerald-400 transition-colors">
                           {tool.name}
                         </h3>
-                        <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 flex-1 mb-4 md:6 leading-relaxed">
+                        <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 md:mb-8 leading-relaxed">
                           {tool.description}
                         </p>
-                        <div className="flex items-center text-blue-600 font-bold mt-auto">
-                          {t('home.useTool')} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                        <div className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold mt-auto">
+                          {t('home.useTool', { tool: tool.name })} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
                         </div>
                       </Link>
                     ))}
@@ -249,13 +282,13 @@ export function Home() {
           </div>
         ) : (
           <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 mb-4">
-              <Search className="h-8 w-8 text-gray-400" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
+              <Search className="h-8 w-8 text-slate-400" />
             </div>
-            <h3 className="text-xl font-medium text-gray-900 dark:text-gray-100 mb-2">{t('home.noResults')}</h3>
+            <h3 className="text-xl font-medium text-slate-900 dark:text-slate-100 mb-2">{t('home.noResults')}</h3>
             <button 
               onClick={() => setSearchQuery('')}
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 font-medium"
             >
               Clear search
             </button>
@@ -263,39 +296,39 @@ export function Home() {
         )}
 
         {/* Why Choose Us Section */}
-        <div className="mt-24 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-700 shadow-sm text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-12">{t('home.why.title')}</h2>
+        <div className="mt-24 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-12">{t('home.why.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
               </div>
-              <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t('home.why.free.title')}</h4>
-              <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{t('home.why.free.desc')}</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">{t('home.why.free.title')}</h3>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{t('home.why.free.desc')}</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4">
                 <Shield className="w-6 h-6" />
               </div>
-              <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t('home.why.privacy.title')}</h4>
-              <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{t('home.why.privacy.desc')}</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">{t('home.why.privacy.title')}</h3>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{t('home.why.privacy.desc')}</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               </div>
-              <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">{t('home.why.fast.title')}</h4>
-              <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{t('home.why.fast.desc')}</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">{t('home.why.fast.title')}</h3>
+              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{t('home.why.fast.desc')}</p>
             </div>
           </div>
         </div>
 
         {/* SEO Detailed Text Block */}
         <div className="mt-16 text-left px-4 md:px-8 max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('home.about.longTitle')}</h2>
-          <div className="prose prose-gray dark:prose-invert max-w-none text-gray-600 dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">{t('home.about.longTitle')}</h2>
+          <div className="prose prose-gray dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
              {t('home.about.longDesc').split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
+                <p key={index} className="mb-6 leading-[1.85] tracking-[0.015em] text-[15px]">{paragraph}</p>
              ))}
           </div>
         </div>

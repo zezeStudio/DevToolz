@@ -9,6 +9,20 @@ const ADJECTIVES = ['Swift', 'Bright', 'Silent', 'Strong', 'Kind', 'Fast', 'Cool
 const NOUNS = ['Eagle', 'River', 'Mountain', 'Forest', 'Ocean', 'Star', 'Cloud', 'Wind', 'Fire', 'Stone', 'Wolf', 'Lion', 'Bear', 'Hawk', 'Tiger', 'Oak', 'Pine', 'Lake', 'Peak', 'Moon'];
 const WORDLIST = [...ADJECTIVES, ...NOUNS];
 
+const ColoredPassword: React.FC<{ password: string, show: boolean }> = ({ password, show }) => {
+  if (!show) return <span className="text-slate-400 dark:text-slate-500 tracking-[0.2em]">{'•'.repeat(password.length)}</span>;
+  return (
+    <>
+      {password.split('').map((char, i) => {
+        if (/[A-Z]/.test(char)) return <span key={i} className="text-slate-900 dark:text-slate-100 font-bold">{char}</span>;
+        if (/[a-z]/.test(char)) return <span key={i} className="text-slate-700 dark:text-slate-300">{char}</span>;
+        if (/[0-9]/.test(char)) return <span key={i} className="text-blue-600 dark:text-blue-400 font-bold">{char}</span>;
+        return <span key={i} className="text-rose-500 dark:text-rose-400 font-black">{char}</span>;
+      })}
+    </>
+  );
+};
+
 export function PasswordGenerator() {
   const [password, setPassword] = useState('');
   const [previousPassword, setPreviousPassword] = useState<string | null>(null);
@@ -21,10 +35,23 @@ export function PasswordGenerator() {
   const [excludeAmbiguous, setExcludeAmbiguous] = useState(false);
   const [mode, setMode] = useState<'random' | 'passphrase'>('random');
   const [bulkCount, setBulkCount] = useState(1);
+  const [isGeneratingState, setIsGeneratingState] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
   const [copiedAll, setCopiedAll] = useState(false);
   const [showQr, setShowQr] = useState<string | null>(null);
   const [showPasswords, setShowPasswords] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (showPasswords) {
+      timeoutId = setTimeout(() => {
+        setShowPasswords(false);
+      }, 30000);
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [showPasswords, password]);
 
   // Advanced Rules (Random)
   const [strictStartWithLetter, setStrictStartWithLetter] = useState(false);
@@ -171,6 +198,12 @@ export function PasswordGenerator() {
     }
   };
 
+  const handleGenerateClick = () => {
+    setIsGeneratingState(true);
+    generatePasswords();
+    setTimeout(() => setIsGeneratingState(false), 500);
+  };
+
   useEffect(() => {
     generatePasswords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,8 +246,8 @@ export function PasswordGenerator() {
 
   const getStrengthInfo = (entropy: number) => {
     if (entropy < 40) return { label: t('pass.weak'), color: 'bg-red-500', text: 'text-red-500' };
-    if (entropy < 80) return { label: t('pass.good'), color: 'bg-yellow-500', text: 'text-yellow-500' };
-    return { label: t('pass.strong'), color: 'bg-green-500', text: 'text-green-500' };
+    if (entropy < 80) return { label: t('pass.good'), color: 'bg-orange-500', text: 'text-orange-500' };
+    return { label: t('pass.strong'), color: 'bg-emerald-500', text: 'text-emerald-500' };
   };
 
   const entropy = calculateEntropy(password);
@@ -230,41 +263,41 @@ export function PasswordGenerator() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center p-4 bg-green-100 rounded-2xl mb-4 shadow-sm">
-            <Shield className="h-10 w-10 text-green-600" />
+          <div className="inline-flex items-center justify-center p-4 bg-emerald-50 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800 rounded-2xl mb-4 shadow-sm">
+            <Shield className="h-10 w-10 text-slate-900 dark:text-white" />
           </div>
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 tracking-tight">{t('pass.title')}</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-3 text-lg max-w-2xl mx-auto">{t('pass.desc')}</p>
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">{t('pass.title')}</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-3 text-lg max-w-2xl mx-auto">{t('pass.desc')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-xl overflow-hidden">
-              <div className="p-4 md:p-8 bg-gradient-to-br from-gray-50 to-white border-b border-gray-100">
-                <div className="bg-white dark:bg-gray-800 border-2 border-gray-100 rounded-2xl overflow-hidden shadow-inner">
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-xl overflow-hidden">
+              <div className="p-4 md:p-8 bg-gradient-to-br from-slate-50 dark:from-slate-800 to-white dark:to-slate-900 border-b border-slate-100 dark:border-slate-700">
+                <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-inner">
                   {passwords.length <= 1 ? (
                     <>
                       <div className="p-6 min-h-[120px] flex items-center justify-center">
-                        <p className="text-xl sm:text-2xl md:text-3xl font-mono text-center text-gray-800 dark:text-gray-200 tracking-wider break-all select-all">
-                          {showPasswords ? password : '•'.repeat(password.length)}
+                        <p className="text-xl sm:text-2xl md:text-3xl font-mono text-center text-slate-800 dark:text-slate-200 tracking-wider break-all select-all">
+                          <ColoredPassword password={password} show={showPasswords} />
                         </p>
                       </div>
-                      <div className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 p-3 flex items-center justify-center gap-2">
+                      <div className="bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-700 p-3 flex items-center justify-center gap-2">
                         <button
                           onClick={() => setShowPasswords(!showPasswords)}
-                          className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all"
+                          className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
                         >
                           {showPasswords ? <><EyeOff className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">Hide</span></> : <><Eye className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">Show</span></>}
                         </button>
                         <button
                           onClick={() => setShowQr(password)}
-                          className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all"
+                          className="flex-1 sm:flex-none flex items-center justify-center px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
                         >
                           <QrCode className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">QR Code</span>
                         </button>
                         <button
                           onClick={() => copyToClipboard(password)}
-                          className="flex-[2] sm:flex-none flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-green-600 hover:bg-green-700 rounded-xl transition-all shadow-sm"
+                          className="flex-[2] sm:flex-none flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all shadow-sm"
                         >
                           {copied === -1 ? <><Check className="w-4 h-4 mr-2" /> {t('json.copied')}</> : <><Copy className="w-4 h-4 mr-2" /> {t('json.copy')}</>}
                         </button>
@@ -273,32 +306,48 @@ export function PasswordGenerator() {
                   ) : (
                     <div className="flex flex-col">
                       <div className="max-h-[320px] overflow-y-auto custom-scrollbar">
-                        {passwords.map((p, i) => (
-                          <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-gray-100 last:border-0 hover:bg-green-50 dark:bg-green-900/30 transition-all gap-3">
-                            <code className="text-lg font-mono text-gray-700 dark:text-gray-300 break-all">
-                              {showPasswords ? p : '•'.repeat(p.length)}
-                            </code>
+                        {passwords.map((p, i) => {
+                          const pEntropy = calculateEntropy(p);
+                          const pStrength = getStrengthInfo(pEntropy);
+                          return (
+                          <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-slate-100 dark:border-slate-700 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all gap-3">
+                            <div className="flex flex-col gap-1.5 items-start">
+                              <code className="text-lg font-mono text-slate-700 dark:text-slate-300 break-all">
+                                <ColoredPassword password={p} show={showPasswords} />
+                              </code>
+                              {showPasswords && (
+                                <span className={`text-[10px] uppercase font-black px-2 py-0.5 rounded-md shadow-sm border border-transparent ${
+                                  pEntropy >= 80 
+                                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' 
+                                    : pEntropy >= 40 
+                                      ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300'
+                                      : 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'
+                                }`}>
+                                  {pEntropy >= 80 ? '●' : pEntropy >= 40 ? '◐' : '○'} {pStrength.label} ({Math.round(pEntropy)} bit)
+                                </span>
+                              )}
+                            </div>
                             <div className="flex items-center space-x-2 self-end sm:self-auto sm:ml-4 shrink-0">
-                              <button onClick={() => setShowQr(p)} className="p-2 text-gray-400 hover:text-green-600 rounded-lg transition-all bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 sm:border-transparent sm:bg-transparent shadow-sm sm:shadow-none">
+                              <button onClick={() => setShowQr(p)} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded-lg transition-all bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 sm:border-transparent sm:bg-transparent shadow-sm sm:shadow-none">
                                 <QrCode className="w-5 h-5" />
                               </button>
-                              <button onClick={() => copyToClipboard(p, i)} className="p-2 text-gray-400 hover:text-green-600 rounded-lg transition-all bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 sm:border-transparent sm:bg-transparent shadow-sm sm:shadow-none">
-                                {copied === i ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}
+                              <button onClick={() => copyToClipboard(p, i)} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded-lg transition-all bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 sm:border-transparent sm:bg-transparent shadow-sm sm:shadow-none">
+                                {copied === i ? <Check className="w-5 h-5 text-slate-900 dark:text-white" /> : <Copy className="w-5 h-5" />}
                               </button>
                             </div>
                           </div>
-                        ))}
+                        )})}
                       </div>
-                      <div className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 p-3 flex flex-col sm:flex-row items-center justify-center gap-2">
+                      <div className="bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-700 p-3 flex flex-col sm:flex-row items-center justify-center gap-2">
                         <button
                           onClick={() => setShowPasswords(!showPasswords)}
-                          className="w-full sm:w-auto flex items-center justify-center px-6 py-2 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-green-600 hover:bg-green-100 rounded-xl transition-all"
+                          className="w-full sm:w-auto flex items-center justify-center px-6 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
                         >
                           {showPasswords ? <><EyeOff className="w-4 h-4 mr-2" /> Hide All</> : <><Eye className="w-4 h-4 mr-2" /> Show All</>}
                         </button>
                         <button
                           onClick={copyAllToClipboard}
-                          className="w-full sm:w-auto flex items-center justify-center px-6 py-2 text-sm font-bold text-white bg-gray-800 hover:bg-gray-900 rounded-xl transition-all"
+                          className="w-full sm:w-auto flex items-center justify-center px-6 py-2 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all shadow-sm"
                         >
                           {copiedAll ? <><CheckCheck className="w-4 h-4 mr-2" /> {t('pass.copiedAll')}</> : <><Copy className="w-4 h-4 mr-2" /> {t('pass.copyAll')}</>}
                         </button>
@@ -309,17 +358,17 @@ export function PasswordGenerator() {
                 
                 <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center justify-between sm:justify-start sm:space-x-3">
-                    <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{t('pass.strength')}</span>
+                    <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">{t('pass.strength')}</span>
                     <span className={`text-lg font-black ${strength.text}`}>
                       {strength.label}
                     </span>
                   </div>
                   <div className="flex items-center justify-between sm:justify-end space-x-4">
-                    <div className="text-left sm:text-right">
-                      <span className="text-xs font-bold text-gray-400 uppercase block">{t('pass.entropy')}</span>
-                      <span className="text-sm font-mono font-bold text-gray-700 dark:text-gray-300">{entropy} {t('pass.bits')}</span>
+                    <div className="text-left sm:text-right flex flex-col items-start sm:items-end flex-shrink-0">
+                      <span className="text-xs font-bold text-slate-400 uppercase">{t('pass.entropy')}</span>
+                      <span className="text-sm font-mono font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap">{entropy} {t('pass.bits')}</span>
                     </div>
-                    <div className="flex space-x-1 h-3 w-24 sm:w-32 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700">
+                    <div className="flex space-x-1 h-3 w-24 sm:w-32 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800">
                       <div className={`h-full ${strength.color} transition-all duration-500 ease-out`} style={{ width: `${Math.min(100, (entropy / 128) * 100)}%` }}></div>
                     </div>
                   </div>
@@ -327,16 +376,16 @@ export function PasswordGenerator() {
               </div>
 
               <div className="p-4 md:p-8 space-y-8">
-                <div className="flex p-1 bg-gray-100 dark:bg-gray-700 rounded-2xl">
+                <div className="flex p-1 bg-slate-100 dark:bg-slate-700 rounded-2xl">
                   <button
                     onClick={() => { setMode('random'); setPreviousPassword(null); }}
-                    className={`flex-1 flex items-center justify-center py-2 md:py-3 px-2 md:px-4 rounded-xl font-bold transition-all text-sm md:text-base ${mode === 'random' ? 'bg-white dark:bg-gray-800 text-green-600 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'}`}
+                    className={`flex-1 flex items-center justify-center py-2 md:py-3 px-2 md:px-4 rounded-xl font-bold transition-all text-sm md:text-base ${mode === 'random' ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm ring-1 ring-slate-200 dark:ring-slate-700' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
                   >
                     <RefreshCw className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" /> Random
                   </button>
                   <button
                     onClick={() => { setMode('passphrase'); setPreviousPassword(null); }}
-                    className={`flex-1 flex items-center justify-center py-2 md:py-3 px-2 md:px-4 rounded-xl font-bold transition-all text-sm md:text-base ${mode === 'passphrase' ? 'bg-white dark:bg-gray-800 text-green-600 shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'}`}
+                    className={`flex-1 flex items-center justify-center py-2 md:py-3 px-2 md:px-4 rounded-xl font-bold transition-all text-sm md:text-base ${mode === 'passphrase' ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm ring-1 ring-slate-200 dark:ring-slate-700' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
                   >
                     <Book className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" /> {t('pass.passphrase')}
                   </button>
@@ -344,8 +393,8 @@ export function PasswordGenerator() {
 
                 <div>
                   <div className="flex justify-between items-center mb-4">
-                    <label className="text-sm font-black text-gray-400 uppercase tracking-widest">{t('pass.length')}</label>
-                    <span className="text-2xl font-black text-green-600 bg-green-50 dark:bg-green-900/30 px-4 py-1 rounded-2xl border-2 border-green-100">{length}</span>
+                    <label className="text-sm font-black text-slate-400 uppercase tracking-widest">{t('pass.length')}</label>
+                    <span className="text-2xl font-black text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 px-4 py-1 rounded-2xl border border-slate-200 dark:border-slate-800">{length}</span>
                   </div>
                   <input
                     type="range"
@@ -353,7 +402,7 @@ export function PasswordGenerator() {
                     max="64"
                     value={length}
                     onChange={(e) => setLength(parseInt(e.target.value))}
-                    className="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-xl appearance-none cursor-pointer accent-green-600 border border-gray-200 dark:border-gray-700"
+                    className="w-full h-3 bg-slate-100 dark:bg-slate-700 rounded-xl appearance-none cursor-pointer border border-slate-200 dark:border-slate-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-slate-900 dark:[&::-webkit-slider-thumb]:bg-slate-100 [&::-webkit-slider-thumb]:rounded-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white dark:[&::-webkit-slider-thumb]:border-slate-800 [&::-webkit-slider-thumb]:shadow-sm [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:bg-slate-900 dark:[&::-moz-range-thumb]:bg-slate-100 [&::-moz-range-thumb]:rounded-lg [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white dark:[&::-moz-range-thumb]:border-slate-800 [&::-moz-range-thumb]:shadow-sm transition-all"
                   />
                 </div>
 
@@ -365,11 +414,15 @@ export function PasswordGenerator() {
                         { id: 'lower', label: t('pass.lowercase'), state: includeLowercase, setter: setIncludeLowercase },
                         { id: 'num', label: t('pass.numbers'), state: includeNumbers, setter: setIncludeNumbers },
                         { id: 'sym', label: t('pass.symbols'), state: includeSymbols, setter: setIncludeSymbols },
-                        { id: 'amb', label: t('pass.excludeAmbiguous'), state: excludeAmbiguous, setter: setExcludeAmbiguous, full: true },
+                        { id: 'amb', label: t('pass.excludeAmbiguous'), state: excludeAmbiguous, setter: setExcludeAmbiguous, full: true, hint: '(i, l, 1, L, o, 0, O)' },
                       ].map((opt) => (
-                        <label key={opt.id} className={`flex items-center p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-green-500 bg-green-50 dark:bg-green-900/30' : 'border-gray-100 hover:border-gray-200 dark:border-gray-700'} ${opt.full ? 'sm:col-span-2' : ''}`}>
-                          <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex items-center justify-center mr-3 transition-all ${opt.state ? 'bg-green-500 border-green-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400'}`}>
-                            {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
+                        <label key={opt.id} className={`flex items-center justify-between p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-slate-900 bg-slate-50 dark:border-slate-300 dark:bg-slate-900/50' : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:border-slate-700'} ${opt.full ? 'sm:col-span-2' : ''}`}>
+                          <div className="flex flex-col mr-3">
+                            <span className={`font-bold text-sm md:text-base ${opt.state ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>{opt.label}</span>
+                            {opt.hint && <span className={`text-xs mt-0.5 ${opt.state ? 'text-emerald-500/80 dark:text-emerald-400/80' : 'text-slate-400 dark:text-slate-500'}`}>{opt.hint}</span>}
+                          </div>
+                          <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex shrink-0 items-center justify-center transition-all ${opt.state ? 'bg-slate-900 border-slate-900 dark:bg-slate-100 dark:border-slate-100' : 'border-slate-300 dark:border-slate-600 group-hover:border-slate-400'}`}>
+                            {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white dark:text-slate-900" />}
                           </div>
                           <input
                             type="checkbox"
@@ -377,13 +430,12 @@ export function PasswordGenerator() {
                             onChange={(e) => opt.setter(e.target.checked)}
                             className="hidden"
                           />
-                          <span className={`font-bold text-sm md:text-base ${opt.state ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>{opt.label}</span>
                         </label>
                       ))}
                     </div>
 
-                    <div className="space-y-4 pt-4 border-t border-gray-100">
-                      <h4 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
+                    <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                      <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center">
                         <Settings2 className="w-4 h-4 mr-2" /> {t('pass.advancedRules')}
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
@@ -391,12 +443,12 @@ export function PasswordGenerator() {
                           { id: 'startLetter', label: t('pass.startWithLetter'), state: strictStartWithLetter, setter: setStrictStartWithLetter },
                           { id: 'noSeq', label: t('pass.noSequential'), state: strictNoSequential, setter: setStrictNoSequential },
                         ].map((opt) => (
-                          <label key={opt.id} className={`flex items-center p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-green-500 bg-green-50 dark:bg-green-900/30' : 'border-gray-100 hover:border-gray-200 dark:border-gray-700'}`}>
-                            <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex items-center justify-center mr-3 transition-all ${opt.state ? 'bg-green-500 border-green-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400'}`}>
-                              {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
+                          <label key={opt.id} className={`flex items-center justify-between p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-slate-900 bg-slate-50 dark:border-slate-300 dark:bg-slate-900/50' : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:border-slate-700'}`}>
+                            <span className={`font-bold text-sm md:text-base mr-3 ${opt.state ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>{opt.label}</span>
+                            <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex shrink-0 items-center justify-center transition-all ${opt.state ? 'bg-slate-900 border-slate-900 dark:bg-slate-100 dark:border-slate-100' : 'border-slate-300 dark:border-slate-600 group-hover:border-slate-400'}`}>
+                              {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white dark:text-slate-900" />}
                             </div>
                             <input type="checkbox" checked={opt.state} onChange={(e) => opt.setter(e.target.checked)} className="hidden" />
-                            <span className={`font-bold text-sm md:text-base ${opt.state ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>{opt.label}</span>
                           </label>
                         ))}
                       </div>
@@ -405,17 +457,17 @@ export function PasswordGenerator() {
                 )}
 
                 {mode === 'passphrase' && (
-                  <div className="space-y-4 pt-4 border-t border-gray-100">
-                    <h4 className="text-sm font-black text-gray-400 uppercase tracking-widest flex items-center">
+                  <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                    <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center">
                       <Settings2 className="w-4 h-4 mr-2" /> {t('pass.passphraseSettings')}
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                      <div className="flex items-center p-3 md:p-4 rounded-2xl border-2 border-gray-100 bg-white dark:bg-gray-800">
-                        <span className="font-bold text-sm md:text-base text-gray-500 dark:text-gray-400 mr-auto">{t('pass.separator')}</span>
+                      <div className="flex items-center p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800">
+                        <span className="font-bold text-sm md:text-base text-slate-500 dark:text-slate-400 mr-auto">{t('pass.separator')}</span>
                         <select
                           value={passphraseSeparator}
                           onChange={(e) => setPassphraseSeparator(e.target.value)}
-                          className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1 font-bold text-gray-700 dark:text-gray-300 focus:outline-none focus:border-green-500"
+                          className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1 font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-500"
                         >
                           <option value="-">Hyphen (-)</option>
                           <option value="_">Underscore (_)</option>
@@ -428,28 +480,28 @@ export function PasswordGenerator() {
                         { id: 'cap', label: t('pass.capitalize'), state: passphraseCapitalize, setter: setPassphraseCapitalize },
                         { id: 'incNum', label: t('pass.includeNumber'), state: passphraseIncludeNumber, setter: setPassphraseIncludeNumber },
                       ].map((opt) => (
-                        <label key={opt.id} className={`flex items-center p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-green-500 bg-green-50 dark:bg-green-900/30' : 'border-gray-100 hover:border-gray-200 dark:border-gray-700'}`}>
-                          <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex items-center justify-center mr-3 transition-all ${opt.state ? 'bg-green-500 border-green-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400'}`}>
-                            {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
+                        <label key={opt.id} className={`flex items-center justify-between p-3 md:p-4 rounded-2xl border-2 transition-all cursor-pointer group ${opt.state ? 'border-slate-900 bg-slate-50 dark:border-slate-300 dark:bg-slate-900/50' : 'border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:border-slate-700'}`}>
+                          <span className={`font-bold text-sm md:text-base mr-3 ${opt.state ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>{opt.label}</span>
+                          <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex shrink-0 items-center justify-center transition-all ${opt.state ? 'bg-slate-900 border-slate-900 dark:bg-slate-100 dark:border-slate-100' : 'border-slate-300 dark:border-slate-600 group-hover:border-slate-400'}`}>
+                            {opt.state && <Check className="w-3 h-3 md:w-4 md:h-4 text-white dark:text-slate-900" />}
                           </div>
                           <input type="checkbox" checked={opt.state} onChange={(e) => opt.setter(e.target.checked)} className="hidden" />
-                          <span className={`font-bold text-sm md:text-base ${opt.state ? 'text-green-700 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'}`}>{opt.label}</span>
                         </label>
                       ))}
                     </div>
                   </div>
                 )}
 
-                <div className="pt-4 border-t border-gray-100">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
-                      <Layers className="w-5 h-5 text-gray-400 mr-2" />
-                      <span className="text-sm font-black text-gray-400 uppercase tracking-widest">{t('pass.bulk')}</span>
+                      <Layers className="w-5 h-5 text-slate-400 mr-2" />
+                      <span className="text-sm font-black text-slate-400 uppercase tracking-widest">{t('pass.bulk')}</span>
                     </div>
                     <select 
                       value={bulkCount}
                       onChange={(e) => setBulkCount(parseInt(e.target.value))}
-                      className="bg-gray-50 dark:bg-gray-900 border-2 border-gray-100 rounded-xl px-4 py-2 font-bold text-gray-700 dark:text-gray-300 focus:outline-none focus:border-green-500"
+                      className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 font-bold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-500"
                     >
                       {[1, 5, 10, 20].map(n => <option key={n} value={n}>{n}</option>)}
                     </select>
@@ -458,15 +510,15 @@ export function PasswordGenerator() {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
-                    onClick={generatePasswords}
-                    className="flex-[2] bg-green-600 hover:bg-green-700 text-white font-black py-5 px-8 rounded-2xl transition-all flex items-center justify-center text-xl shadow-lg shadow-green-200 active:scale-[0.98]"
+                    onClick={handleGenerateClick}
+                    className="flex-[2] bg-emerald-600 hover:bg-emerald-700 text-white font-black py-5 px-8 rounded-2xl transition-all flex items-center justify-center text-xl shadow-lg dark:shadow-none active:scale-[0.98]"
                   >
-                    <RefreshCw className="mr-3 h-6 w-6" /> {t('pass.generateBtn')}
+                    {isGeneratingState ? <Check className="mr-3 h-6 w-6 animate-pulse" /> : <RefreshCw className="mr-3 h-6 w-6" />} {t('pass.generateBtn')}
                   </button>
                   {previousPassword && (
                     <button
                       onClick={restorePrevious}
-                      className="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-400 font-bold py-5 px-6 rounded-2xl transition-all flex items-center justify-center text-base border-2 border-gray-200 dark:border-gray-700 active:scale-[0.98]"
+                      className="flex-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-600 dark:text-slate-400 font-bold py-5 px-6 rounded-2xl transition-all flex items-center justify-center text-base border-2 border-slate-200 dark:border-slate-700 active:scale-[0.98]"
                       title={t('pass.undo')}
                     >
                       <Undo2 className="mr-2 h-5 w-5" /> {t('pass.undo')}
@@ -478,22 +530,22 @@ export function PasswordGenerator() {
           </div>
 
           <div className="space-y-8">
-            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg p-6">
-              <h3 className="font-black text-gray-900 dark:text-gray-100 flex items-center uppercase tracking-widest text-sm mb-6">
-                <ShieldCheck className="w-5 h-5 mr-2 text-green-600" />
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-lg p-6">
+              <h3 className="font-black text-slate-900 dark:text-slate-100 flex items-center uppercase tracking-widest text-sm mb-6">
+                <ShieldCheck className="w-5 h-5 mr-2 text-slate-900 dark:text-white" />
                 {t('pass.securityTips')}
               </h3>
               <div className="space-y-4">
                 {[t('pass.tip1'), t('pass.tip2'), t('pass.tip3'), t('pass.tip4')].map((tip, i) => (
-                  <div key={i} className="flex items-start p-3 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100">
-                    <div className="bg-green-100 text-green-600 p-1 rounded-md mr-3 mt-0.5">
+                  <div key={i} className="flex items-start p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <div className="bg-emerald-50 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800 text-slate-900 dark:text-white p-1 rounded-md mr-3 mt-0.5">
                       <Check className="w-3 h-3" />
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-tight font-medium">{tip}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-tight font-medium">{tip}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-6 p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-start">
+              <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-100 dark:border-amber-900/50 flex items-start">
                 <AlertTriangle className="w-5 h-5 text-amber-500 mr-2 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-700 leading-normal">
                   {t('pass.help.2')}
@@ -501,19 +553,19 @@ export function PasswordGenerator() {
               </div>
             </div>
 
-            <div className="bg-green-600 rounded-3xl p-8 text-white shadow-xl shadow-green-100 relative overflow-hidden group">
-              <div className="absolute -right-8 -top-8 w-32 h-32 bg-white dark:bg-gray-800/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div className="bg-slate-900 dark:bg-slate-950 border border-slate-800 rounded-3xl p-8 ">
+              <div className="absolute -right-8 -top-8 w-32 h-32 bg-white dark:bg-slate-800/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
               <h3 className="text-xl font-black mb-4 flex items-center">
                 <Info className="h-6 w-6 mr-2" />
                 {t('pass.help.title')}
               </h3>
-              <ul className="space-y-4 text-green-50 text-sm leading-relaxed">
+              <ul className="space-y-4 text-slate-300 text-sm leading-relaxed">
                 <li className="flex items-start">
-                  <span className="bg-white dark:bg-gray-800/20 rounded-lg p-1 mr-3 mt-0.5 font-bold text-xs">01</span>
+                  <span className="bg-white dark:bg-slate-800/20 rounded-lg p-1 mr-3 mt-0.5 font-bold text-xs">01</span>
                   {t('pass.help.1')}
                 </li>
                 <li className="flex items-start">
-                  <span className="bg-white dark:bg-gray-800/20 rounded-lg p-1 mr-3 mt-0.5 font-bold text-xs">02</span>
+                  <span className="bg-white dark:bg-slate-800/20 rounded-lg p-1 mr-3 mt-0.5 font-bold text-xs">02</span>
                   {t('pass.help.3')}
                 </li>
               </ul>
@@ -522,13 +574,13 @@ export function PasswordGenerator() {
         </div>
 
         {/* SEO Detailed Description Section */}
-        <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('pass.longDesc.title')}</h2>
-          <div className="prose prose-green max-w-none text-gray-700 dark:text-gray-300 space-y-6">
+        <div className="mt-12 bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">{t('pass.longDesc.title')}</h2>
+          <div className="prose prose-green dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-6">
             <div>
               <p className="mb-4 leading-relaxed">
                 {t('pass.longDesc.p1').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
+                  i % 2 === 1 ? <strong key={i} className="text-slate-900 dark:text-slate-100">{part}</strong> : part
                 )}
               </p>
               <p className="mb-4 leading-relaxed">
@@ -536,8 +588,14 @@ export function PasswordGenerator() {
               </p>
               <p className="leading-relaxed">
                 {t('pass.longDesc.p3').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
+                  i % 2 === 1 ? <strong key={i} className="text-slate-900 dark:text-slate-100">{part}</strong> : part
                 )}
+              </p>
+              <p className="mt-4 leading-relaxed">
+                {t('pass.longDesc.p4')}
+              </p>
+              <p className="mt-4 leading-relaxed">
+                {t('pass.longDesc.p5')}
               </p>
             </div>
           </div>
@@ -546,25 +604,25 @@ export function PasswordGenerator() {
 
       {showQr && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-300">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-300">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-black text-gray-900 dark:text-gray-100">{t('pass.qrCode')}</h3>
-              <button onClick={() => setShowQr(null)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 rounded-xl transition-colors">
-                <X className="w-6 h-6 text-gray-400" />
+              <h3 className="text-xl font-black text-slate-900 dark:text-slate-100">{t('pass.qrCode')}</h3>
+              <button onClick={() => setShowQr(null)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors">
+                <X className="w-6 h-6 text-slate-400" />
               </button>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-6 border-4 border-gray-50 rounded-2xl flex justify-center mb-6">
+            <div className="bg-white dark:bg-slate-800 p-6 border-4 border-slate-50 dark:border-slate-700 rounded-2xl flex justify-center mb-6">
               <QRCodeSVG value={showQr} size={200} level="H" includeMargin={true} />
             </div>
-            <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-100 mb-6">
-              <code className="text-sm font-mono text-gray-600 dark:text-gray-400 break-all block text-center">{showQr}</code>
+            <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-700 mb-6">
+              <code className="text-sm font-mono text-slate-600 dark:text-slate-400 break-all block text-center">{showQr}</code>
             </div>
             <button
               onClick={() => {
                 copyToClipboard(showQr);
                 setShowQr(null);
               }}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center shadow-sm"
             >
               <Copy className="w-5 h-5 mr-2" /> {t('json.copy')}
             </button>

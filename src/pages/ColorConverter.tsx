@@ -80,6 +80,7 @@ export function ColorConverter() {
   const [extractedPalette, setExtractedPalette] = useState<string[]>([]);
   const [isExtracting, setIsExtracting] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -145,6 +146,8 @@ export function ColorConverter() {
     setIsExtracting(true);
     const reader = new FileReader();
     reader.onload = (event) => {
+      const result = event.target?.result as string;
+      setUploadedImage(result);
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
@@ -304,7 +307,7 @@ export function ColorConverter() {
       <div className="max-w-5xl mx-auto h-full flex flex-col px-4 py-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-            <Palette className="mr-3 h-8 w-8 text-pink-500" />
+            <Palette className="mr-3 h-8 w-8 text-emerald-500" />
             {t('color.title')}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">{t('color.desc')}</p>
@@ -328,7 +331,7 @@ export function ColorConverter() {
                   )}
                   <button 
                     onClick={generateRandomColor}
-                    className="text-sm text-pink-600 hover:text-pink-700 flex items-center hover:bg-pink-50 px-2 py-1 rounded transition-colors"
+                    className="text-sm text-emerald-600 hover:text-emerald-700 flex items-center hover:bg-emerald-50 dark:hover:bg-emerald-900/20 px-2 py-1 rounded transition-colors"
                   >
                     <RefreshCw className="w-4 h-4 mr-1" /> {t('color.random')}
                   </button>
@@ -357,7 +360,7 @@ export function ColorConverter() {
                   min="0" max="1" step="0.01" 
                   value={alpha} 
                   onChange={handleAlphaChange}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
+                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                 />
               </div>
             </div>
@@ -365,97 +368,109 @@ export function ColorConverter() {
             {/* Inputs */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm space-y-4">
               {/* HEX */}
-              <div>
-                <div className="flex justify-between mb-1">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300">HEX</label>
-                  <button onClick={() => copyToClipboard(color.toHex(), 'hex')} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center">
-                    {copiedStates['hex'] ? <Check className="w-3 h-3 mr-1 text-green-500" /> : <Copy className="w-3 h-3 mr-1" />}
-                    {copiedStates['hex'] ? t('color.copied') : t('color.copy')}
+              <div className="max-w-sm">
+                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 block">HEX</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={hexInput}
+                    onChange={(e) => {
+                      setHexInput(e.target.value);
+                      handleColorChange(e.target.value);
+                    }}
+                    onBlur={() => addToHistory(color.toHex())}
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                  />
+                  <button 
+                    onClick={() => copyToClipboard(color.toHex(), 'hex')} 
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    title={t('color.copy')}
+                  >
+                    {copiedStates['hex'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  value={hexInput}
-                  onChange={(e) => {
-                    setHexInput(e.target.value);
-                    handleColorChange(e.target.value);
-                  }}
-                  onBlur={() => addToHistory(color.toHex())}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
-                />
               </div>
 
               {/* RGB */}
-              <div>
-                <div className="flex justify-between mb-1">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300">RGB</label>
-                  <button onClick={() => copyToClipboard(color.toRgbString(), 'rgb')} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center">
-                    {copiedStates['rgb'] ? <Check className="w-3 h-3 mr-1 text-green-500" /> : <Copy className="w-3 h-3 mr-1" />}
-                    {copiedStates['rgb'] ? t('color.copied') : t('color.copy')}
+              <div className="max-w-sm">
+                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 block">RGB</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={rgbInput}
+                    onChange={(e) => {
+                      setRgbInput(e.target.value);
+                      handleColorChange(e.target.value);
+                    }}
+                    onBlur={() => addToHistory(color.toHex())}
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                  />
+                  <button 
+                    onClick={() => copyToClipboard(color.toRgbString(), 'rgb')} 
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    title={t('color.copy')}
+                  >
+                    {copiedStates['rgb'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  value={rgbInput}
-                  onChange={(e) => {
-                    setRgbInput(e.target.value);
-                    handleColorChange(e.target.value);
-                  }}
-                  onBlur={() => addToHistory(color.toHex())}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
-                />
               </div>
 
               {/* HSL */}
-              <div>
-                <div className="flex justify-between mb-1">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300">HSL</label>
-                  <button onClick={() => copyToClipboard(color.toHslString(), 'hsl')} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center">
-                    {copiedStates['hsl'] ? <Check className="w-3 h-3 mr-1 text-green-500" /> : <Copy className="w-3 h-3 mr-1" />}
-                    {copiedStates['hsl'] ? t('color.copied') : t('color.copy')}
+              <div className="max-w-sm">
+                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 block">HSL</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={hslInput}
+                    onChange={(e) => {
+                      setHslInput(e.target.value);
+                      handleColorChange(e.target.value);
+                    }}
+                    onBlur={() => addToHistory(color.toHex())}
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                  />
+                  <button 
+                    onClick={() => copyToClipboard(color.toHslString(), 'hsl')} 
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    title={t('color.copy')}
+                  >
+                    {copiedStates['hsl'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  value={hslInput}
-                  onChange={(e) => {
-                    setHslInput(e.target.value);
-                    handleColorChange(e.target.value);
-                  }}
-                  onBlur={() => addToHistory(color.toHex())}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
-                />
               </div>
 
               {/* CMYK */}
-              <div>
-                <div className="flex justify-between mb-1">
-                  <label className="text-sm font-bold text-gray-700 dark:text-gray-300">CMYK</label>
-                  <button onClick={() => copyToClipboard(color.toCmykString(), 'cmyk')} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center">
-                    {copiedStates['cmyk'] ? <Check className="w-3 h-3 mr-1 text-green-500" /> : <Copy className="w-3 h-3 mr-1" />}
-                    {copiedStates['cmyk'] ? t('color.copied') : t('color.copy')}
+              <div className="max-w-sm">
+                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 block">CMYK</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={cmykInput}
+                    onChange={(e) => {
+                      setCmykInput(e.target.value);
+                      handleColorChange(e.target.value);
+                    }}
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                  />
+                  <button 
+                    onClick={() => copyToClipboard(color.toCmykString(), 'cmyk')} 
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    title={t('color.copy')}
+                  >
+                    {copiedStates['cmyk'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  value={cmykInput}
-                  onChange={(e) => {
-                    setCmykInput(e.target.value);
-                    handleColorChange(e.target.value);
-                  }}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
-                />
               </div>
             </div>
 
             {/* Closest Tailwind Color */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
               <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-                <Wand2 className="w-5 h-5 mr-2 text-pink-500" />
+                <Wand2 className="w-5 h-5 mr-2 text-emerald-500" />
                 {t('color.tailwind.title')}
               </h3>
               <div 
-                className="flex flex-col items-center justify-center p-4 rounded-xl border border-gray-100 cursor-pointer transition-transform hover:scale-105"
+                className="flex flex-col items-center justify-center p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 cursor-pointer transition-all hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
                 onClick={() => handleColorChange(closestTw.hex, true)}
                 title="Click to use this color"
               >
@@ -471,7 +486,7 @@ export function ColorConverter() {
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-gray-900 dark:text-gray-100 flex items-center">
-                  <History className="w-5 h-5 mr-2 text-pink-500" />
+                  <History className="w-5 h-5 mr-2 text-emerald-500" />
                   {t('color.history.title')}
                 </h3>
                 {history.length > 0 && (
@@ -508,12 +523,12 @@ export function ColorConverter() {
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm flex flex-col">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-gray-900 dark:text-gray-100 flex items-center">
-                  <Type className="w-5 h-5 mr-2 text-pink-500" />
+                  <Type className="w-5 h-5 mr-2 text-emerald-500" />
                   {t('color.contrast.title')}
                 </h3>
                 <button 
                   onClick={() => setShowContrastInfo(!showContrastInfo)}
-                  className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-pink-100 text-pink-600' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 hover:text-gray-600 dark:text-gray-400'}`}
+                  className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 hover:text-gray-600 dark:text-gray-400'}`}
                   title="What do these scores mean?"
                 >
                   <HelpCircle className="w-4 h-4" />
@@ -521,58 +536,58 @@ export function ColorConverter() {
               </div>
 
               {showContrastInfo && (
-                <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/30/80 border border-blue-100 rounded-xl text-sm text-blue-900 animate-in fade-in slide-in-from-top-2">
+                <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 rounded-xl text-sm text-blue-900 dark:text-blue-200 animate-in fade-in slide-in-from-top-2">
                   <p className="font-bold mb-2 flex items-center">
-                    <Info className="w-4 h-4 mr-1.5 text-blue-600" />
+                    <Info className="w-4 h-4 mr-1.5 text-blue-600 dark:text-blue-400" />
                     {t('color.contrast.helpTitle')}
                   </p>
                   <ul className="space-y-2 text-xs leading-relaxed">
-                    <li><strong className="text-blue-700">AA Normal:</strong> {t('color.contrast.helpNormal')}</li>
-                    <li><strong className="text-blue-700">AA Large:</strong> {t('color.contrast.helpLarge')}</li>
-                    <li><strong className="text-blue-700">AAA:</strong> {t('color.contrast.helpAAA')}</li>
+                    <li><strong className="text-blue-600 dark:text-blue-400">AA Normal:</strong> {t('color.contrast.helpNormal')}</li>
+                    <li><strong className="text-blue-600 dark:text-blue-400">AA Large:</strong> {t('color.contrast.helpLarge')}</li>
+                    <li><strong className="text-blue-600 dark:text-blue-400">AAA:</strong> {t('color.contrast.helpAAA')}</li>
                   </ul>
                 </div>
               )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* White Text Card */}
-                <div className="relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 p-5">
                   <div className="absolute inset-0" style={{
                     backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
                     backgroundSize: '10px 10px'
                   }} />
                   <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
                   
-                  <div className="relative z-10 flex justify-between items-center">
-                    <div>
-                      <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#ffffff' }}>{t('color.contrast.white')}</span>
-                      <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#ffffff' }}>{contrastWhite.toFixed(2)}:1</span>
+                  <div className="relative z-10 flex flex-col justify-between h-full space-y-4 pt-1">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                      <span className="font-bold text-lg drop-shadow-md leading-tight mb-1 sm:mb-0" style={{ color: '#ffffff' }}>{t('color.contrast.white')}</span>
+                      <span className="text-xl sm:text-lg font-mono tabular-nums font-bold drop-shadow-md leading-none" style={{ color: '#ffffff' }}>{contrastWhite.toFixed(2)}:1</span>
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastWhite >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
+                    <div className="flex gap-2 w-full pt-2">
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastWhite >= 4.5 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-black/40 text-white/90 border-white/20'}`}>AA</span>
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastWhite >= 3.0 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-black/40 text-white/90 border-white/20'}`}>AA Lg</span>
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastWhite >= 7.0 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-black/40 text-white/90 border-white/20'}`}>AAA</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Black Text Card */}
-                <div className="relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 p-5">
                   <div className="absolute inset-0" style={{
                     backgroundImage: 'conic-gradient(#e5e7eb 90deg, #ffffff 90deg 180deg, #e5e7eb 180deg 270deg, #ffffff 270deg)',
                     backgroundSize: '10px 10px'
                   }} />
                   <div className="absolute inset-0" style={{ backgroundColor: color.toRgbString() }} />
                   
-                  <div className="relative z-10 flex justify-between items-center">
-                    <div>
-                      <span className="font-bold text-lg block drop-shadow-md" style={{ color: '#000000' }}>{t('color.contrast.black')}</span>
-                      <span className="text-sm font-mono font-medium drop-shadow-md" style={{ color: '#000000' }}>{contrastBlack.toFixed(2)}:1</span>
+                  <div className="relative z-10 flex flex-col justify-between h-full space-y-4 pt-1">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                      <span className="font-bold text-lg drop-shadow-md leading-tight mb-1 sm:mb-0" style={{ color: '#000000' }}>{t('color.contrast.black')}</span>
+                      <span className="text-xl sm:text-lg font-mono tabular-nums font-bold drop-shadow-md leading-none" style={{ color: '#000000' }}>{contrastBlack.toFixed(2)}:1</span>
                     </div>
-                    <div className="flex flex-col gap-1">
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 4.5 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Normal</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 3.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AA Large</span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-bold text-center shadow-sm ${contrastBlack >= 7.0 ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>AAA</span>
+                    <div className="flex gap-2 w-full pt-2">
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastBlack >= 4.5 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-white/60 text-black/90 border-black/10'}`}>AA</span>
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastBlack >= 3.0 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-white/60 text-black/90 border-black/10'}`}>AA Lg</span>
+                      <span className={`flex-1 text-[10px] tracking-tight font-bold px-1 py-1 rounded whitespace-nowrap flex items-center justify-center backdrop-blur-sm shadow-sm border ${contrastBlack >= 7.0 ? 'bg-emerald-500/90 text-white border-black/10' : 'bg-white/60 text-black/90 border-black/10'}`}>AAA</span>
                     </div>
                   </div>
                 </div>
@@ -582,7 +597,7 @@ export function ColorConverter() {
             {/* Color Blindness Simulator */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
               <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-6 flex items-center">
-                <Eye className="w-5 h-5 mr-2 text-pink-500" />
+                <Eye className="w-5 h-5 mr-2 text-emerald-500" />
                 {t('color.blindness.title')}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -610,12 +625,12 @@ export function ColorConverter() {
             {/* Image Palette Extractor */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
               <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-                <UploadCloud className="w-5 h-5 mr-2 text-pink-500" />
+                <UploadCloud className="w-5 h-5 mr-2 text-emerald-500" />
                 {t('color.image.title')}
               </h3>
               
               <div 
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer ${isDragging ? 'border-pink-500 bg-pink-50' : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'}`}
+                className={`border-2 rounded-xl overflow-hidden text-center transition-colors cursor-pointer relative ${isDragging ? 'border-emerald-500 bg-emerald-50' : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 dark:bg-gray-900'} ${uploadedImage ? 'p-0 border-solid' : 'p-8 border-dashed'}`}
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -628,10 +643,25 @@ export function ColorConverter() {
                   accept="image/*" 
                   className="hidden" 
                 />
-                <UploadCloud className={`w-8 h-8 mx-auto mb-3 transition-colors ${isDragging ? 'text-pink-500' : 'text-gray-400'}`} />
-                <p className={`text-sm font-medium ${isDragging ? 'text-pink-600' : 'text-gray-600 dark:text-gray-400'}`}>
-                  {isExtracting ? t('color.image.extracting') : t('color.image.drop')}
-                </p>
+                
+                {uploadedImage ? (
+                  <div className="relative w-full h-48 flex items-center justify-center bg-gray-50 dark:bg-gray-900/50 group">
+                    <img src={uploadedImage} alt="Uploaded palette source" className="max-w-full max-h-full object-contain" />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                      <p className="text-white font-medium flex items-center text-sm shadow-sm">
+                        <UploadCloud className="w-5 h-5 mr-2" />
+                        {t('color.image.drop')}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <UploadCloud className={`w-8 h-8 mx-auto mb-3 transition-colors ${isDragging ? 'text-emerald-500' : 'text-gray-400'}`} />
+                    <p className={`text-sm font-medium ${isDragging ? 'text-emerald-600' : 'text-gray-600 dark:text-gray-400'}`}>
+                      {isExtracting ? t('color.image.extracting') : t('color.image.drop')}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {extractedPalette.length > 0 && (
@@ -656,7 +686,7 @@ export function ColorConverter() {
             {/* Harmonies */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
               <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-6 flex items-center">
-                <Palette className="w-5 h-5 mr-2 text-pink-500" />
+                <Palette className="w-5 h-5 mr-2 text-emerald-500" />
                 {t('color.harmonies')}
               </h3>
               
@@ -685,12 +715,12 @@ export function ColorConverter() {
         </div>
 
         {/* Help Section */}
-        <div className="mt-8 bg-pink-50 rounded-xl p-6 border border-pink-100">
-          <h3 className="text-lg font-bold text-pink-900 mb-3 flex items-center">
+        <div className="mt-8 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-900/50">
+          <h3 className="text-lg font-bold text-emerald-900 dark:text-emerald-300 mb-3 flex items-center">
             <Info className="h-5 w-5 mr-2" />
             {t('color.help.title')}
           </h3>
-          <ul className="space-y-2 text-pink-800 text-sm list-disc list-inside">
+          <ul className="space-y-2 text-emerald-600 dark:text-emerald-400 text-sm list-disc list-inside">
             {[1, 2, 3, 4].map(num => (
               <li key={num}>{t(`color.help.${num}`)}</li>
             ))}
@@ -699,7 +729,7 @@ export function ColorConverter() {
         {/* SEO Detailed Description */}
         <div className="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('color.longDesc.title')}</h2>
-          <div className="prose prose-pink max-w-none text-gray-700 dark:text-gray-300">
+          <div className="prose prose-emerald dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
             <div className="mb-4 leading-relaxed">
               <Markdown>{t('color.longDesc.p1')}</Markdown>
             </div>
@@ -708,6 +738,8 @@ export function ColorConverter() {
             </div>
             <div className="leading-relaxed">
               <Markdown>{t('color.longDesc.p3')}</Markdown>
+              <div className="mt-4"><Markdown>{t('color.longDesc.p4')}</Markdown></div>
+              <div className="mt-4"><Markdown>{t('color.longDesc.p5')}</Markdown></div>
             </div>
           </div>
         </div>

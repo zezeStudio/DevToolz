@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import JsonWorker from '../lib/jsonWorker?worker';
 import { SEO } from '../components/SEO';
-import { Copy, Check, Trash2, FileJson, Info, ListTree, Code, AlertCircle, CheckCircle2, Wand2, Upload, Download, Shield, Braces } from 'lucide-react';
+import { Copy, Check, Trash2, FileJson, Info, ListTree, Code, AlertCircle, CheckCircle2, Wand2, Upload, Download, Shield, Braces, Quote, FileCode, Shrink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { JsonViewer } from '../components/JsonViewer';
 import { useParams } from 'react-router-dom';
@@ -9,8 +10,34 @@ import yaml from 'js-yaml';
 
 export function JsonFormatter() {
   const [input, setInput] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const workerRef = useRef<Worker | null>(null);
+
+  useEffect(() => {
+    workerRef.current = new JsonWorker();
+    return () => workerRef.current?.terminate();
+  }, []);
+
+  const processInWorker = useCallback((type: string, payload: string | object) => {
+    return new Promise<any>((resolve, reject) => {
+      if (!workerRef.current) return reject(new Error("Worker not initialized"));
+      const id = Date.now() + Math.random();
+      const handler = (e: MessageEvent) => {
+        if (e.data.id === id) {
+          workerRef.current!.removeEventListener("message", handler);
+          if (e.data.success) resolve(e.data.result);
+          else reject(new Error(e.data.error));
+        }
+      };
+      workerRef.current.addEventListener("message", handler);
+      workerRef.current.postMessage({ id, type, payload });
+    });
+  }, []);
+  const [history, setHistory] = useState<string[]>([]);
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [errorLine, setErrorLine] = useState<number | null>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<'text' | 'tree'>('text');
@@ -31,11 +58,50 @@ export function JsonFormatter() {
     }
   }, [output]);
 
+  
+  const saveToHistory = (currentInput: string) => {
+    setHistory(prev => {
+      if (prev.length > 0 && prev[prev.length - 1] === currentInput) return prev;
+      return [...prev, currentInput].slice(-20);
+    });
+  };
+
+  const undo = () => {
+    setHistory(prev => {
+      if (prev.length === 0) return prev;
+      const newHistory = [...prev];
+      const previousState = newHistory.pop()!;
+      setInput(previousState);
+      try {
+        const parsed = JSON.parse(previousState);
+        setOutput(JSON.stringify(parsed, null, 2));
+        setError(null);
+        setIsValid(true);
+      } catch {
+        // Leave output empty or keep parsing
+      }
+      return newHistory;
+    });
+  };
+
+  
+  const getErrorLine = (errMessage: string, jsonInput: string): number | null => {
+    const lineMatch = errMessage.match(/line (\d+)/i);
+    if (lineMatch) return parseInt(lineMatch[1], 10);
+    const posMatch = errMessage.match(/position (\d+)/i);
+    if (posMatch) {
+      const pos = parseInt(posMatch[1], 10);
+      const textUpToPos = jsonInput.substring(0, pos);
+      return textUpToPos.split('\n').length;
+    }
+    return null;
+  };
   const formatJson = () => {
     if (!input.trim()) {
       setOutput('');
       setError(null);
-      setIsValid(null);
+    setErrorLine(null);
+    setIsValid(null);
       return;
     }
     try {
@@ -46,6 +112,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
       
       // Check if it can be repaired
@@ -55,6 +122,7 @@ export function JsonFormatter() {
           setPendingAction(() => () => {
             const parsedRepaired = JSON.parse(repaired);
             const formatted = JSON.stringify(parsedRepaired, null, 2);
+            saveToHistory(input);
             setInput(formatted);
             setOutput(formatted);
             setError(null);
@@ -78,6 +146,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
 
       try {
@@ -86,6 +155,7 @@ export function JsonFormatter() {
           setPendingAction(() => () => {
             const parsedRepaired = JSON.parse(repaired);
             const minified = JSON.stringify(parsedRepaired);
+            saveToHistory(input);
             setInput(JSON.stringify(parsedRepaired, null, 2));
             setOutput(minified);
             setError(null);
@@ -113,6 +183,7 @@ export function JsonFormatter() {
       const errorMessage = (err as Error).message;
       setIsValid(false);
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
 
       // Check if it can be repaired
       try {
@@ -121,6 +192,7 @@ export function JsonFormatter() {
           setPendingAction(() => () => {
             const parsedRepaired = JSON.parse(repaired);
             const formatted = JSON.stringify(parsedRepaired, null, 2);
+            saveToHistory(input);
             setInput(formatted);
             setOutput(formatted);
             setError(null);
@@ -140,12 +212,15 @@ export function JsonFormatter() {
       const repaired = jsonrepair(input);
       const parsed = JSON.parse(repaired);
       const formatted = JSON.stringify(parsed, null, 2);
+      saveToHistory(input);
       setInput(formatted);
       setOutput(formatted);
       setError(null);
       setIsValid(true);
     } catch (err) {
-      setError((err as Error).message);
+      const errMessage = (err as Error).message;
+      setError(errMessage);
+      setErrorLine(getErrorLine(errMessage, input));
       setIsValid(false);
     }
   };
@@ -162,6 +237,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
 
       try {
@@ -170,6 +246,7 @@ export function JsonFormatter() {
           setPendingAction(() => () => {
             const parsedRepaired = JSON.parse(repaired);
             const yamlString = yaml.dump(parsedRepaired);
+            saveToHistory(input);
             setInput(JSON.stringify(parsedRepaired, null, 2));
             setOutput(yamlString);
             setError(null);
@@ -189,15 +266,19 @@ export function JsonFormatter() {
     try {
       const parsed = yaml.load(input);
       const jsonString = JSON.stringify(parsed, null, 2);
+      saveToHistory(input);
       setInput(jsonString);
       setOutput(jsonString);
       setError(null);
       setIsValid(true);
     } catch (err) {
-      setError((err as Error).message);
+      const errMessage = (err as Error).message;
+      setError(errMessage);
+      setErrorLine(getErrorLine(errMessage, input));
       setIsValid(false);
     }
   };
+
 
   const sortKeys = () => {
     if (!input.trim()) return;
@@ -218,6 +299,7 @@ export function JsonFormatter() {
 
       const sorted = sortObject(parsed);
       const formatted = JSON.stringify(sorted, null, 2);
+      saveToHistory(input);
       setInput(formatted);
       setOutput(formatted);
       setError(null);
@@ -225,6 +307,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
 
       try {
@@ -242,7 +325,8 @@ export function JsonFormatter() {
             };
             const sorted = sortObject(parsedRepaired);
             const formatted = JSON.stringify(sorted, null, 2);
-            setInput(formatted);
+      saveToHistory(input);
+      setInput(formatted);
             setOutput(formatted);
             setError(null);
             setIsValid(true);
@@ -313,6 +397,7 @@ export function JsonFormatter() {
 
       const masked = maskValue('', parsed);
       const formatted = JSON.stringify(masked, null, 2);
+      saveToHistory(input);
       setInput(formatted);
       setOutput(formatted);
       setError(null);
@@ -320,6 +405,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
       
       try {
@@ -356,7 +442,8 @@ export function JsonFormatter() {
             };
             const masked = maskValue('', parsedRepaired);
             const formatted = JSON.stringify(masked, null, 2);
-            setInput(formatted);
+      saveToHistory(input);
+      setInput(formatted);
             setOutput(formatted);
             setError(null);
             setIsValid(true);
@@ -423,6 +510,7 @@ export function JsonFormatter() {
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
+      setErrorLine(getErrorLine(errorMessage, input));
       setIsValid(false);
       
       try {
@@ -431,6 +519,7 @@ export function JsonFormatter() {
           setPendingAction(() => () => {
             const parsedRepaired = JSON.parse(repaired);
             const tsCode = generateInterface(parsedRepaired);
+            saveToHistory(input);
             setInput(JSON.stringify(parsedRepaired, null, 2));
             setOutput(tsCode);
             setError(null);
@@ -472,17 +561,21 @@ export function JsonFormatter() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const content = event.target?.result as string;
-      setInput(content);
+      let finalInput = content;
       try {
         const parsed = JSON.parse(content);
-        setOutput(JSON.stringify(parsed, null, 2));
+        finalInput = JSON.stringify(parsed, null, 2);
+        setOutput(finalInput);
         setError(null);
         setIsValid(true);
       } catch (err) {
         setOutput(content);
-        setError((err as Error).message);
+        const errMessage = (err as Error).message;
+        setError(errMessage);
+        setErrorLine(getErrorLine(errMessage, content));
         setIsValid(false);
       }
+      setInput(finalInput);
     };
     reader.readAsText(file);
     if (fileInputRef.current) fileInputRef.current.value = '';
@@ -520,7 +613,9 @@ export function JsonFormatter() {
       setIsValid(true);
       setViewMode('text');
     } catch (err) {
-      setError((err as Error).message);
+      const errMessage = (err as Error).message;
+      setError(errMessage);
+      setErrorLine(getErrorLine(errMessage, input));
       setIsValid(false);
     }
   };
@@ -543,7 +638,9 @@ export function JsonFormatter() {
         setIsValid(true);
       }
     } catch (err) {
-      setError((err as Error).message);
+      const errMessage = (err as Error).message;
+      setError(errMessage);
+      setErrorLine(getErrorLine(errMessage, input));
       setIsValid(false);
     }
   };
@@ -563,6 +660,7 @@ export function JsonFormatter() {
     setInput('');
     setOutput('');
     setError(null);
+    setErrorLine(null);
     setIsValid(null);
   };
 
@@ -648,13 +746,15 @@ export function JsonFormatter() {
       <div className="max-w-screen-2xl mx-auto h-full flex flex-col px-4">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-            <FileJson className="mr-3 h-8 w-8 text-blue-600" />
+            <FileJson className="mr-3 h-8 w-8 text-blue-600 dark:text-blue-400" />
             {t('json.title')}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">{t('json.desc')}</p>
         </div>
 
-        {/* Toolbar */}
+        <div className="flex flex-col xl:flex-row gap-6 flex-1 min-h-0">
+          <div className="flex-1 flex flex-col min-w-0">
+            {/* Toolbar */}
         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mb-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Transform Group */}
@@ -663,13 +763,13 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Wand2 className="w-3 h-3 mr-1" /> {t('json.group.transform')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'transform' ? null : 'transform')}
-                  className={`p-1 rounded-full transition-colors ${activeHelpGroup === 'transform' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'transform' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
-                  <Info className="w-3 h-3" />
+                  <Info className="w-3.5 h-3.5" />
                 </button>
               </div>
               {activeHelpGroup === 'transform' && (
-                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-800 animate-in slide-in-from-top-1 duration-200">
+                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-600 dark:text-blue-400 animate-in slide-in-from-top-1 duration-200">
                   <p><strong>{t('json.formatBtn')}:</strong> {t('json.tip.format')}</p>
                   <p className="mt-1"><strong>{t('json.minifyBtn')}:</strong> {t('json.tip.minify')}</p>
                   <p className="mt-1"><strong>{t('json.fixBtn')}:</strong> {t('json.tip.fix')}</p>
@@ -679,23 +779,17 @@ export function JsonFormatter() {
                 <button
                   onClick={formatJson}
                   title={t('json.tip.format')}
-                  className="flex-1 h-9 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center shadow-sm"
                 >
                   {t('json.formatBtn')}
                 </button>
                 <button
-                  onClick={minifyJson}
-                  title={t('json.tip.minify')}
-                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
-                >
-                  {t('json.minifyBtn')}
-                </button>
-                <button
                   onClick={fixJson}
-                  className="h-9 w-9 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition-colors border border-purple-200 flex items-center justify-center shrink-0"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                   title={t('json.tip.fix')}
                 >
-                  <Wand2 className="w-4 h-4" />
+                  <Wand2 className="w-3.5 h-3.5 mr-1" />
+                  {t('json.fixBtn')}
                 </button>
               </div>
             </div>
@@ -706,13 +800,13 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Code className="w-3 h-3 mr-1" /> {t('json.group.conversion')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'conversion' ? null : 'conversion')}
-                  className={`p-1 rounded-full transition-colors ${activeHelpGroup === 'conversion' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'conversion' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
-                  <Info className="w-3 h-3" />
+                  <Info className="w-3.5 h-3.5" />
                 </button>
               </div>
               {activeHelpGroup === 'conversion' && (
-                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-800 animate-in slide-in-from-top-1 duration-200">
+                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-600 dark:text-blue-400 animate-in slide-in-from-top-1 duration-200">
                   <p><strong>{t('json.toYamlBtn')}:</strong> {t('json.tip.toYaml')}</p>
                   <p className="mt-1"><strong>{t('json.fromJsonBtn')}:</strong> {t('json.tip.fromYaml')}</p>
                   <p className="mt-1"><strong>{t('json.toTsBtn')}:</strong> {t('json.tip.toTs')}</p>
@@ -722,14 +816,14 @@ export function JsonFormatter() {
                 <button
                   onClick={toYaml}
                   title={t('json.tip.toYaml')}
-                  className="flex-1 h-9 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
                   {t('json.toYamlBtn')}
                 </button>
                 <button
                   onClick={toTypeScript}
                   title={t('json.tip.toTs')}
-                  className="flex-1 h-9 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
                   <Braces className="w-3.5 h-3.5 mr-1" />
                   {t('json.toTsBtn')}
@@ -743,30 +837,41 @@ export function JsonFormatter() {
                 <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('json.group.tools')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'tools' ? null : 'tools')}
-                  className={`p-1 rounded-full transition-colors ${activeHelpGroup === 'tools' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'tools' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
-                  <Info className="w-3 h-3" />
+                  <Info className="w-3.5 h-3.5" />
                 </button>
               </div>
               {activeHelpGroup === 'tools' && (
-                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-800 animate-in slide-in-from-top-1 duration-200">
+                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-600 dark:text-blue-400 animate-in slide-in-from-top-1 duration-200">
                   <p><strong>{t('json.validateBtn')}:</strong> {t('json.tip.validate')}</p>
                   <p className="mt-1"><strong>{t('json.sortBtn')}:</strong> {t('json.tip.sort')}</p>
                   <p className="mt-1"><strong>{t('json.maskBtn')}:</strong> {t('json.tip.mask')}</p>
+                  <p className="mt-1"><strong>{t('json.escapeBtn')}:</strong> {t('json.tip.escape')}</p>
+                  <p className="mt-1"><strong>{t('json.unescapeBtn')}:</strong> {t('json.tip.unescape')}</p>
                 </div>
               )}
-              <div className="flex gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={validateJson}
                   title={t('json.tip.validate')}
-                  className="flex-1 h-9 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
+                  <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
                   {t('json.validateBtn')}
+                </button>
+                <button
+                  onClick={minifyJson}
+                  title={t('json.tip.minify')}
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
+                >
+                  <Shrink className="w-3.5 h-3.5 mr-1" />
+                  {t('json.minifyBtn')}
                 </button>
                 <button
                   onClick={maskData}
                   title={t('json.tip.mask')}
-                  className="flex-1 h-9 bg-rose-600 hover:bg-rose-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
                   <Shield className="w-3.5 h-3.5 mr-1" />
                   {t('json.maskBtn')}
@@ -774,9 +879,26 @@ export function JsonFormatter() {
                 <button
                   onClick={sortKeys}
                   title={t('json.tip.sort')}
-                  className="h-9 w-9 bg-indigo-100 dark:bg-indigo-900/50 hover:bg-indigo-200 text-indigo-700 rounded-lg transition-colors border border-indigo-200 flex items-center justify-center shrink-0"
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
-                  <ListTree className="w-4 h-4" />
+                  <ListTree className="w-3.5 h-3.5 mr-1" />
+                  {t('json.sortBtn')}
+                </button>
+                <button
+                  onClick={escapeJson}
+                  title={t('json.tip.escape')}
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
+                >
+                  <Quote className="w-3.5 h-3.5 mr-1" />
+                  {t('json.escapeBtn')}
+                </button>
+                <button
+                  onClick={unescapeJson}
+                  title={t('json.tip.unescape')}
+                  className="h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
+                >
+                  <FileCode className="w-3.5 h-3.5 mr-1" />
+                  {t('json.unescapeBtn')}
                 </button>
               </div>
             </div>
@@ -787,13 +909,13 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Upload className="w-3 h-3 mr-1" /> {t('json.group.data')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'data' ? null : 'data')}
-                  className={`p-1 rounded-full transition-colors ${activeHelpGroup === 'data' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'data' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
-                  <Info className="w-3 h-3" />
+                  <Info className="w-3.5 h-3.5" />
                 </button>
               </div>
               {activeHelpGroup === 'data' && (
-                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-800 animate-in slide-in-from-top-1 duration-200">
+                <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-[11px] text-blue-600 dark:text-blue-400 animate-in slide-in-from-top-1 duration-200">
                   <p><strong>{t('json.sampleBtn')}:</strong> {t('json.tip.sample')}</p>
                   <p className="mt-1"><strong>{t('json.uploadBtn')}:</strong> {t('json.tip.upload')}</p>
                   <p className="mt-1"><strong>{t('json.downloadBtn')}:</strong> {t('json.tip.download')}</p>
@@ -803,14 +925,14 @@ export function JsonFormatter() {
                 <button
                   onClick={loadSample}
                   title={t('json.tip.sample')}
-                  className="flex-1 h-9 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
                   {t('json.sampleBtn')}
                 </button>
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   title={t('json.tip.upload')}
-                  className="flex-1 h-9 bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium px-3 rounded-lg transition-colors shadow-sm flex items-center justify-center"
+                  className="flex-1 h-9 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium px-3 rounded-lg transition-colors border border-gray-300 dark:border-gray-600 flex items-center justify-center"
                 >
                   <Upload className="w-3.5 h-3.5 mr-1.5" />
                   {t('json.uploadBtn')}
@@ -827,29 +949,74 @@ export function JsonFormatter() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[600px]">
+        
+        <div className="relative flex-1 lg:min-h-[600px] flex flex-col">
+          {isProcessing && (
+            <div className="absolute inset-0 z-10 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm flex flex-col items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700">
+              <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-gray-900 dark:text-gray-100 font-medium">{t('json.ProcessingData') || "Processing..."}</p>
+            </div>
+          )}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 h-full">
           {/* Input Area */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col min-h-[400px] lg:h-full lg:min-h-0">
             <div className="flex justify-between items-center mb-2">
               <label className="font-semibold text-gray-700 dark:text-gray-300">{t('json.inputLabel')}</label>
+              <div className="flex items-center">
+              {history.length > 0 && (
+                <button
+                  onClick={undo}
+                  className="text-sm text-amber-600 hover:text-amber-700 dark:text-amber-400 flex items-center px-2 py-1 rounded hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors mr-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                  Undo
+                </button>
+              )}
+
               <button
                 onClick={clearAll}
-                className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center px-2 py-1 rounded hover:bg-red-50 dark:bg-red-900/30 transition-colors"
+                className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
               >
                 <Trash2 className="h-4 w-4 mr-1" /> {t('json.clear')}
               </button>
             </div>
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-base resize-none shadow-inner"
-              placeholder={t('json.placeholder')}
-              spellCheck="false"
-            />
+            </div>
+            
+            <div className="flex-1 relative w-full border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 shadow-inner bg-white dark:bg-gray-800">
+              <div 
+                ref={backdropRef}
+                className="absolute inset-0 pointer-events-none p-4 font-mono text-base whitespace-pre-wrap break-words overflow-hidden text-transparent"
+                style={{ lineHeight: '1.5' }}
+                aria-hidden="true"
+              >
+                {input.split('\n').map((line, i) => (
+                  <span key={i} className={errorLine === i + 1 ? 'bg-red-200/50 dark:bg-red-900/50 inline-block w-full' : ''}>
+                    {line || ' '}{'\n'}
+                  </span>
+                ))}
+              </div>
+              <textarea
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  setErrorLine(null);
+                }}
+                onScroll={(e) => {
+                  if (backdropRef.current) {
+                    backdropRef.current.scrollTop = e.currentTarget.scrollTop;
+                    backdropRef.current.scrollLeft = e.currentTarget.scrollLeft;
+                  }
+                }}
+                spellCheck={false}
+                className="absolute inset-0 w-full h-full p-4 font-mono text-base resize-none focus:outline-none bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
+                style={{ lineHeight: '1.5' }}
+                placeholder={t('json.placeholder') || 'Paste your JSON data here...'}
+              />
+            </div>
           </div>
 
           {/* Output Area */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col min-h-[400px] lg:h-full lg:min-h-0">
             <div className="flex justify-between items-center mb-2">
               <label className="font-semibold text-gray-700 dark:text-gray-300 flex items-center">
                 {t('json.outputLabel')}
@@ -858,7 +1025,7 @@ export function JsonFormatter() {
                     <button
                       onClick={() => setViewMode('text')}
                       className={`px-3 py-1 text-xs font-medium rounded-md flex items-center transition-colors ${
-                        viewMode === 'text' ? 'bg-white dark:bg-gray-800 shadow-sm text-blue-600' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'
+                        viewMode === 'text' ? 'bg-white dark:bg-gray-800 shadow-sm text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
                       }`}
                     >
                       <Code className="w-3 h-3 mr-1" /> Code
@@ -866,7 +1033,7 @@ export function JsonFormatter() {
                     <button
                       onClick={() => setViewMode('tree')}
                       className={`px-3 py-1 text-xs font-medium rounded-md flex items-center transition-colors ${
-                        viewMode === 'tree' ? 'bg-white dark:bg-gray-800 shadow-sm text-blue-600' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300'
+                        viewMode === 'tree' ? 'bg-white dark:bg-gray-800 shadow-sm text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
                       }`}
                     >
                       <ListTree className="w-3 h-3 mr-1" /> Tree
@@ -879,16 +1046,16 @@ export function JsonFormatter() {
                   onClick={copyToClipboard}
                   disabled={!output}
                   title={t('json.tip.copy')}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center h-8 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
-                  {copied ? <Check className="h-4 w-4 mr-1 text-green-600" /> : <Copy className="h-4 w-4 mr-1" />}
+                  {copied ? <Check className="h-4 w-4 mr-1 text-green-600 dark:text-green-400" /> : <Copy className="h-4 w-4 mr-1" />}
                   {copied ? t('json.copied') : t('json.copy')}
                 </button>
                 <button
                   onClick={downloadJson}
                   disabled={!output}
                   title={t('json.tip.download')}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ml-2"
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center h-8 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ml-2 whitespace-nowrap"
                 >
                   <Download className="h-4 w-4 mr-1" />
                   {t('json.downloadBtn')}
@@ -900,8 +1067,8 @@ export function JsonFormatter() {
                 <textarea
                   value={output}
                   readOnly
-                  className={`w-full h-full p-4 font-mono text-base resize-none focus:outline-none bg-transparent text-gray-800 dark:text-gray-200`}
-                  placeholder=""
+                  className={`w-full h-full p-4 font-mono text-base resize-none focus:outline-none bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500`}
+                  placeholder={t('json.outputPlaceholder')}
                 />
               ) : (
                 <div className="w-full h-full p-4 overflow-auto bg-white dark:bg-gray-800">
@@ -910,7 +1077,7 @@ export function JsonFormatter() {
               )}
               
               {isValid === true && (
-                <div className="absolute top-4 right-4 flex items-center bg-green-100 text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-200 dark:border-green-800 animate-in fade-in zoom-in duration-300 shadow-sm">
+                <div className="absolute top-4 right-4 flex items-center bg-green-100 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-200 dark:border-green-800 animate-in fade-in zoom-in duration-300 shadow-sm">
                   <CheckCircle2 className="w-3 h-3 mr-1" />
                   {t('json.valid')}
                 </div>
@@ -927,20 +1094,23 @@ export function JsonFormatter() {
             </div>
           </div>
         </div>
+        </div>
+      </div>
 
+      <div className="w-full xl:w-[400px] flex-shrink-0 space-y-6 xl:overflow-y-auto pb-6 custom-scrollbar px-1">
         {/* Help Section */}
-        <div className="mt-8 bg-blue-50 dark:bg-blue-900/30 rounded-xl p-8 border border-blue-100 shadow-sm">
-          <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center">
+        <div className="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-8 border border-blue-100 dark:border-blue-900/50 shadow-sm">
+          <h3 className="text-xl font-bold text-blue-900 dark:text-blue-300 mb-6 flex items-center">
             <Info className="h-6 w-6 mr-3" />
             {t('json.help.title')}
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h4 className="font-bold text-blue-900 mb-3 flex items-center">
+              <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center">
                 <Wand2 className="w-4 h-4 mr-2" /> {t('json.group.transform')}
               </h4>
-              <ul className="space-y-2 text-blue-800 text-sm">
+              <ul className="space-y-2 text-blue-600 dark:text-blue-400 text-sm">
                 <li><strong>{t('json.formatBtn')}:</strong> {t('json.tip.format')}</li>
                 <li><strong>{t('json.minifyBtn')}:</strong> {t('json.tip.minify')}</li>
                 <li><strong>{t('json.fixBtn')}:</strong> {t('json.tip.fix')}</li>
@@ -948,10 +1118,10 @@ export function JsonFormatter() {
             </div>
             
             <div>
-              <h4 className="font-bold text-blue-900 mb-3 flex items-center">
+              <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center">
                 <Code className="w-4 h-4 mr-2" /> {t('json.group.conversion')}
               </h4>
-              <ul className="space-y-2 text-blue-800 text-sm">
+              <ul className="space-y-2 text-blue-600 dark:text-blue-400 text-sm">
                 <li><strong>{t('json.toYamlBtn')}:</strong> {t('json.tip.toYaml')}</li>
                 <li><strong>{t('json.fromJsonBtn')}:</strong> {t('json.tip.fromYaml')}</li>
                 <li><strong>{t('json.toTsBtn')}:</strong> {t('json.tip.toTs')}</li>
@@ -959,10 +1129,10 @@ export function JsonFormatter() {
             </div>
             
             <div>
-              <h4 className="font-bold text-blue-900 mb-3 flex items-center">
+              <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center">
                 <CheckCircle2 className="w-4 h-4 mr-2" /> {t('json.group.tools')}
               </h4>
-              <ul className="space-y-2 text-blue-800 text-sm">
+              <ul className="space-y-2 text-blue-600 dark:text-blue-400 text-sm">
                 <li><strong>{t('json.validateBtn')}:</strong> {t('json.tip.validate')}</li>
                 <li><strong>{t('json.sortBtn')}:</strong> {t('json.tip.sort')}</li>
                 <li><strong>{t('json.maskBtn')}:</strong> {t('json.tip.mask')}</li>
@@ -971,10 +1141,10 @@ export function JsonFormatter() {
             </div>
             
             <div>
-              <h4 className="font-bold text-blue-900 mb-3 flex items-center">
+              <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center">
                 <Upload className="w-4 h-4 mr-2" /> {t('json.group.data')}
               </h4>
-              <ul className="space-y-2 text-blue-800 text-sm">
+              <ul className="space-y-2 text-blue-600 dark:text-blue-400 text-sm">
                 <li><strong>{t('json.sampleBtn')}:</strong> {t('json.tip.sample')}</li>
                 <li><strong>{t('json.uploadBtn')}:</strong> {t('json.tip.upload')}</li>
                 <li><strong>{t('json.downloadBtn')}:</strong> {t('json.tip.download')}</li>
@@ -983,8 +1153,8 @@ export function JsonFormatter() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-blue-200">
-            <h4 className="font-bold text-blue-900 mb-3">{t('json.help.title')}</h4>
-            <ul className="space-y-2 text-blue-800 text-sm list-disc list-inside">
+            <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-3">{t('json.help.title')}</h4>
+            <ul className="space-y-2 text-blue-600 dark:text-blue-400 text-sm list-disc list-inside">
               <li>{t('json.help.1')}</li>
               <li>{t('json.help.2')}</li>
               <li>{t('json.help.3')}</li>
@@ -993,7 +1163,7 @@ export function JsonFormatter() {
         </div>
 
         {/* SEO Detailed Description Section */}
-        <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('json.longDesc.title')}</h2>
           <div className="prose prose-blue dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-6">
             <div>
@@ -1010,9 +1180,17 @@ export function JsonFormatter() {
                   i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
                 )}
               </p>
+              <p className="mt-4 leading-relaxed">
+                {t('json.longDesc.p4')}
+              </p>
+              <p className="mt-4 leading-relaxed">
+                {t('json.longDesc.p5')}
+              </p>
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   );

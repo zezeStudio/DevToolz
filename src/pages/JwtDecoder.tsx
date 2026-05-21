@@ -169,17 +169,17 @@ export function JwtDecoder() {
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-        let cls = 'text-blue-600'; // number
+        let cls = 'text-purple-600 dark:text-purple-400 font-medium'; // number
         if (/^"/.test(match)) {
           if (/:$/.test(match)) {
-            cls = 'text-gray-900 dark:text-gray-100 font-bold'; // key
+            cls = 'text-teal-600 dark:text-teal-400 font-semibold'; // key
           } else {
-            cls = 'text-green-600'; // string
+            cls = 'text-orange-600 dark:text-orange-400'; // string
           }
         } else if (/true|false/.test(match)) {
-          cls = 'text-orange-600'; // boolean
+          cls = 'text-emerald-600 dark:text-emerald-500 font-medium'; // boolean
         } else if (/null/.test(match)) {
-          cls = 'text-gray-500 dark:text-gray-400'; // null
+          cls = 'text-slate-400 dark:text-slate-500 italic'; // null
         }
         return '<span class="' + cls + '">' + match + '</span>';
       });
@@ -207,7 +207,7 @@ export function JwtDecoder() {
                   <span className="text-gray-500 dark:text-gray-400">{date.toLocaleString()}</span>
                 </div>
                 {claim === 'exp' && (
-                  <span className={`px-2 py-0.5 rounded text-xs font-bold ${isExpired ? 'bg-red-100 text-red-700 dark:text-red-400' : 'bg-green-100 text-green-700 dark:text-green-400'}`}>
+                  <span className={`px-2 py-0.5 rounded text-xs font-bold ${isExpired ? 'bg-red-100 text-red-700 dark:text-red-400' : 'bg-green-100 text-green-600 dark:text-green-400'}`}>
                     {isExpired ? 'Expired' : 'Valid'}
                   </span>
                 )}
@@ -230,20 +230,20 @@ export function JwtDecoder() {
       <div className="max-w-6xl mx-auto h-full flex flex-col px-4 py-6">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-            <FileJson className="mr-3 h-8 w-8 text-teal-600" />
+            <FileJson className="mr-3 h-8 w-8 text-teal-600 dark:text-teal-400" />
             {t('jwt.title')}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">{t('jwt.desc')}</p>
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 p-1 rounded-xl w-fit mb-6 border border-gray-200 dark:border-gray-700">
+        <div className="flex space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-xl w-fit mb-6 border border-slate-200 dark:border-slate-700/50">
           <button
             onClick={() => setMode('decode')}
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               mode === 'decode' 
-                ? 'bg-white dark:bg-gray-800 text-teal-700 shadow-sm border border-gray-200 dark:border-gray-700' 
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-200'
+                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-600' 
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
             }`}
           >
             {t('jwt.modeDecode')}
@@ -252,8 +252,8 @@ export function JwtDecoder() {
             onClick={() => setMode('encode')}
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               mode === 'encode' 
-                ? 'bg-white dark:bg-gray-800 text-teal-700 shadow-sm border border-gray-200 dark:border-gray-700' 
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 hover:bg-gray-200'
+                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-600' 
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
             }`}
           >
             {t('jwt.modeEncode')}
@@ -270,9 +270,9 @@ export function JwtDecoder() {
                   <label className="font-semibold text-gray-700 dark:text-gray-300">{t('jwt.inputLabel')}</label>
                   <button
                     onClick={clearDecode}
-                    className="text-sm text-red-600 hover:text-red-700 dark:text-red-400 flex items-center px-2 py-1 rounded hover:bg-red-50 dark:bg-red-900/30 transition-colors"
+                    className="text-xs sm:text-sm font-medium text-red-500 hover:text-red-700 dark:text-red-400 flex items-center px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                   >
-                    <Trash2 className="h-4 w-4 mr-1" /> {t('json.clear')}
+                    <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5" /> {t('json.clear')}
                   </button>
                 </div>
                 <textarea
@@ -306,10 +306,10 @@ export function JwtDecoder() {
                 <>
                   {/* Header (Red theme) */}
                   <div className="bg-white dark:bg-gray-800 border border-red-200 dark:border-red-800 rounded-xl shadow-sm flex flex-col overflow-hidden">
-                    <div className="bg-red-50 dark:bg-red-900/30 px-4 py-2 border-b border-red-100">
-                      <label className="font-semibold text-red-800 dark:text-red-300 text-sm">{t('jwt.headerLabel')}</label>
+                    <div className="bg-red-50 dark:bg-red-900/30 px-4 py-2 border-b border-red-10border-red-100 dark:border-red-900/50">
+                      <label className="font-semibold text-red-900 dark:text-red-300 text-sm">{t('jwt.headerLabel')}</label>
                     </div>
-                    <div className="p-4 overflow-auto max-h-48 text-red-900">
+                    <div className="p-4 overflow-auto max-h-48 text-red-900 dark:text-red-200">
                       <pre className="font-mono text-sm whitespace-pre-wrap">
                         {renderPayloadWithTimestamps(decoded.header)}
                       </pre>
@@ -318,10 +318,10 @@ export function JwtDecoder() {
 
                   {/* Payload (Purple theme) */}
                   <div className="bg-white dark:bg-gray-800 border border-purple-200 rounded-xl shadow-sm flex flex-col flex-1 overflow-hidden">
-                    <div className="bg-purple-50 px-4 py-2 border-b border-purple-100">
-                      <label className="font-semibold text-purple-800 text-sm">{t('jwt.payloadLabel')}</label>
+                    <div className="bg-purple-50 dark:bg-purple-900/30 px-4 py-2 border-b border-purple-10border-purple-100 dark:border-purple-900/50">
+                      <label className="font-semibold text-purple-900 dark:text-purple-300 text-sm">{t('jwt.payloadLabel')}</label>
                     </div>
-                    <div className="p-4 overflow-auto flex-1 text-purple-900">
+                    <div className="p-4 overflow-auto flex-1 text-purple-900 dark:text-purple-200">
                       <pre className="font-mono text-sm whitespace-pre-wrap">
                         {renderPayloadWithTimestamps(decoded.payload)}
                       </pre>
@@ -331,10 +331,10 @@ export function JwtDecoder() {
 
                   {/* Signature (Blue theme) */}
                   <div className="bg-white dark:bg-gray-800 border border-blue-200 rounded-xl shadow-sm flex flex-col overflow-hidden">
-                    <div className="bg-blue-50 dark:bg-blue-900/30 px-4 py-2 border-b border-blue-100 flex justify-between items-center">
-                      <label className="font-semibold text-blue-800 text-sm">{t('jwt.signatureLabel')}</label>
+                    <div className="bg-blue-50 dark:bg-blue-900/30 px-4 py-2 border-b border-blue-10border-blue-100 dark:border-blue-900/50 flex justify-between items-center">
+                      <label className="font-semibold text-blue-900 dark:text-blue-300 text-sm">{t('jwt.signatureLabel')}</label>
                       {decoded.signatureValid === true && (
-                        <span className="flex items-center text-xs font-bold text-green-700 dark:text-green-400 bg-green-100 px-2 py-1 rounded">
+                        <span className="flex items-center text-xs font-bold text-green-600 dark:text-green-400 bg-green-100 px-2 py-1 rounded">
                           <ShieldCheck className="w-3 h-3 mr-1" /> {t('jwt.sigValid')}
                         </span>
                       )}
@@ -345,16 +345,44 @@ export function JwtDecoder() {
                       )}
                     </div>
                     <div className="p-4">
-                      <p className="font-mono text-sm text-blue-800 break-all">
+                      <p className="font-mono text-sm text-blue-900 dark:text-blue-300 break-all">
                         {decoded.signature}
                       </p>
                     </div>
                   </div>
                 </>
               ) : (
-                <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex flex-col items-center justify-center h-full text-gray-400">
-                  <FileJson className="h-12 w-12 mb-4 text-gray-300" />
-                  <p>Paste a JWT to decode it</p>
+                <div className="flex flex-col h-full space-y-4 opacity-70">
+                  {/* Header Placeholder */}
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col overflow-hidden h-32">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.headerLabel')}</label>
+                    </div>
+                    <div className="p-4 flex items-center justify-center h-full">
+                       <span className="text-slate-300 dark:text-slate-600 font-mono text-sm">{"{ ... }"}</span>
+                    </div>
+                  </div>
+
+                  {/* Payload Placeholder */}
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col flex-1 overflow-hidden min-h-[150px]">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.payloadLabel')}</label>
+                    </div>
+                    <div className="p-4 flex flex-col items-center justify-center flex-1">
+                      <FileJson className="h-10 w-10 mb-3 text-slate-400 dark:text-slate-500" />
+                      <p className="text-slate-600 dark:text-slate-400 font-medium text-sm">{t('jwt.pasteToDecode')}</p>
+                    </div>
+                  </div>
+
+                  {/* Signature Placeholder */}
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col overflow-hidden h-24">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.signatureLabel')}</label>
+                    </div>
+                    <div className="p-4 flex items-center justify-center h-full">
+                       <span className="text-slate-300 dark:text-slate-600 font-mono text-xs truncate">********************</span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -383,7 +411,7 @@ export function JwtDecoder() {
                 <textarea
                   value={encodeHeader}
                   onChange={(e) => setEncodeHeader(e.target.value)}
-                  className="flex-1 w-full p-4 border border-red-200 dark:border-red-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-none shadow-sm text-red-900 bg-red-50 dark:bg-red-900/30/30"
+                  className="flex-1 w-full p-4 border border-red-200 dark:border-red-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-none shadow-sm text-red-900 bg-red-50 dark:bg-red-900/30"
                   spellCheck="false"
                 />
               </div>
@@ -391,10 +419,10 @@ export function JwtDecoder() {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-semibold text-gray-700 dark:text-gray-300">{t('jwt.payloadLabel')}</label>
                   <div className="flex space-x-2">
-                    <button onClick={updateIatToNow} className="text-xs flex items-center text-purple-600 hover:text-purple-800 bg-purple-50 px-2 py-1 rounded border border-purple-100">
+                    <button onClick={updateIatToNow} className="text-xs flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-900/50 px-2 py-1 rounded border border-purple-100 dark:border-purple-800/50">
                       <Clock className="w-3 h-3 mr-1" /> {t('jwt.updateIat')}
                     </button>
-                    <button onClick={addOneHourToExp} className="text-xs flex items-center text-purple-600 hover:text-purple-800 bg-purple-50 px-2 py-1 rounded border border-purple-100">
+                    <button onClick={addOneHourToExp} className="text-xs flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-900/50 px-2 py-1 rounded border border-purple-100 dark:border-purple-800/50">
                       <Clock className="w-3 h-3 mr-1" /> {t('jwt.add1h')}
                     </button>
                   </div>
@@ -402,7 +430,7 @@ export function JwtDecoder() {
                 <textarea
                   value={encodePayload}
                   onChange={(e) => setEncodePayload(e.target.value)}
-                  className="flex-1 w-full p-4 border border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono text-sm resize-none shadow-sm text-purple-900 bg-purple-50/30"
+                  className="flex-1 w-full p-4 border border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono text-sm resize-none shadow-sm text-purple-900 bg-purple-50/30 dark:bg-purple-900/30"
                   spellCheck="false"
                 />
               </div>
@@ -412,7 +440,7 @@ export function JwtDecoder() {
                   type="text"
                   value={encodeSecret}
                   onChange={(e) => setEncodeSecret(e.target.value)}
-                  className="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm shadow-sm text-blue-900 bg-blue-50 dark:bg-blue-900/30/30"
+                  className="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm shadow-sm text-blue-900 bg-blue-50 dark:bg-blue-900/30"
                   placeholder="your-256-bit-secret"
                 />
               </div>
@@ -427,7 +455,7 @@ export function JwtDecoder() {
                   disabled={!encoded.token}
                   className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 flex items-center px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {copied ? <Check className="h-4 w-4 mr-1 text-green-600" /> : <Copy className="h-4 w-4 mr-1" />}
+                  {copied ? <Check className="h-4 w-4 mr-1 text-green-600 dark:text-green-400" /> : <Copy className="h-4 w-4 mr-1" />}
                   {copied ? t('json.copied') : t('json.copy')}
                 </button>
               </div>
@@ -436,7 +464,7 @@ export function JwtDecoder() {
                   value={encoded.token}
                   readOnly
                   className={`w-full h-full p-4 border rounded-xl font-mono text-sm resize-none focus:outline-none shadow-sm break-all ${
-                    encoded.error ? 'border-red-300 bg-red-50 dark:bg-red-900/30 text-red-900' : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200'
+                    encoded.error ? 'border-red-300 bg-red-50 dark:bg-red-900/30 text-red-900 dark:text-red-200' : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200'
                   }`}
                   placeholder=""
                 />
@@ -451,12 +479,12 @@ export function JwtDecoder() {
         )}
 
         {/* Help Section */}
-        <div className="mt-8 bg-teal-50 rounded-xl p-6 border border-teal-100">
-          <h3 className="text-lg font-bold text-teal-900 mb-3 flex items-center">
+        <div className="mt-8 bg-teal-50 dark:bg-teal-900/20 rounded-xl p-6 border border-teal-10border-teal-100 dark:border-teal-900/50">
+          <h3 className="text-lg font-bold text-teal-900 dark:text-teal-300 mb-3 flex items-center">
             <Info className="h-5 w-5 mr-2" />
             {t('jwt.help.title')}
           </h3>
-          <ul className="space-y-2 text-teal-800 text-sm list-disc list-inside">
+          <ul className="space-y-2 text-teal-600 dark:text-teal-400 text-sm list-disc list-inside">
             {[1, 2, 3, 4, 5].map(num => (
               <li key={num}>{t(`jwt.help.${num}`)}</li>
             ))}
@@ -466,7 +494,7 @@ export function JwtDecoder() {
         {/* SEO Detailed Description Section */}
         <div className="mt-12 bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('jwt.longDesc.title')}</h2>
-          <div className="prose prose-teal max-w-none text-gray-700 dark:text-gray-300 space-y-6">
+          <div className="prose prose-teal dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 space-y-6">
             <div>
               <p className="mb-4 leading-relaxed">
                 {t('jwt.longDesc.p1').split('**').map((part, i) => 
@@ -480,6 +508,12 @@ export function JwtDecoder() {
                 {t('jwt.longDesc.p3').split('**').map((part, i) => 
                   i % 2 === 1 ? <strong key={i} className="text-gray-900 dark:text-gray-100">{part}</strong> : part
                 )}
+              </p>
+              <p className="mt-4 leading-relaxed">
+                {t('jwt.longDesc.p4')}
+              </p>
+              <p className="mt-4 leading-relaxed">
+                {t('jwt.longDesc.p5')}
               </p>
             </div>
           </div>

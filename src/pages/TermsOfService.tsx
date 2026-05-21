@@ -26,7 +26,7 @@ export function TermsOfService() {
           <p className="text-gray-500 dark:text-gray-400 mt-2">{t('terms.desc')}</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-8 prose prose-gray max-w-none">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-8 prose prose-gray dark:prose-invert max-w-none">
           {t('terms.content').split('\n\n').map((paragraph, index) => (
             <p key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
               {paragraph}

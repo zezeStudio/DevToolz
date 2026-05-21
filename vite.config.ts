@@ -39,6 +39,7 @@ export default defineConfig(({mode}) => {
       Sitemap({
         hostname: 'https://www.zezelab.xyz',
         dynamicRoutes: routes,
+        outDir: path.resolve(__dirname, 'dist'),
         robots: [{ userAgent: '*', allow: '/' }]
       })
     ],

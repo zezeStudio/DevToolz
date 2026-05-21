@@ -20,7 +20,7 @@ export function AboutUs() {
       <div className="max-w-3xl mx-auto py-8 px-4">
         <div className="mb-10 text-center">
           <div className="inline-flex items-center justify-center p-3 bg-blue-100 dark:bg-blue-900/50 rounded-full mb-4">
-            <Info className="h-8 w-8 text-blue-600" />
+            <Info className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('about.title')}</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-3 text-lg leading-relaxed">{t('about.desc')}</p>
