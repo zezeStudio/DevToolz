@@ -321,6 +321,16 @@ export function ImageCompressor() {
         </ul>
       </div>
 
+      <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 md:p-6 text-sm text-blue-800 dark:text-blue-300">
+        <h3 className="font-bold flex items-center mb-2">
+          <Info className="h-5 w-5 mr-2" />
+          Tip & Disclaimer
+        </h3>
+        <p className="mb-2">
+          {t('imageCompressor.disclaimer')}
+        </p>
+      </div>
+
       {/* Long Description for SEO */}
       <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
         <h2 className="text-2xl font-bold mb-4">{t('imageCompressor.longDesc.title')}</h2>

@@ -27,6 +27,10 @@ const QrCodeGenerator = lazy(() => import('./pages/QrCodeGenerator').then(m => (
 const RegexTester = lazy(() => import('./pages/RegexTester').then(m => ({ default: m.RegexTester })));
 const DiffChecker = lazy(() => import('./pages/DiffChecker').then(m => ({ default: m.DiffChecker })));
 const ImageCompressor = lazy(() => import('./pages/ImageCompressor').then(m => ({ default: m.ImageCompressor })));
+const LlmOptimizer = lazy(() => import('./pages/LlmOptimizer').then(m => ({ default: m.LlmOptimizer })));
+const PromptWrapper = lazy(() => import('./pages/PromptWrapper').then(m => ({ default: m.PromptWrapper })));
+const ChunkingSimulator = lazy(() => import('./pages/ChunkingSimulator').then(m => ({ default: m.ChunkingSimulator })));
+const SystemPromptGenerator = lazy(() => import('./pages/SystemPromptGenerator').then(m => ({ default: m.SystemPromptGenerator })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfService })));
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
@@ -184,6 +188,26 @@ export default function App() {
                   <ImageCompressor />
                 </Suspense>
               } />
+              <Route path="llm-optimizer" element={
+                <Suspense fallback={<PageLoader />}>
+                  <LlmOptimizer />
+                </Suspense>
+              } />
+              <Route path="prompt-wrapper" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptWrapper />
+                </Suspense>
+              } />
+              <Route path="chunking-simulator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ChunkingSimulator />
+                </Suspense>
+              } />
+              <Route path="system-prompt" element={
+                <Suspense fallback={<PageLoader />}>
+                  <SystemPromptGenerator />
+                </Suspense>
+              } />
               <Route path="privacy" element={
                 <Suspense fallback={<PageLoader />}>
                   <PrivacyPolicy />
@@ -285,6 +309,26 @@ export default function App() {
               <Route path="image-compressor" element={
                 <Suspense fallback={<PageLoader />}>
                   <ImageCompressor />
+                </Suspense>
+              } />
+              <Route path="llm-optimizer" element={
+                <Suspense fallback={<PageLoader />}>
+                  <LlmOptimizer />
+                </Suspense>
+              } />
+              <Route path="prompt-wrapper" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptWrapper />
+                </Suspense>
+              } />
+              <Route path="chunking-simulator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <ChunkingSimulator />
+                </Suspense>
+              } />
+              <Route path="system-prompt" element={
+                <Suspense fallback={<PageLoader />}>
+                  <SystemPromptGenerator />
                 </Suspense>
               } />
               <Route path="privacy" element={

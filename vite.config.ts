@@ -4,8 +4,10 @@ import path from 'path';
 import {defineConfig, loadEnv} from 'vite';
 import { createRequire } from 'module';
 import Sitemap from 'vite-plugin-sitemap';
+import { fileURLToPath } from 'url';
 
 const require = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
@@ -27,6 +29,10 @@ export default defineConfig(({mode}) => {
     '/en/regex-tester', '/ko/regex-tester', '/ja/regex-tester',
     '/en/diff-checker', '/ko/diff-checker', '/ja/diff-checker',
     '/en/image-compressor', '/ko/image-compressor', '/ja/image-compressor',
+    '/en/llm-optimizer', '/ko/llm-optimizer', '/ja/llm-optimizer',
+    '/en/prompt-wrapper', '/ko/prompt-wrapper', '/ja/prompt-wrapper',
+    '/en/chunking-simulator', '/ko/chunking-simulator', '/ja/chunking-simulator',
+    '/en/system-prompt', '/ko/system-prompt', '/ja/system-prompt',
     '/en/privacy', '/ko/privacy', '/ja/privacy',
     '/en/terms', '/ko/terms', '/ja/terms',
     '/en/contact', '/ko/contact', '/ja/contact'

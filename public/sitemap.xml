@@ -66,6 +66,22 @@
   <url><loc>https://www.zezelab.xyz/ko/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.zezelab.xyz/ja/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
+  <url><loc>https://www.zezelab.xyz/en/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://www.zezelab.xyz/en/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://www.zezelab.xyz/en/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://www.zezelab.xyz/en/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ko/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.zezelab.xyz/ja/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
   <!-- 0.5 -->
   <url><loc>https://www.zezelab.xyz/privacy.html</loc><lastmod>2026-05-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.zezelab.xyz/terms-of-service.html</loc><lastmod>2026-05-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
@@ -148,9 +148,46 @@ export function Home() {
       color: 'bg-rose-500',
       category: 'design'
     },
+    {
+      name: t('nav.llmOptimizer') || 'LLM Context Optimizer',
+      description: t('llm.subtitle') || 'Combine multiple code files into a clean token-optimized Markdown format for AI.',
+      icon: Bot,
+      path: `/${currentLang}/llm-optimizer`,
+      color: 'bg-blue-600',
+      category: 'ai',
+      keywords: ['ai', 'llm', 'context', 'compressor', 'optimizer', 'gpt', 'claude']
+    },
+    {
+      name: t('nav.promptWrapper') || 'Prompt Wrapper',
+      description: t('promptWrapper.subtitle') || 'Structure your AI prompts perfectly using XML tags or Markdown to reduce hallucinations.',
+      icon: Braces,
+      path: `/${currentLang}/prompt-wrapper`,
+      color: 'bg-indigo-600',
+      category: 'ai',
+      keywords: ['ai', 'prompt', 'xml', 'markdown', 'wrapper', 'claude']
+    },
+    {
+      name: t('nav.chunkingSimulator') || 'Chunking Simulator',
+      description: t('chunking.subtitle') || 'Visualize how text is split into chunks for Vector Embeddings (RAG).',
+      icon: Layers,
+      path: `/${currentLang}/chunking-simulator`,
+      color: 'bg-rose-600',
+      category: 'ai',
+      keywords: ['ai', 'chunking', 'simulator', 'rag', 'vector', 'embedding', 'llm']
+    },
+    {
+      name: t('nav.systemPrompt') || 'System Prompt Generator',
+      description: t('systemPrompt.subtitle') || 'Create rock-solid System Prompts to force Claude, ChatGPT, or Gemini into returning strictly valid JSON.',
+      icon: Terminal,
+      path: `/${currentLang}/system-prompt`,
+      color: 'bg-amber-600',
+      category: 'ai',
+      keywords: ['ai', 'system prompt', 'json', 'generator', 'chatgpt', 'gemini']
+    },
   ];
 
   const categories = [
+    { id: 'ai', name: t('home.category.ai'), icon: Bot },
     { id: 'developer', name: t('home.category.developer'), icon: Terminal },
     { id: 'design', name: t('home.category.design'), icon: Palette },
     { id: 'text', name: t('home.category.text'), icon: FileText },
@@ -160,10 +197,12 @@ export function Home() {
   const filteredTools = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return tools;
-    return tools.filter(tool => 
-      tool.name.toLowerCase().includes(query) || 
-      tool.description.toLowerCase().includes(query)
-    );
+    return tools.filter(tool => {
+      const matchName = tool.name.toLowerCase().includes(query);
+      const matchDesc = tool.description.toLowerCase().includes(query);
+      const matchKeywords = tool.keywords?.some(kw => kw.toLowerCase().includes(query));
+      return matchName || matchDesc || matchKeywords;
+    });
   }, [searchQuery, tools]);
 
   const toolsByCategory = useMemo(() => {

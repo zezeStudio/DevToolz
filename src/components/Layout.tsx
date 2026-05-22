@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
@@ -16,23 +16,52 @@ export function Layout() {
 
   const currentLang = lang || 'en';
 
-  const navItems = [
-    { name: t('nav.home'), path: `/${currentLang}`, icon: Home },
-    { name: t('nav.json'), path: `/${currentLang}/json-formatter`, icon: Code2 },
-    { name: t('nav.password'), path: `/${currentLang}/password-generator`, icon: Key },
-    { name: t('nav.text'), path: `/${currentLang}/text-analyzer`, icon: Type },
-    { name: t('nav.base64'), path: `/${currentLang}/base64-converter`, icon: Binary },
-    { name: t('nav.url'), path: `/${currentLang}/url-encoder`, icon: LinkIcon },
-    { name: t('nav.jwt'), path: `/${currentLang}/jwt-decoder`, icon: FileJson },
-    { name: t('nav.color'), path: `/${currentLang}/color-converter`, icon: Palette },
-    { name: t('nav.markdown'), path: `/${currentLang}/markdown-editor`, icon: FileText },
-    { name: t('nav.uuid'), path: `/${currentLang}/uuid-generator`, icon: Fingerprint },
-    { name: t('nav.hash'), path: `/${currentLang}/hash-generator`, icon: Hash },
-    { name: t('nav.unix'), path: `/${currentLang}/unix-timestamp`, icon: Clock },
-    { name: t('nav.qr'), path: `/${currentLang}/qr-code`, icon: QrCode },
-    { name: t('nav.regex'), path: `/${currentLang}/regex-tester`, icon: Search },
-    { name: t('nav.diff'), path: `/${currentLang}/diff-checker`, icon: FileDiff },
-    { name: t('nav.imageCompressor'), path: `/${currentLang}/image-compressor`, icon: ImageIcon },
+  const navGroups = [
+    {
+      group: t('home.category.home') || 'Home',
+      items: [
+        { name: t('nav.home'), path: `/${currentLang}`, icon: Home }
+      ]
+    },
+    {
+      group: t('home.category.ai') || 'AI Tools',
+      items: [
+        { name: t('nav.llmOptimizer'), path: `/${currentLang}/llm-optimizer`, icon: Bot },
+        { name: t('nav.promptWrapper'), path: `/${currentLang}/prompt-wrapper`, icon: Braces },
+        { name: t('nav.chunkingSimulator'), path: `/${currentLang}/chunking-simulator`, icon: Layers },
+        { name: t('nav.systemPrompt'), path: `/${currentLang}/system-prompt`, icon: Terminal },
+      ]
+    },
+    {
+      group: t('home.category.developer') || 'Developer Tools',
+      items: [
+        { name: t('nav.json'), path: `/${currentLang}/json-formatter`, icon: Code2 },
+        { name: t('nav.base64'), path: `/${currentLang}/base64-converter`, icon: Binary },
+        { name: t('nav.url'), path: `/${currentLang}/url-encoder`, icon: LinkIcon },
+        { name: t('nav.jwt'), path: `/${currentLang}/jwt-decoder`, icon: FileJson },
+        { name: t('nav.uuid'), path: `/${currentLang}/uuid-generator`, icon: Fingerprint },
+        { name: t('nav.unix'), path: `/${currentLang}/unix-timestamp`, icon: Clock },
+        { name: t('nav.regex'), path: `/${currentLang}/regex-tester`, icon: Search },
+        { name: t('nav.diff'), path: `/${currentLang}/diff-checker`, icon: FileDiff },
+      ]
+    },
+    {
+      group: t('home.category.text') || 'Text & Formatting',
+      items: [
+        { name: t('nav.text'), path: `/${currentLang}/text-analyzer`, icon: Type },
+        { name: t('nav.markdown'), path: `/${currentLang}/markdown-editor`, icon: FileText },
+      ]
+    },
+    {
+      group: t('home.category.design') || 'Design & Security',
+      items: [
+        { name: t('nav.color'), path: `/${currentLang}/color-converter`, icon: Palette },
+        { name: t('nav.qr'), path: `/${currentLang}/qr-code`, icon: QrCode },
+        { name: t('nav.imageCompressor'), path: `/${currentLang}/image-compressor`, icon: ImageIcon },
+        { name: t('nav.password'), path: `/${currentLang}/password-generator`, icon: Key },
+        { name: t('nav.hash'), path: `/${currentLang}/hash-generator`, icon: Hash },
+      ]
+    }
   ];
 
   const handleLanguageChange = (newLang: string) => {
@@ -98,36 +127,47 @@ export function Layout() {
         {/* Sidebar Navigation */}
         <aside
           className={cn(
-            "fixed inset-y-0 left-0 z-20 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:h-[1020px] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
-            isSidebarOpen ? "translate-x-0 mt-16" : "-translate-x-full mt-16 md:mt-0"
+            "fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out md:relative md:top-0 md:h-[1400px] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           )}
         >
-          <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path || 
-                (item.path === `/${currentLang}` && (location.pathname === '/' || location.pathname === `/${currentLang}/`));
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsSidebarOpen(false)}
-                  className={cn(
-                    "group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all",
-                    isActive
-                      ? "bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-bold ring-1 ring-emerald-300 dark:ring-emerald-600 shadow-sm scale-[1.02]"
-                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
-                  )}
-                >
-                  <item.icon
-                    className={cn(
-                      "mr-3 flex-shrink-0 h-5 w-5 transition-colors",
-                      isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-300"
-                    )}
-                  />
-                  {item.name}
-                </Link>
-              );
-            })}
+          <nav className="flex-1 px-4 py-4 space-y-6 overflow-y-auto">
+            {navGroups.map((group) => (
+              <div key={group.group}>
+                {group.group !== 'Home' && group.group !== t('home.category.home') && (
+                  <h3 className="px-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                    {group.group}
+                  </h3>
+                )}
+                <div className="space-y-1">
+                  {group.items.map((item) => {
+                    const isActive = location.pathname === item.path || 
+                      (item.path === `/${currentLang}` && (location.pathname === '/' || location.pathname === `/${currentLang}/`));
+                    return (
+                      <Link
+                        key={item.name}
+                        to={item.path}
+                        onClick={() => setIsSidebarOpen(false)}
+                        className={cn(
+                          "group flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all",
+                          isActive
+                            ? "bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-bold ring-1 ring-emerald-300 dark:ring-emerald-600 shadow-sm scale-[1.02]"
+                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
+                        )}
+                      >
+                        <item.icon
+                          className={cn(
+                            "mr-3 flex-shrink-0 h-5 w-5 transition-colors",
+                            isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-300"
+                          )}
+                        />
+                        {item.name}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
         </aside>
 
@@ -149,10 +189,15 @@ export function Layout() {
 
       {/* Footer */}
       <footer className="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors duration-200">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            &copy; {new Date().getFullYear()} DevToolz. {t('footer.rights')}
-          </p>
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col space-y-2 text-center md:text-left">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              &copy; {new Date().getFullYear()} DevToolz. {t('footer.rights')}
+            </p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 max-w-xl">
+              {t('footer.disclaimer')}
+            </p>
+          </div>
           <div className="flex flex-col items-center md:items-end space-y-4">
             <div className="flex space-x-6">
               <Link to={`/${currentLang}/about`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.about')}</Link>
@@ -161,11 +206,11 @@ export function Layout() {
               <Link to={`/${currentLang}/contact`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.contact')}</Link>
             </div>
             <div className="flex space-x-4 text-xs text-slate-400 dark:text-slate-500">
-              <Link to={`/en${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">English</Link>
+              <Link to={`/en${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'en' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>English</Link>
               <span>•</span>
-              <Link to={`/ko${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">한국어</Link>
+              <Link to={`/ko${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'ko' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>한국어</Link>
               <span>•</span>
-              <Link to={`/ja${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">日本語</Link>
+              <Link to={`/ja${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'ja' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>日本語</Link>
             </div>
           </div>
         </div>
