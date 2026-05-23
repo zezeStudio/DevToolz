@@ -18,10 +18,24 @@ export function FewShotBuilder() {
   const [copied, setCopied] = useState(false);
 
   const loadSample = () => {
-    setExamples([
-      { input: "I'm feeling really sad today.", output: "Emotion: Sadness\nConfidence: High" },
-      { input: "Yay, I won the lottery!", output: "Emotion: Joy\nConfidence: High" }
-    ]);
+    const lang = i18n.language.startsWith('ko') ? 'ko' : i18n.language.startsWith('ja') ? 'ja' : 'en';
+
+    if (lang === 'ko') {
+      setExamples([
+        { input: "오늘 기분이 너무 슬퍼요.", output: "감정: 슬픔\n신뢰도: 높음" },
+        { input: "와, 나 복권 당첨됐어!", output: "감정: 기쁨\n신뢰도: 높음" }
+      ]);
+    } else if (lang === 'ja') {
+      setExamples([
+        { input: "今日はとても悲しい気分です。", output: "感情: 悲しみ\n信頼度: 高" },
+        { input: "やった、宝くじに当たった！", output: "感情: 喜び\n信頼度: 高" }
+      ]);
+    } else {
+      setExamples([
+        { input: "I'm feeling really sad today.", output: "Emotion: Sadness\nConfidence: High" },
+        { input: "Yay, I won the lottery!", output: "Emotion: Joy\nConfidence: High" }
+      ]);
+    }
   };
 
   const clearAll = () => {
@@ -77,7 +91,7 @@ export function FewShotBuilder() {
     ko: {
       title: 'Few-Shot 프롬프팅 가이드 및 주의사항',
       items: [
-        { title: "왜 Few-Shot이 강력한가?", desc: "LLM은 단순히 제로샷(Zero-Shot) 규칙을 나열하는 것보다 실제 입출력 패턴(In-Context Learning)을 직접 보여줄 때 훨씬 높은 정확도와 일관성을 보입니다." },
+        { title: "왜 Few-Shot이 강력한가?", desc: "LLM은 단순히 제로샷(Zero-Shot) 규칙을 나열하는 것보다 실제 입출력 패턴(In-Context Learning)을 직접 보여줄 때 훨씬 높은 정확도와 일관성을 보입니다. Markdown 포맷은 챗봇 맥락과 일치하도록 User와 Assistant 구조를 사용하여 컴파일합니다." },
         { title: "다양한 엣지 케이스 포함", desc: "단순히 전반적인 성공 사례(Happy Path)만 나열하지 말고, 특이한 입력이나 거절/오류를 반환해야 하는 실패 케이스에 대한 퓨샷 프롬프트(Few-Shot Prompt)도 함께 구성하세요." },
         { title: "출력 포맷의 절대적인 일관성", desc: "출력 결과가 JSON 데이터일 경우 JSON escape character strings 규칙이나 대소문자, 띄어쓰기 규격을 완벽히 유지하세요. 미세한 변동이 챗봇 응답의 파싱을 깨뜨릴 수 있습니다." },
       ]
@@ -85,7 +99,7 @@ export function FewShotBuilder() {
     en: {
       title: 'Few-Shot Prompting Best Practices & Tips',
       items: [
-        { title: "Why is Few-Shot so powerful?", desc: "LLMs perform significantly better with explicit input-output patterns (In-Context Learning) rather than just abstract zero-shot instructions or lengthy prompt engineering rules." },
+        { title: "Why is Few-Shot so powerful?", desc: "LLMs perform significantly better with explicit input-output patterns (In-Context Learning) rather than just abstract zero-shot instructions. Markdown applies the User and Assistant structure for compiled outputs to increase chat intent compliance." },
         { title: "Include diverse edge cases", desc: "Don't just provide 'happy path' examples. Crucially include edge cases, tricky prompts, or examples showing how the model should cleanly reject an invalid query." },
         { title: "Absolute output consistency", desc: "Ensure absolute consistency in JSON escape character strings, capitalization, and formatting. AI models mimic variations, which can easily break JSON parsers." },
       ]
@@ -93,7 +107,7 @@ export function FewShotBuilder() {
     ja: {
       title: 'Few-Shot プロンプティングガイドとヒント',
       items: [
-        { title: "なぜFew-Shotプロンプトは強力なのか？", desc: "LLMは、単にゼロショット(Zero-Shot)のルールを羅列するよりも、実際の入出力パターン(In-Context Learning)を直接見せる方が、はるかに高いプロンプトエンジニアリング効果を示します。" },
+        { title: "なぜFew-Shotプロンプトは強力なのか？", desc: "LLMは、単にゼロショット(Zero-Shot)のルールを羅列するよりも、実際の入出力パターン(In-Context Learning)を直接見せる方が、はるかに高いプロンプトエンジニアリング効果を示します。Markdown使用時は、指示の履行率を最大化するために、UserとAssistantという構造を使用してコンパイルされます。" },
         { title: "多様なエッジケースを含める", desc: "典型的な成功例（Happy Path）だけでなく、特殊な入力や、拒否・エラーを返すべき失敗パターンのフューショット(Few-Shot)例も含めて構成してください。" },
         { title: "出力フォーマットの絶対的な一貫性", desc: "JSONデータの場合は JSON escape character strings の規則や大文字/小文字、スペースを完全に一致させる必要があります。わずかな違いがJSONパーサーを破壊する可能性があります。" },
       ]

@@ -14,11 +14,27 @@ export function XmlGuardrailGenerator() {
   const [copied, setCopied] = useState(false);
 
   const loadSample = () => {
-    setTaskDescription('You are a helpful SQL assistant that translates natural language to SQL queries.');
-    setConstraints('1. Only reply with the SQL query.\n2. Do not use Markdown formatting unless necessary.\n3. Assume PostgreSQL dialect.');
-    setOutputFormat('SELECT * FROM users WHERE...');
-    setExampleInput('Find all users who signed up in 2023 and live in New York.');
-    setExampleOutput("SELECT id, name, email FROM users \nWHERE signup_year = 2023 \nAND city = 'New York';");
+    const lang = i18n.language.startsWith('ko') ? 'ko' : i18n.language.startsWith('ja') ? 'ja' : 'en';
+    
+    if (lang === 'ko') {
+      setTaskDescription('당신은 자연어를 SQL 쿼리로 번역하는 유용한 SQL 어시스턴트입니다.');
+      setConstraints('1. SQL 쿼리로만 응답하십시오.\n2. 필요한 경우가 아니면 마크다운 형식을 사용하지 마십시오.\n3. PostgreSQL 규칙을 가정합니다.');
+      setOutputFormat('SELECT * FROM users WHERE...');
+      setExampleInput('2023년에 가입하고 뉴욕에 거주하는 모든 사용자를 찾아주세요.');
+      setExampleOutput("SELECT id, name, email FROM users \nWHERE signup_year = 2023 \nAND city = 'New York';");
+    } else if (lang === 'ja') {
+      setTaskDescription('あなたは自然言語をSQLクエリに翻訳する便利なSQLアシスタントです。');
+      setConstraints('1. SQLクエリでのみ応答してください。\n2. 必要ない限りマークダウン形式を使用しないでください。\n3. PostgreSQLの方言を想定してください。');
+      setOutputFormat('SELECT * FROM users WHERE...');
+      setExampleInput('2023年にサインアップしてニューヨークに住んでいるすべてのユーザーを見つけてください。');
+      setExampleOutput("SELECT id, name, email FROM users \nWHERE signup_year = 2023 \nAND city = 'New York';");
+    } else {
+      setTaskDescription('You are a helpful SQL assistant that translates natural language to SQL queries.');
+      setConstraints('1. Only reply with the SQL query.\n2. Do not use Markdown formatting unless necessary.\n3. Assume PostgreSQL dialect.');
+      setOutputFormat('SELECT * FROM users WHERE...');
+      setExampleInput('Find all users who signed up in 2023 and live in New York.');
+      setExampleOutput("SELECT id, name, email FROM users \nWHERE signup_year = 2023 \nAND city = 'New York';");
+    }
   };
 
   const clearAll = () => {
@@ -75,25 +91,25 @@ ${exampleOutput}
     ko: {
       title: 'XML 가드레일 작성 가이드 및 팁',
       items: [
-        { title: "왜 JSON이나 일반 텍스트 대신 XML인가요?", desc: "Claude XML prompt structure는 모델이 지시사항의 경계를 완벽하게 인식하게 합니다. <system_prompt> 나 <rules> 처럼 명확한 태그를 사용하면 프롬프트 주입(Prompt Injection) 공격 방어에 탁월한 효과를 보이며, LLM의 In-Context Learning을 돕습니다." },
+        { title: "대칭형 Few-Shot 구조 생성", desc: "정교한 지시 제어를 위해 Input과 Output 태그가 대칭으로 생성됩니다. 이 완벽한 대칭 페어링을 통해 모델은 답변의 포맷과 톤앤매너를 훨씬 더 강력하게 모방합니다." },
+        { title: "왜 JSON이나 일반 텍스트 대신 XML인가요?", desc: "Claude XML prompt structure는 모델이 지시사항의 경계를 완벽하게 인식하게 합니다. <system_prompt> 나 <rules> 처럼 명확한 태그를 사용하면 프롬프트 주입(Prompt Injection) 공격 방어에 탁월한 효과를 보입니다." },
         { title: "CDATA 섹션의 중요성", desc: "<![CDATA[ ... ]]> 스코프는 입력 데이터 내부에 예기치 않은 JSON escape character strings나 꺾쇠(<, >)가 포함되어 있더라도 XML 파싱 에러를 일으키지 않고 원시 데이터(Raw Data)로 안전하게 보호해 줍니다." },
-        { title: "명확한 제약 사항 작성", desc: "제약 사항(Constraints)은 '~하지 마라' 보다는 '~해야 한다' 방식의 긍정문으로 작성하는 것이 모델의 혼동을 줄이는 데 유리합니다. 부정 조건은 가급적 짧고 단호하게 분리해서 명시하세요." },
       ]
     },
     en: {
       title: 'XML Guardrail Best Practices & Tips',
       items: [
-        { title: "Why use Claude XML prompt structure?", desc: "Modern LLMs, especially Claude, are heavily trained on XML structures. Using clear tags like <system_prompt> establishes strict boundaries for instructions, which improves In-Context Learning and defends against prompt injection attacks." },
+        { title: "Symmetric Few-Shot Generation", desc: "For precise instruction control, the Input and Output tags are generated symmetrically. This perfect symmetric pairing strongly encourages the model to mimic the formatting and tone of the expected output." },
+        { title: "Why use Claude XML prompt structure?", desc: "Modern LLMs, especially Claude, are heavily trained on XML structures. Using clear tags like <system_prompt> establishes strict boundaries for instructions and defends against prompt injection attacks." },
         { title: "The Importance of CDATA", desc: "The <![CDATA[ ... ]]> scope ensures that even if your input contains unescaped JSON escape character strings or brackets (<, >), they won't break the XML parsing. It safely treats the content as raw string data." },
-        { title: "Writing Clear Constraints", desc: "When defining rules for your AI prompt generator, prefer positive instructions ('Do X') over negative ones ('Do not do Y'). If a negative constraint is absolutely necessary, keep it short and strict on a dedicated line." },
       ]
     },
     ja: {
       title: 'XMLガードレール作成ガイドとヒント',
       items: [
-        { title: "なぜJSONではなくClaude XML prompt structureなのか？", desc: "Claudeなどの最新LLMはXMLタグ構造に深く晒されており、<system_prompt>のような明確なタグを使用すると、モデルがIn-Context Learningの効果を最大化させ、プロンプトインジェクション(Prompt Injection)攻撃を防御します。" },
+        { title: "対称的なFew-Shot構造の生成", desc: "精巧な指示制御のために、InputタグとOutputタグが対称に生成されます。この完全な対称ペアリングにより、モデルは回答のフォーマットとトーンをより強力に模倣します。" },
+        { title: "なぜJSONではなくClaude XML prompt structureなのか？", desc: "Claudeなどの最新LLMはXMLタグ構造に深く晒されており、<system_prompt>のような明確なタグを使用すると、モデルにIn-Context Learningの効果を最大化させ、プロンプトインジェクション(Prompt Injection)攻撃を防御します。" },
         { title: "CDATAセクションの重要性", desc: "<![CDATA[ ... ]]> スコープは、入力データ内にJSON escape character stringsや特殊文字（<, >）が含まれていても、XML解析エラーを引き起こすことなく生データ（Raw Data）として安全に保護します。" },
-        { title: "明確な制約事項の記述", desc: "LLMプロンプトジェネレータの制約事項は、「〜しないこと」よりも「〜すること」という肯定文で記述する方がモデルの混乱を減らすのに有利です。否定条件はなるべく短く断固として分離して明記してください。" },
       ]
     }
   };
