@@ -26,10 +26,17 @@ export function Layout() {
     {
       group: t('home.category.ai') || 'AI Tools',
       items: [
+        { name: t('nav.jsonTs') || 'JSON to TS', path: `/${currentLang}/json-to-ts`, icon: Bot },
+        { name: t('nav.tokenCounter') || 'Token Counter', path: `/${currentLang}/token-counter`, icon: Terminal },
         { name: t('nav.llmOptimizer'), path: `/${currentLang}/llm-optimizer`, icon: Bot },
         { name: t('nav.promptWrapper'), path: `/${currentLang}/prompt-wrapper`, icon: Braces },
         { name: t('nav.chunkingSimulator'), path: `/${currentLang}/chunking-simulator`, icon: Layers },
         { name: t('nav.systemPrompt'), path: `/${currentLang}/system-prompt`, icon: Terminal },
+        { name: t('nav.promptInjector') || 'Prompt Injector', path: `/${currentLang}/prompt-variable-injector`, icon: Terminal },
+        { name: t('nav.promptSplitter') || 'Prompt Splitter', path: `/${currentLang}/prompt-token-splitter`, icon: Layers },
+        { name: t('nav.llmPlayground') || 'LLM Playground', path: `/${currentLang}/llm-parameter-playground`, icon: Terminal },
+        { name: t('nav.xmlGuardrail') || 'XML Guardrail', path: `/${currentLang}/xml-guardrail-generator`, icon: Terminal },
+        { name: t('nav.fewShotBuilder') || 'Few-Shot Builder', path: `/${currentLang}/few-shot-builder`, icon: Terminal },
       ]
     },
     {
@@ -127,11 +134,11 @@ export function Layout() {
         {/* Sidebar Navigation */}
         <aside
           className={cn(
-            "fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out md:relative md:top-0 md:h-[1400px] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
+            "fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out md:relative md:top-0 md:h-fit md:min-h-[calc(100vh-4rem)] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
             isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           )}
         >
-          <nav className="flex-1 px-4 py-4 space-y-6 overflow-y-auto">
+          <nav className="flex-1 px-4 py-4 space-y-6 overflow-y-auto md:overflow-y-visible">
             {navGroups.map((group) => (
               <div key={group.group}>
                 {group.group !== 'Home' && group.group !== t('home.category.home') && (

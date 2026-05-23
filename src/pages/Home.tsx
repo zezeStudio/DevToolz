@@ -149,6 +149,24 @@ export function Home() {
       category: 'design'
     },
     {
+      name: t('nav.jsonTs') || 'JSON to TS Converter',
+      description: t('jsonTs.desc') || 'Convert JSON objects to TypeScript interfaces instantly. Perfect for strongly typing your AI API responses.',
+      icon: Code2,
+      path: `/${currentLang}/json-to-ts`,
+      color: 'bg-emerald-600',
+      category: 'ai',
+      keywords: ['json', 'typescript', 'ts', 'converter', 'ai', 'interface']
+    },
+    {
+      name: t('nav.tokenCounter') || 'Token Counter',
+      description: t('tokenCounter.desc') || 'Calculate API tokens for your AI prompts and estimate costs for various models.',
+      icon: Terminal,
+      path: `/${currentLang}/token-counter`,
+      color: 'bg-teal-600',
+      category: 'ai',
+      keywords: ['token', 'counter', 'ai', 'gpt', 'claude', 'gemini', 'cost']
+    },
+    {
       name: t('nav.llmOptimizer') || 'LLM Context Optimizer',
       description: t('llm.subtitle') || 'Combine multiple code files into a clean token-optimized Markdown format for AI.',
       icon: Bot,
@@ -183,6 +201,51 @@ export function Home() {
       color: 'bg-amber-600',
       category: 'ai',
       keywords: ['ai', 'system prompt', 'json', 'generator', 'chatgpt', 'gemini']
+    },
+    {
+      name: t('nav.promptInjector') || 'Prompt Variable Injector',
+      description: t('promptInjector.subtitle') || 'Dynamically inject variables into your AI prompt templates.',
+      icon: Terminal,
+      path: `/${currentLang}/prompt-variable-injector`,
+      color: 'bg-rose-500',
+      category: 'ai',
+      keywords: ['ai', 'prompt', 'template', 'injector', 'variables']
+    },
+    {
+      name: t('nav.promptSplitter') || 'Prompt Token Splitter',
+      description: t('promptSplitter.subtitle') || 'Split long texts into smaller LLM-friendly chunks.',
+      icon: Layers,
+      path: `/${currentLang}/prompt-token-splitter`,
+      color: 'bg-purple-500',
+      category: 'ai',
+      keywords: ['ai', 'prompt', 'split', 'chunk', 'tokens', 'limit']
+    },
+    {
+      name: t('nav.llmPlayground') || 'LLM Parameter Playground',
+      description: t('llmPlayground.subtitle') || 'Interactive guide to understand AI parameters.',
+      icon: Layers,
+      path: `/${currentLang}/llm-parameter-playground`,
+      color: 'bg-blue-500',
+      category: 'ai',
+      keywords: ['ai', 'llm', 'parameter', 'temperature', 'top-p', 'penalty']
+    },
+    {
+      name: t('nav.xmlGuardrail') || 'XML Guardrail Generator',
+      description: t('xmlGuardrail.subtitle') || 'Instantly generate XML system prompts.',
+      icon: Terminal,
+      path: `/${currentLang}/xml-guardrail-generator`,
+      color: 'bg-teal-500',
+      category: 'ai',
+      keywords: ['ai', 'prompt', 'xml', 'guardrail', 'system']
+    },
+    {
+      name: t('nav.fewShotBuilder') || 'Few-Shot Example Builder',
+      description: t('fewShotBuilder.subtitle') || 'Construct optimized few-shot examples.',
+      icon: Layers,
+      path: `/${currentLang}/few-shot-builder`,
+      color: 'bg-orange-500',
+      category: 'ai',
+      keywords: ['ai', 'few-shot', 'example', 'prompt', 'json', 'xml']
     },
   ];
 

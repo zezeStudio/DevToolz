@@ -1,0 +1,73 @@
+const fs = require('fs');
+let code = fs.readFileSync('src/lib/i18n.ts', 'utf-8');
+
+const koTarget = `"nav.systemPrompt": "JSON 시스템 프롬프트 생성기",`;
+const koReplacement = `"nav.systemPrompt": "JSON 시스템 프롬프트 생성기",
+      "nav.promptInjector": "프롬프트 변수 주입기",
+      "promptInjector.pageTitle": "프롬프트 변수 주입기 | DevToolz",
+      "promptInjector.title": "프롬프트 변수 주입기",
+      "promptInjector.subtitle": "AI 템플릿에 동적 변수를 주입하세요.",
+      "promptInjector.variables": "변수",
+      "promptInjector.addVar": "변수 추가",
+      "promptInjector.template": "템플릿",
+      "promptInjector.result": "결과",
+      "promptInjector.copyToast": "클립보드에 복사되었습니다!",
+      "nav.promptSplitter": "프롬프트 토큰 분할기",
+      "promptSplitter.pageTitle": "프롬프트 토큰 분할기 | DevToolz",
+      "promptSplitter.title": "프롬프트 토큰 분할기",
+      "promptSplitter.subtitle": "긴 텍스트를 LLM 친화적인 청크로 분할합니다.",
+      "promptSplitter.tokenLimit": "청크당 최대 토큰 수",
+      "promptSplitter.addPrompts": "연속 지침 추가",
+      "promptSplitter.splitBtn": "텍스트 분할",
+      "promptSplitter.copyBtn": "파트 {{part}} 복사",
+      "promptSplitter.copiedToast": "파트 {{part}} 복사됨!",
+      "nav.llmPlayground": "LLM 파라미터 플레이그라운드",
+      "llmPlayground.pageTitle": "LLM 파라미터 가이드 | DevToolz",
+      "llmPlayground.title": "LLM Parameter Playground",
+      "llmPlayground.subtitle": "Temperature, Top-P 등 AI의 답변 성향을 결정하는 파라미터를 시각적으로 이해해보세요.",
+      "nav.xmlGuardrail": "XML 가드레일 제너레이터",
+      "xmlGuardrail.pageTitle": "XML 가드레일 자동 생성기 | DevToolz",
+      "xmlGuardrail.title": "XML Guardrail Generator",
+      "xmlGuardrail.subtitle": "출력 형식과 제한 사항만 입력하면 Claude/GPT에 최적화된 XML 구조의 프롬프트 뼈대를 생성합니다.",
+      "nav.fewShotBuilder": "퓨샷 예시 빌더",
+      "fewShotBuilder.pageTitle": "퓨샷(Few-Shot) 예시 빌더 | DevToolz",
+      "fewShotBuilder.title": "Few-Shot Example Builder",
+      "fewShotBuilder.subtitle": "AI에게 더 나은 문맥을 제공하기 위한 퓨샷 예시를 구성하고 변환하세요.",`;
+code = code.replace(koTarget, koReplacement);
+
+const jaTarget = `"nav.systemPrompt": "システムプロンプトジェネレーター",`;
+const jaReplacement = `"nav.systemPrompt": "システムプロンプトジェネレーター",
+      "nav.promptInjector": "プロンプト変数インジェクター",
+      "promptInjector.pageTitle": "プロンプト変数インジェクター | DevToolz",
+      "promptInjector.title": "プロンプト変数インジェクター",
+      "promptInjector.subtitle": "AIテンプレートに動的変数を注入します。",
+      "promptInjector.variables": "変数",
+      "promptInjector.addVar": "変数を追加",
+      "promptInjector.template": "テンプレート",
+      "promptInjector.result": "結果",
+      "promptInjector.copyToast": "クリップボードにコピーされました！",
+      "nav.promptSplitter": "プロンプトトークン分割器",
+      "promptSplitter.pageTitle": "プロンプトトークン分割器 | DevToolz",
+      "promptSplitter.title": "プロンプトトークン分割器",
+      "promptSplitter.subtitle": "長いテキストをLLMに適したチャンクに分割します。",
+      "promptSplitter.tokenLimit": "チャンクあたりの最大トークン",
+      "promptSplitter.addPrompts": "継続指示を追加",
+      "promptSplitter.splitBtn": "テキストを分割",
+      "promptSplitter.copyBtn": "パート {{part}} をコピー",
+      "promptSplitter.copiedToast": "パート {{part}} がコピーされました！",
+      "nav.llmPlayground": "LLMパラメータープレイグラウンド",
+      "llmPlayground.pageTitle": "LLMパラメーターガイド | DevToolz",
+      "llmPlayground.title": "LLM Parameter Playground",
+      "llmPlayground.subtitle": "TemperatureやTop-Pなど、AIの回答傾向を決定するパラメーターを視覚的に理解します。",
+      "nav.xmlGuardrail": "XMLガードレールジェネレーター",
+      "xmlGuardrail.pageTitle": "XMLガードレール自動生成 | DevToolz",
+      "xmlGuardrail.title": "XML Guardrail Generator",
+      "xmlGuardrail.subtitle": "出力形式と制限事項を入力するだけで、Claude/GPTに最適化されたXML構造のプロンプトを生成します。",
+      "nav.fewShotBuilder": "Few-Shot ビルダー",
+      "fewShotBuilder.pageTitle": "Few-Shot サンプルビルダー | DevToolz",
+      "fewShotBuilder.title": "Few-Shot Example Builder",
+      "fewShotBuilder.subtitle": "AIに優れたコンテキストを提供するためのFew-Shotの例を構成します。",`;
+code = code.replace(jaTarget, jaReplacement);
+
+fs.writeFileSync('src/lib/i18n.ts', code);
+console.log('patched');

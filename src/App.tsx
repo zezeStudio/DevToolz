@@ -27,10 +27,17 @@ const QrCodeGenerator = lazy(() => import('./pages/QrCodeGenerator').then(m => (
 const RegexTester = lazy(() => import('./pages/RegexTester').then(m => ({ default: m.RegexTester })));
 const DiffChecker = lazy(() => import('./pages/DiffChecker').then(m => ({ default: m.DiffChecker })));
 const ImageCompressor = lazy(() => import('./pages/ImageCompressor').then(m => ({ default: m.ImageCompressor })));
+const JsonToTsConverter = lazy(() => import('./pages/JsonToTsConverter').then(m => ({ default: m.JsonToTsConverter })));
+const TokenCounter = lazy(() => import('./pages/TokenCounter').then(m => ({ default: m.TokenCounter })));
 const LlmOptimizer = lazy(() => import('./pages/LlmOptimizer').then(m => ({ default: m.LlmOptimizer })));
 const PromptWrapper = lazy(() => import('./pages/PromptWrapper').then(m => ({ default: m.PromptWrapper })));
 const ChunkingSimulator = lazy(() => import('./pages/ChunkingSimulator').then(m => ({ default: m.ChunkingSimulator })));
 const SystemPromptGenerator = lazy(() => import('./pages/SystemPromptGenerator').then(m => ({ default: m.SystemPromptGenerator })));
+const PromptVariableInjector = lazy(() => import('./pages/PromptVariableInjector').then(m => ({ default: m.PromptVariableInjector })));
+const LlmParameterPlayground = lazy(() => import('./pages/LlmParameterPlayground').then(m => ({ default: m.LlmParameterPlayground })));
+const XmlGuardrailGenerator = lazy(() => import('./pages/XmlGuardrailGenerator').then(m => ({ default: m.XmlGuardrailGenerator })));
+const FewShotBuilder = lazy(() => import('./pages/FewShotBuilder').then(m => ({ default: m.FewShotBuilder })));
+const PromptTokenSplitter = lazy(() => import('./pages/PromptTokenSplitter').then(m => ({ default: m.PromptTokenSplitter })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfService })));
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
@@ -188,6 +195,16 @@ export default function App() {
                   <ImageCompressor />
                 </Suspense>
               } />
+              <Route path="json-to-ts" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JsonToTsConverter />
+                </Suspense>
+              } />
+              <Route path="token-counter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TokenCounter />
+                </Suspense>
+              } />
               <Route path="llm-optimizer" element={
                 <Suspense fallback={<PageLoader />}>
                   <LlmOptimizer />
@@ -206,6 +223,31 @@ export default function App() {
               <Route path="system-prompt" element={
                 <Suspense fallback={<PageLoader />}>
                   <SystemPromptGenerator />
+                </Suspense>
+              } />
+              <Route path="prompt-variable-injector" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptVariableInjector />
+                </Suspense>
+              } />
+              <Route path="llm-parameter-playground" element={
+                <Suspense fallback={<PageLoader />}>
+                  <LlmParameterPlayground />
+                </Suspense>
+              } />
+              <Route path="xml-guardrail-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <XmlGuardrailGenerator />
+                </Suspense>
+              } />
+              <Route path="few-shot-builder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <FewShotBuilder />
+                </Suspense>
+              } />
+              <Route path="prompt-token-splitter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptTokenSplitter />
                 </Suspense>
               } />
               <Route path="privacy" element={
@@ -311,6 +353,16 @@ export default function App() {
                   <ImageCompressor />
                 </Suspense>
               } />
+              <Route path="json-to-ts" element={
+                <Suspense fallback={<PageLoader />}>
+                  <JsonToTsConverter />
+                </Suspense>
+              } />
+              <Route path="token-counter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <TokenCounter />
+                </Suspense>
+              } />
               <Route path="llm-optimizer" element={
                 <Suspense fallback={<PageLoader />}>
                   <LlmOptimizer />
@@ -329,6 +381,31 @@ export default function App() {
               <Route path="system-prompt" element={
                 <Suspense fallback={<PageLoader />}>
                   <SystemPromptGenerator />
+                </Suspense>
+              } />
+              <Route path="prompt-variable-injector" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptVariableInjector />
+                </Suspense>
+              } />
+              <Route path="llm-parameter-playground" element={
+                <Suspense fallback={<PageLoader />}>
+                  <LlmParameterPlayground />
+                </Suspense>
+              } />
+              <Route path="xml-guardrail-generator" element={
+                <Suspense fallback={<PageLoader />}>
+                  <XmlGuardrailGenerator />
+                </Suspense>
+              } />
+              <Route path="few-shot-builder" element={
+                <Suspense fallback={<PageLoader />}>
+                  <FewShotBuilder />
+                </Suspense>
+              } />
+              <Route path="prompt-token-splitter" element={
+                <Suspense fallback={<PageLoader />}>
+                  <PromptTokenSplitter />
                 </Suspense>
               } />
               <Route path="privacy" element={

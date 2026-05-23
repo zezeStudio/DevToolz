@@ -32,6 +32,11 @@ export default defineConfig(({mode}) => {
     '/en/llm-optimizer', '/ko/llm-optimizer', '/ja/llm-optimizer',
     '/en/prompt-wrapper', '/ko/prompt-wrapper', '/ja/prompt-wrapper',
     '/en/chunking-simulator', '/ko/chunking-simulator', '/ja/chunking-simulator',
+    '/en/prompt-variable-injector', '/ko/prompt-variable-injector', '/ja/prompt-variable-injector',
+    '/en/prompt-token-splitter', '/ko/prompt-token-splitter', '/ja/prompt-token-splitter',
+    '/en/llm-parameter-playground', '/ko/llm-parameter-playground', '/ja/llm-parameter-playground',
+    '/en/xml-guardrail-generator', '/ko/xml-guardrail-generator', '/ja/xml-guardrail-generator',
+    '/en/few-shot-builder', '/ko/few-shot-builder', '/ja/few-shot-builder',
     '/en/system-prompt', '/ko/system-prompt', '/ja/system-prompt',
     '/en/privacy', '/ko/privacy', '/ja/privacy',
     '/en/terms', '/ko/terms', '/ja/terms',
@@ -41,13 +46,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [
       react(), 
-      tailwindcss(),
-      Sitemap({
-        hostname: 'https://www.zezelab.xyz',
-        dynamicRoutes: routes,
-        outDir: path.resolve(__dirname, 'dist'),
-        robots: [{ userAgent: '*', allow: '/' }]
-      })
+      tailwindcss()
     ],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
