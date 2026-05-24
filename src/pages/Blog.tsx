@@ -39,11 +39,32 @@ export function Blog() {
       readTime: '7 min read'
     },
     {
+      id: 'jwt-security-principles',
+      title: 'JSON Web Tokens: Structure and Security Vulnerabilities',
+      excerpt: 'A deep dive into the anatomy of JWTs, the cryptography of signature validation, and common vulnerabilities like the "none" algorithm.',
+      date: '2026-05-14',
+      readTime: '8 min read'
+    },
+    {
+      id: 'understanding-base64',
+      title: 'Understanding Base64 Encoding Principles',
+      excerpt: 'Why is Base64 omnipresent in modern software development? Learn the differences between binary-to-text encoding and real encryption.',
+      date: '2026-05-12',
+      readTime: '5 min read'
+    },
+    {
       id: 'webassembly-and-local-processing',
       title: 'WebAssembly and the Rise of Local Processing',
       excerpt: 'How doing complex data processing locally in the browser (client-side) protects user privacy, reduces server costs, and boosts performance.',
       date: '2026-05-10',
       readTime: '5 min read'
+    },
+    {
+      id: 'json-parsing-strategies',
+      title: 'Advanced JSON Manipulation and Parsing',
+      excerpt: 'Strategies for handling massive, deeply nested JSON architectures across microservices without blocking the main browser thread.',
+      date: '2026-05-08',
+      readTime: '6 min read'
     },
     {
       id: 'prompt-engineering-best-practices',
@@ -53,11 +74,25 @@ export function Blog() {
       readTime: '9 min read'
     },
     {
+      id: 'uuid-version-differences',
+      title: 'Understanding UUID Versions and Collision Probabilities',
+      excerpt: 'Explore the different versions of Universally Unique Identifiers, from Version 1 MAC address exposure to Version 4 random entropy.',
+      date: '2026-05-03',
+      readTime: '4 min read'
+    },
+    {
       id: 'diff-algorithms-explained',
       title: 'How Text Diff Checkers Work under the Hood',
       excerpt: 'An introduction to the Myers diff algorithm and how modern tools compute the longest common subsequence efficiently.',
       date: '2026-05-01',
       readTime: '11 min read'
+    },
+    {
+      id: 'optimizing-web-apps',
+      title: 'Optimizing React Performance: A 2026 Guide',
+      excerpt: 'Mastering the Virtual DOM rendering cycle to eliminate redundant updates, memoization strategies, and the dawn of the React Compiler.',
+      date: '2026-04-28',
+      readTime: '7 min read'
     }
   ];
 
