@@ -172,7 +172,7 @@ export function TextAnalyzer() {
           <div className="lg:col-span-2 flex flex-col h-full min-h-[400px] lg:min-h-[600px]">
             {/* Toolbar */}
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 mb-4 shadow-sm flex flex-wrap gap-2 items-center">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-2 hidden sm:inline-block">
+              <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2 hidden sm:inline-block">
                 {t('text.tools')}
               </span>
               <button 
@@ -234,7 +234,7 @@ export function TextAnalyzer() {
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="flex-1 w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-800 dark:text-gray-200 resize-none shadow-sm text-sm sm:text-base leading-relaxed"
+              className="flex-1 w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-800 dark:text-gray-200 resize-none shadow-sm text-sm sm:text-base leading-relaxed bg-slate-50 dark:bg-black/20"
               placeholder={t('text.placeholder')}
             />
 
@@ -250,14 +250,14 @@ export function TextAnalyzer() {
                   value={findText}
                   onChange={(e) => setFindText(e.target.value)}
                   placeholder={t('text.find')}
-                  className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors bg-slate-50 dark:bg-black/20"
                 />
                 <input
                   type="text"
                   value={replaceText}
                   onChange={(e) => setReplaceText(e.target.value)}
                   placeholder={t('text.replace')}
-                  className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gray-50 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 transition-colors bg-slate-50 dark:bg-black/20"
                 />
                 <button
                   onClick={handleReplaceAll}
@@ -392,7 +392,7 @@ export function TextAnalyzer() {
               ) : (
                 <div className="flex flex-col items-center justify-center py-10 opacity-70">
                   <Search className="w-8 h-8 text-slate-300 dark:text-slate-600 mb-3" />
-                  <p className="text-sm text-slate-400 dark:text-slate-500 text-center font-medium">
+                  <p className="text-sm text-slate-400 dark:text-slate-400 text-center font-medium">
                     {t('text.noText')}
                   </p>
                 </div>

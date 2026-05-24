@@ -278,7 +278,7 @@ ${previewRef.current?.innerHTML || ''}
                 value={markdown}
                 onChange={(e) => setMarkdown(e.target.value)}
                 onScroll={handleEditorScroll}
-                className="flex-1 w-full p-4 md:p-6 resize-none focus:outline-none font-mono text-[14px] leading-relaxed text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-800"
+                className="flex-1 w-full p-4 md:p-6 resize-none focus:outline-none font-mono text-[14px] leading-relaxed text-gray-800 dark:text-gray-200 dark:bg-gray-800 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 placeholder={t('markdown.placeholder')}
                 spellCheck="false"
               />
@@ -347,7 +347,7 @@ ${previewRef.current?.innerHTML || ''}
 
         {/* Subtle Stats Footer */}
         <div className="flex justify-center items-center mt-2">
-          <div className="flex space-x-6 text-xs text-slate-400 dark:text-slate-500 font-medium">
+          <div className="flex space-x-6 text-xs text-slate-400 dark:text-slate-400 font-medium">
             <span>{wordCount} words</span>
             <span>{charCount} characters</span>
             <span>~{readingTime} min read</span>

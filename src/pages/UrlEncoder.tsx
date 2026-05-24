@@ -200,7 +200,7 @@ export function UrlEncoder() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm resize-none shadow-sm"
+              className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm resize-none shadow-sm bg-slate-50 dark:bg-black/20"
               placeholder="https://example.com/?q=hello world"
               spellCheck="false"
             />
@@ -277,22 +277,22 @@ export function UrlEncoder() {
           {parsedUrl.isEmpty ? (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 border-dashed flex flex-col justify-center opacity-70">
-                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.protocol')}</div>
-                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-500 bg-transparent rounded p-2">-</div>
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 border-dashed flex flex-col justify-center opacity-70">
+                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.protocol')}</div>
+                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-400 bg-transparent rounded p-2">-</div>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 border-dashed flex flex-col justify-center opacity-70">
-                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.host')}</div>
-                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-500 bg-transparent rounded p-2">-</div>
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 border-dashed flex flex-col justify-center opacity-70">
+                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.host')}</div>
+                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-400 bg-transparent rounded p-2">-</div>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 border-dashed flex flex-col justify-center opacity-70">
-                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.path')}</div>
-                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-500 bg-transparent rounded p-2">-</div>
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 border-dashed flex flex-col justify-center opacity-70">
+                  <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.path')}</div>
+                  <div className="font-mono text-sm font-medium text-slate-400 dark:text-slate-400 bg-transparent rounded p-2">-</div>
                 </div>
               </div>
               <div>
                 <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 border-b pb-2">{t('url.params')}</h4>
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700 border-dashed text-sm font-medium text-slate-400 dark:text-slate-500 text-center flex flex-col items-center justify-center min-h-[100px] opacity-70">
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-800 border-dashed text-sm font-medium text-slate-400 dark:text-slate-400 text-center flex flex-col items-center justify-center min-h-[100px] opacity-70">
                   <div className="text-slate-300 dark:text-slate-600 mb-2">
                     <ListTree className="w-8 h-8" />
                   </div>
@@ -303,24 +303,24 @@ export function UrlEncoder() {
           ) : parsedUrl.isValid ? (
             <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-center">
-                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.protocol')}</div>
-                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.protocol}>{parsedUrl.protocol || '-'}</div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col justify-center">
+                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.protocol')}</div>
+                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.protocol}>{parsedUrl.protocol || '-'}</div>
                   </div>
-                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-center">
-                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.host')}</div>
-                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.host}>{parsedUrl.host || '-'}</div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col justify-center">
+                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.host')}</div>
+                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.host}>{parsedUrl.host || '-'}</div>
                   </div>
-                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-center">
-                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">{t('url.path')}</div>
-                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.pathname}>{parsedUrl.pathname || '-'}</div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col justify-center">
+                    <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-1.5">{t('url.path')}</div>
+                    <div className="font-mono text-sm font-medium text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded p-2 overflow-x-auto whitespace-nowrap" title={parsedUrl.pathname}>{parsedUrl.pathname || '-'}</div>
                   </div>
                 </div>
 
                 <div>
                   <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 border-b pb-2">{t('url.params')}</h4>
                   {parsedUrl.params && parsedUrl.params.length > 0 ? (
-                    <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                    <div className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
                       <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
                         <thead className="bg-slate-50 dark:bg-slate-800/80">
                           <tr>
@@ -332,12 +332,12 @@ export function UrlEncoder() {
                           {parsedUrl.params.map((param, idx) => (
                             <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800 border-l-2 border-l-transparent hover:border-l-indigo-500 transition-colors">
                               <td className="px-4 py-3 whitespace-nowrap">
-                                <span className="bg-slate-100 dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-md text-[13px] font-medium font-mono">
+                                <span className="bg-slate-100 dark:bg-slate-700/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 px-2.5 py-1 rounded-md text-[13px] font-medium font-mono">
                                   {param.key}
                                 </span>
                               </td>
                               <td className="px-4 py-3">
-                                <div className="font-mono text-[13px] text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-md p-2">
+                                <div className="font-mono text-[13px] text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800/80 rounded-md p-2">
                                   {param.value}
                                 </div>
                               </td>

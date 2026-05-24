@@ -171,8 +171,8 @@ export function PromptTokenSplitter() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Input Section */}
           <div className="flex flex-col h-full space-y-6">
-            <div className="flex flex-col flex-1 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-              <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+            <div className="flex flex-col flex-1 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+              <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                 <span className="font-semibold text-slate-700 dark:text-slate-200">
                   Input Text
                 </span>
@@ -187,7 +187,7 @@ export function PromptTokenSplitter() {
                 <textarea
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  className="absolute inset-0 w-full h-full p-4 resize-none bg-transparent focus:outline-none focus:ring-0 text-slate-900 dark:text-slate-100 text-sm leading-relaxed"
+                  className="absolute inset-0 w-full h-full p-4 resize-none focus:outline-none focus:ring-0 text-slate-900 dark:text-slate-100 text-sm leading-relaxed bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06]"
                   placeholder="Paste your long text or code here..."
                   spellCheck={false}
                 />
@@ -195,7 +195,7 @@ export function PromptTokenSplitter() {
             </div>
 
             {/* Controls */}
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm p-5 space-y-5">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm p-5 space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   {t('promptSplitter.tokenLimit') || 'Max Tokens per Chunk'}
@@ -204,14 +204,14 @@ export function PromptTokenSplitter() {
                   <select
                     value={tokenLimit}
                     onChange={(e) => setTokenLimit(Number(e.target.value))}
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-slate-900 dark:text-white"
                   >
                     <option value={2000}>2,000 Tokens (Safe for most models)</option>
                     <option value={4000}>4,000 Tokens (Standard)</option>
                     <option value={8000}>8,000 Tokens (Large)</option>
                     <option value={15000}>15,000 Tokens (Extra Large)</option>
                   </select>
-                  <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
                 </div>
                 {currentTokenCount > 0 && currentTokenCount <= tokenLimit && (
                   <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
@@ -226,7 +226,7 @@ export function PromptTokenSplitter() {
                   id="addPrompts"
                   checked={addPrompts}
                   onChange={(e) => setAddPrompts(e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-500 dark:border-slate-600 dark:bg-slate-700"
+                  className="w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-500 dark:border-slate-700 dark:bg-slate-700"
                 />
                 <label htmlFor="addPrompts" className="text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
                   {t('promptSplitter.addPrompts') || 'Add continuation instructions'}
@@ -259,7 +259,7 @@ export function PromptTokenSplitter() {
                     setShowToast(true);
                     setTimeout(() => setShowToast(false), 3000);
                   }}
-                  className="flex items-center space-x-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-200 dark:border-slate-700"
+                  className="flex items-center space-x-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-200 dark:border-slate-800"
                 >
                   <Copy className="w-4 h-4" />
                   <span>{t('promptSplitter.copyAll') || 'Copy All Parts'}</span>
@@ -272,7 +272,7 @@ export function PromptTokenSplitter() {
                   "bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm flex flex-col",
                   splitStatus === "single_part" 
                     ? "border-2 border-emerald-500 dark:border-emerald-500/50" 
-                    : "border border-slate-200 dark:border-slate-700"
+                    : "border border-slate-200 dark:border-slate-800"
                 )}>
                   {splitStatus === "single_part" && (
                     <div className="bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2.5 text-emerald-700 dark:text-emerald-400 font-semibold text-sm border-b border-emerald-100 dark:border-emerald-900/30 flex items-center space-x-2">
@@ -284,7 +284,7 @@ export function PromptTokenSplitter() {
                     "px-4 py-3 border-b flex justify-between items-center",
                     splitStatus === "single_part"
                       ? "bg-slate-50 dark:bg-slate-900/50 border-emerald-100 dark:border-emerald-900/30"
-                      : "bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-700"
+                      : "bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800"
                   )}>
                     <span className={cn(
                       "font-medium text-sm",
@@ -317,7 +317,7 @@ export function PromptTokenSplitter() {
                 </div>
               ))
             ) : (
-              <div className="h-full bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center p-12 text-center text-slate-500 dark:text-slate-400">
+              <div className="h-full bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-800 flex flex-col items-center justify-center p-12 text-center text-slate-500 dark:text-slate-400">
                 <ListEnd className="w-12 h-12 mb-4 text-slate-300 dark:text-slate-600" />
                 <p className="text-base font-medium text-slate-700 dark:text-slate-300 mb-2">No chunks generated yet</p>
                 <p className="text-sm">Paste your text and configure the model to split it into easy-to-copy parts.</p>
@@ -327,7 +327,7 @@ export function PromptTokenSplitter() {
         </div>
 
         {/* User Guide Section */}
-        <div className="mt-12 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8 shadow-sm">
+        <div className="mt-12 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm">
           <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
             <span className="bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 p-2 rounded-lg mr-3">
               <CheckCircle2 className="w-5 h-5" />
@@ -340,7 +340,7 @@ export function PromptTokenSplitter() {
             </p>
             
             <div className="space-y-4">
-              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700/50">
+              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-800/50">
                 <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center space-x-2">
                   <span className="text-purple-600 dark:text-purple-400">1.</span>
                   <span>{t('promptSplitter.guide.1.title') || 'Token-based Intelligent Splitting'}</span>
@@ -350,7 +350,7 @@ export function PromptTokenSplitter() {
                 </p>
               </div>
 
-              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700/50">
+              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-800/50">
                 <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center space-x-2">
                   <span className="text-purple-600 dark:text-purple-400">2.</span>
                   <span>{t('promptSplitter.guide.2.title') || 'Automatic Guideline Injection'}</span>
@@ -360,7 +360,7 @@ export function PromptTokenSplitter() {
                 </p>
               </div>
 
-              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700/50">
+              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-800/50">
                 <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center space-x-2">
                   <span className="text-purple-600 dark:text-purple-400">3.</span>
                   <span>{t('promptSplitter.guide.3.title') || 'Smart UX and Copying'}</span>
@@ -374,7 +374,7 @@ export function PromptTokenSplitter() {
         </div>
       </div>
       {showToast && (
-        <div className="fixed bottom-6 right-6 max-w-sm z-50 bg-slate-900 dark:bg-slate-800 text-white p-4 rounded-xl shadow-lg border border-slate-700/50 dark:border-slate-600 font-medium text-sm animate-in slide-in-from-bottom-5 fade-in duration-300">
+        <div className="fixed bottom-6 right-6 max-w-sm z-50 bg-slate-900 dark:bg-slate-800 text-white p-4 rounded-xl shadow-lg border border-slate-700/50 dark:border-slate-700 font-medium text-sm animate-in slide-in-from-bottom-5 fade-in duration-300">
           {toastMessage}
         </div>
       )}

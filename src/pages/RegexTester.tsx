@@ -221,7 +221,7 @@ export function RegexTester() {
           <div className="flex gap-2">
             <button
               onClick={handleCopy}
-              className="flex-1 sm:flex-none flex items-center justify-center px-3 md:px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs md:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+              className="flex-1 sm:flex-none flex items-center justify-center px-3 md:px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg text-xs md:text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
               {copied ? <Check className="h-4 w-4 mr-2 text-green-500" /> : <Copy className="h-4 w-4 mr-2" />}
               {copied ? t('common.copied', 'Copied') : t('common.copy', 'Copy Regex')}
@@ -232,7 +232,7 @@ export function RegexTester() {
                 setTestText('');
                 setReplaceText('');
               }}
-              className="flex-1 sm:flex-none flex items-center justify-center px-3 md:px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs md:text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+              className="flex-1 sm:flex-none flex items-center justify-center px-3 md:px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg text-xs md:text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               {t('common.clear', 'Clear')}
@@ -243,7 +243,7 @@ export function RegexTester() {
 
       <div className="grid grid-cols-1 gap-6">
         {/* Pattern Input & Common Patterns */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
             <div className="flex items-center gap-3">
               <label className="block text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -251,7 +251,7 @@ export function RegexTester() {
               </label>
               <select
                 onChange={handlePatternChange}
-                className="text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-md px-2 py-1 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-blue-500"
+                className="text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md px-2 py-1 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-blue-500"
               >
                 {COMMON_PATTERNS.map(p => (
                   <option key={p.id} value={p.id}>
@@ -304,7 +304,7 @@ export function RegexTester() {
 
         {/* Replace Input (Only visible in Replace mode) */}
         {mode === 'replace' && (
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm">
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm">
             <label className="block text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
               {t('regex.replaceLabel')}
             </label>
@@ -312,7 +312,7 @@ export function RegexTester() {
               type="text"
               value={replaceText}
               onChange={(e) => setReplaceText(e.target.value)}
-              className="block w-full px-4 py-2.5 md:py-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-mono text-base md:text-lg bg-slate-50 dark:bg-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
+              className="block w-full px-4 py-2.5 md:py-3 border-2 border-slate-200 dark:border-white/[0.06] rounded-xl font-mono text-base md:text-lg dark:bg-black/20 dark:text-white focus:outline-none focus:border-blue-500 transition-colors bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50"
               placeholder="$1"
             />
           </div>
@@ -321,7 +321,7 @@ export function RegexTester() {
         {/* Test Text & Result Grid */}
         <div className={`grid grid-cols-1 ${mode === 'replace' ? 'lg:grid-cols-2' : ''} gap-6`}>
           {/* Test Text Input */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm flex flex-col">
             <label className="block text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
               {t('regex.testTextLabel')}
             </label>
@@ -330,7 +330,7 @@ export function RegexTester() {
                 value={testText}
                 onChange={(e) => setTestText(e.target.value)}
                 rows={mode === 'replace' ? 8 : 6}
-                className="block w-full h-full min-h-[150px] p-3 md:p-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-transparent focus:outline-none focus:border-blue-500 transition-colors resize-y relative z-10 text-transparent caret-slate-900 dark:caret-white"
+                className="block w-full h-full min-h-[150px] p-3 md:p-4 border-2 border-slate-200 dark:border-white/[0.06] rounded-xl focus:outline-none focus:border-blue-500 transition-colors resize-y relative z-10 text-transparent caret-slate-900 dark:caret-white bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50"
                 spellCheck={false}
                 style={{ lineHeight: '1.625' }}
               />
@@ -345,7 +345,7 @@ export function RegexTester() {
 
           {/* Replace Result (Only visible in Replace mode) */}
           {mode === 'replace' && (
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm flex flex-col">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm flex flex-col">
               <label className="block text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
                 {t('regex.replaceResult')}
               </label>
@@ -354,7 +354,7 @@ export function RegexTester() {
                   value={results.replacedText}
                   readOnly
                   rows={8}
-                  className="block w-full h-full min-h-[150px] p-3 md:p-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus:outline-none transition-colors resize-y"
+                  className="block w-full h-full min-h-[150px] p-3 md:p-4 border-2 border-slate-200 dark:border-white/[0.06] rounded-xl dark:bg-black/20 text-slate-900 dark:text-slate-300 focus:outline-none transition-colors resize-y dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-slate-900"
                   spellCheck={false}
                   style={{ lineHeight: '1.625' }}
                 />
@@ -364,7 +364,7 @@ export function RegexTester() {
         </div>
 
         {/* Matches Results */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
             <label className="block text-xs md:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
               {t('regex.matchesLabel')}
@@ -386,17 +386,17 @@ export function RegexTester() {
                 <div key={i} className="p-3 md:p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] md:text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">Match {i + 1}</span>
-                    <span className="text-[10px] md:text-xs text-slate-400 font-mono">{t('regex.indexLabel')}: {match.index}</span>
+                    <span className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-mono">{t('regex.indexLabel')}: {match.index}</span>
                   </div>
-                  <div className="font-mono text-sm md:text-base text-slate-900 dark:text-white break-all mb-3 bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-700">
+                  <div className="font-mono text-sm md:text-base text-slate-900 dark:text-white break-all mb-3 bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-800">
                     {match.text}
                   </div>
                   {match.groups.length > 0 && (
                     <div className="mt-3 bg-slate-100/50 dark:bg-slate-950/50 rounded-lg p-2.5 space-y-1.5 border border-slate-200/50 dark:border-slate-800/50">
                       {match.groups.map((group, gi) => (
                         <div key={gi} className="flex items-baseline font-mono text-[11px] md:text-xs">
-                          <span className="w-12 flex-shrink-0 text-slate-400 select-none">${gi + 1}</span>
-                          <span className="text-slate-700 dark:text-slate-300 break-all">{group || <span className="text-slate-400/70 italic">empty</span>}</span>
+                          <span className="w-12 flex-shrink-0 text-slate-500 dark:text-slate-400 select-none">${gi + 1}</span>
+                          <span className="text-slate-700 dark:text-slate-300 break-all">{group || <span className="text-slate-500 dark:text-slate-400/70 italic">empty</span>}</span>
                         </div>
                       ))}
                     </div>
@@ -413,7 +413,7 @@ export function RegexTester() {
         </div>
 
         {/* Cheatsheet Toggle */}
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <button 
             onClick={() => setShowCheatsheet(!showCheatsheet)}
             className="w-full flex items-center justify-between p-4 md:p-6 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:bg-slate-50 dark:focus-visible:bg-slate-700/30"
@@ -424,11 +424,11 @@ export function RegexTester() {
                 {t('regex.cheatsheet')}
               </h2>
             </div>
-            {showCheatsheet ? <ChevronUp className="h-5 w-5 text-slate-400" /> : <ChevronDown className="h-5 w-5 text-slate-400" />}
+            {showCheatsheet ? <ChevronUp className="h-5 w-5 text-slate-500 dark:text-slate-400" /> : <ChevronDown className="h-5 w-5 text-slate-500 dark:text-slate-400" />}
           </button>
           
           {showCheatsheet && (
-            <div className="p-4 md:p-6 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+            <div className="p-4 md:p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {CHEATSHEET.map((section, idx) => (
                   <div key={idx}>
@@ -438,7 +438,7 @@ export function RegexTester() {
                     <ul className="space-y-2">
                       {section.items.map((item, i) => (
                         <li key={i} className="flex items-baseline text-sm">
-                          <code className="bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-mono text-xs mr-2 min-w-[3rem] text-center">
+                          <code className="bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 font-mono text-xs mr-2 min-w-[3rem] text-center">
                             {item.syntax}
                           </code>
                           <span className="text-slate-600 dark:text-slate-300 text-xs">{item.desc}</span>
@@ -475,7 +475,7 @@ export function RegexTester() {
         </div>
 
         {/* Long Description for SEO */}
-        <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
           <h2 className="text-2xl font-bold mb-4">{t('regex.longDesc.title')}</h2>
           <p>{t('regex.longDesc.p1')}</p>
           <p>{t('regex.longDesc.p2')}</p>

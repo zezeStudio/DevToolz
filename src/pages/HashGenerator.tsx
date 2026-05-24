@@ -249,7 +249,7 @@ export function HashGenerator() {
                   value={hmacKey}
                   onChange={(e) => setHmacKey(e.target.value)}
                   placeholder={t('hash.hmacKey') || 'Secret Key'}
-                  className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-800"
+                  className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 bg-slate-50 dark:bg-black/20"
                 />
               </div>
             )}
@@ -264,7 +264,7 @@ export function HashGenerator() {
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-y bg-white dark:bg-gray-800"
+                  className="w-full h-32 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-y dark:bg-gray-800 bg-slate-50 dark:bg-black/20"
                   placeholder="Enter text to hash..."
                 />
               </div>
@@ -286,9 +286,9 @@ export function HashGenerator() {
                     type="file"
                     ref={fileInputRef}
                     onChange={handleFileChange}
-                    className="hidden"
+                    className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900"
                   />
-                  <Upload className={`h-8 w-8 mb-2 transition-colors ${isDragging ? 'text-emerald-500' : 'text-gray-400'}`} />
+                  <Upload className={`h-8 w-8 mb-2 transition-colors ${isDragging ? 'text-emerald-500' : 'text-gray-500 dark:text-gray-400'}`} />
                   <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                     {file ? file.name : (t('hash.fileDrop') || 'Click or drag & drop a file here')}
                   </p>
@@ -346,7 +346,7 @@ export function HashGenerator() {
                     </button>
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm break-all text-gray-800 dark:text-gray-200 min-h-[3.5rem] flex items-center shadow-sm">
-                    {item.value || <span className="text-slate-400 dark:text-slate-500 italic">Waiting for input...</span>}
+                    {item.value || <span className="text-slate-400 dark:text-slate-400 italic">Waiting for input...</span>}
                   </div>
                 </div>
               ))}

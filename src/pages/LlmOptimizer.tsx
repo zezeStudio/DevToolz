@@ -143,8 +143,8 @@ export function LlmOptimizer() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-[600px]">
         {/* Left Sidebar: File List */}
-        <div className="lg:col-span-1 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col gap-2">
+        <div className="lg:col-span-1 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-col gap-2">
             <div className="flex justify-between items-center mb-1">
               <span className="font-semibold text-slate-700 dark:text-slate-300">Files ({files.length})</span>
               {files.length > 0 && (
@@ -155,7 +155,7 @@ export function LlmOptimizer() {
             </div>
             
             <div className="flex gap-2">
-              <button onClick={addEmptyFile} className="flex-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs py-1.5 rounded-md flex items-center justify-center font-medium transition-colors">
+              <button onClick={addEmptyFile} className="flex-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs py-1.5 rounded-md flex items-center justify-center font-medium transition-colors">
                 <Plus className="w-3.5 h-3.5 mr-1" /> {t('common.add') || 'Add'}
               </button>
               
@@ -168,13 +168,13 @@ export function LlmOptimizer() {
               </button>
             </div>
             
-            <input type="file" multiple ref={fileInputRef} onChange={handleFileUpload} className="hidden" />
-            <input type="file" multiple ref={folderInputRef} onChange={handleFileUpload} {...({ webkitdirectory: "", directory: "" } as any)} className="hidden" />
+            <input type="file" multiple ref={fileInputRef} onChange={handleFileUpload} className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900" />
+            <input type="file" multiple ref={folderInputRef} onChange={handleFileUpload} {...({ webkitdirectory: "", directory: "" } as any)} className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900" />
           </div>
 
           <div className="flex-1 overflow-y-auto p-2 space-y-1">
             {files.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-sm text-center p-4">
+              <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-400 text-sm text-center p-4">
                 <FileCode2 className="w-8 h-8 mb-2 opacity-50" />
                 <p>{t('llm.noFiles')}</p>
                 <p className="mt-1 text-xs">{t('llm.noFilesHint')}</p>
@@ -196,7 +196,7 @@ export function LlmOptimizer() {
                   </div>
                   <button 
                     onClick={(e) => removeFile(file.id, e)}
-                    className="p-1 text-slate-400 hover:text-red-500 rounded hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                    className="p-1 text-slate-500 dark:text-slate-400 hover:text-red-500 rounded hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -207,27 +207,27 @@ export function LlmOptimizer() {
         </div>
 
         {/* Center: Editor */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden min-h-[400px]">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden min-h-[400px]">
           {selectedFile ? (
             <>
-              <div className="p-3 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex items-center">
+              <div className="p-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center">
                 <input 
                   type="text" 
                   value={selectedFile.name}
                   onChange={(e) => updateFile(selectedFile.id, { name: e.target.value })}
                   placeholder={t('llm.filePathPlaceholder') || "File path (e.g. src/App.tsx)"}
-                  className="flex-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded px-3 py-1.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono text-slate-800 dark:text-slate-200 transition-shadow"
+                  className="flex-1 dark:bg-black/20 border border-slate-300 dark:border-slate-700 rounded px-3 py-1.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono text-slate-800 dark:text-slate-200 transition-shadow bg-slate-50 dark:bg-slate-900"
                 />
               </div>
               <textarea
                 value={selectedFile.content}
                 onChange={(e) => updateFile(selectedFile.id, { content: e.target.value })}
                 placeholder={t('llm.codePlaceholder') || "Paste code or text here..."}
-                className="flex-1 w-full p-4 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-sm resize-none outline-none focus:ring-inset focus:ring-2 focus:ring-emerald-500/50"
+                className="flex-1 w-full p-4 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-sm resize-none outline-none focus:ring-inset focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06]"
               />
             </>
           ) : (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-400">
               <AlignLeft className="w-12 h-12 mb-4 opacity-30" />
               <p>{t('llm.selectFileHint')}</p>
             </div>
@@ -235,8 +235,8 @@ export function LlmOptimizer() {
         </div>
 
         {/* Right Sidebar: Output */}
-        <div className="lg:col-span-1 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden h-full min-h-[500px] lg:min-h-0">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+        <div className="lg:col-span-1 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden h-full min-h-[500px] lg:min-h-0">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
             <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">{t('llm.outputTitle')}</h3>
             <div className="text-xs text-slate-500 dark:text-slate-400 mb-4 flex justify-between">
               <span>{t('llm.filesRange', { count: files.length })}</span>
@@ -247,7 +247,7 @@ export function LlmOptimizer() {
               disabled={files.length === 0}
               className={`w-full py-2.5 rounded-lg font-medium flex items-center justify-center transition-all ${
                 files.length === 0 
-                  ? 'bg-slate-100 dark:bg-slate-700 text-slate-400 cursor-not-allowed' 
+                  ? 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed' 
                   : copied
                     ? 'bg-emerald-600 text-white shadow-sm'
                     : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 dark:bg-emerald-900/40 dark:hover:bg-emerald-900/60 dark:text-emerald-300'
@@ -256,12 +256,12 @@ export function LlmOptimizer() {
               {copied ? <><Check className="w-4 h-4 mr-2" /> {t('common.copied')}</> : <><Copy className="w-4 h-4 mr-2" /> {t('llm.copyContext')}</>}
             </button>
           </div>
-          <div className="flex-1 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 relative">
+          <div className="flex-1 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 relative">
             <textarea
               readOnly
               value={generateMarkdown()}
               placeholder={t('llm.outputPlaceholder') || "Your optimized prompt context will appear here..."}
-              className="absolute inset-4 bg-transparent resize-none outline-none font-mono text-xs text-slate-600 dark:text-slate-400"
+              className="absolute inset-4 resize-none outline-none font-mono text-xs text-slate-600 dark:text-slate-400 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900"
             />
           </div>
         </div>

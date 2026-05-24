@@ -88,7 +88,7 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col font-sans text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* Header */}
-      <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 transition-colors duration-200">
+      <header className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-none sticky top-0 z-30 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -111,7 +111,7 @@ export function Layout() {
               <select
                 value={currentLang}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                className="text-sm border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 py-1 pl-2 pr-6 transition-colors"
+                className="text-sm border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 py-1 pl-2 pr-6 transition-colors"
               >
                 <option value="en">English</option>
                 <option value="ko">한국어</option>
@@ -120,7 +120,7 @@ export function Layout() {
 
               <button
                 type="button"
-                className="md:hidden ml-2 p-2 rounded-md text-slate-400 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none"
+                className="md:hidden ml-2 p-2 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               >
                 {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -134,7 +134,7 @@ export function Layout() {
         {/* Sidebar Navigation */}
         <aside
           className={cn(
-            "fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 ease-in-out md:relative md:top-0 md:h-fit md:min-h-[calc(100vh-4rem)] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
+            "fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-800 transform transition-transform duration-200 ease-in-out md:relative md:top-0 md:h-fit md:min-h-[calc(100vh-4rem)] md:rounded-xl md:shadow-sm md:border md:mr-6 flex flex-col",
             isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           )}
         >
@@ -156,16 +156,16 @@ export function Layout() {
                         to={item.path}
                         onClick={() => setIsSidebarOpen(false)}
                         className={cn(
-                          "group flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all",
+                          "group flex items-center px-4 py-2.5 text-sm font-medium transition-all relative overflow-hidden",
                           isActive
-                            ? "bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-bold ring-1 ring-emerald-300 dark:ring-emerald-600 shadow-sm scale-[1.02]"
-                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
+                            ? "bg-emerald-50/80 dark:bg-emerald-500/[0.08] text-emerald-800 dark:text-emerald-400 font-bold border-l-[3px] border-emerald-500 dark:border-emerald-500/50 rounded-r-xl rounded-l-none shadow-[inset_1px_0_0_rgba(16,185,129,0.1)] dark:shadow-none"
+                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white rounded-xl"
                         )}
                       >
                         <item.icon
                           className={cn(
                             "mr-3 flex-shrink-0 h-5 w-5 transition-colors",
-                            isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-300"
+                            isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-400 group-hover:text-slate-500 dark:group-hover:text-slate-300"
                           )}
                         />
                         {item.name}
@@ -183,7 +183,7 @@ export function Layout() {
           {/* AdSense Auto Ads will inject here if needed. */}
 
           {/* Page Content */}
-          <div className="flex-1 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 sm:p-6 lg:p-8 transition-colors duration-200">
+          <div className="flex-1 bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-slate-200 dark:border-slate-800 p-4 sm:p-6 lg:p-8 transition-colors duration-200">
             <Outlet />
           </div>
 
@@ -195,13 +195,13 @@ export function Layout() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors duration-200">
+      <footer className="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-800 mt-auto transition-colors duration-200">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col space-y-2 text-center md:text-left">
             <p className="text-sm text-slate-500 dark:text-slate-400">
               &copy; {new Date().getFullYear()} DevToolz. {t('footer.rights')}
             </p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 max-w-xl">
+            <p className="text-xs text-slate-400 dark:text-slate-400 max-w-xl">
               {t('footer.disclaimer')}
             </p>
           </div>
@@ -212,7 +212,7 @@ export function Layout() {
               <a href="/terms-of-service.html" className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.terms')}</a>
               <Link to={`/${currentLang}/contact`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.contact')}</Link>
             </div>
-            <div className="flex space-x-4 text-xs text-slate-400 dark:text-slate-500">
+            <div className="flex space-x-4 text-xs text-slate-400 dark:text-slate-400">
               <Link to={`/en${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'en' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>English</Link>
               <span>•</span>
               <Link to={`/ko${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'ko' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>한국어</Link>

@@ -140,7 +140,7 @@ ${exampleOutput}
                 {t('xmlGuardrail.subtitle') || 'Instantly generate Claude/GPT-optimized XML system prompts.'}
               </p>
               <div className="flex items-center space-x-2">
-                <button onClick={loadSample} className="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-sm font-medium border border-slate-200 dark:border-slate-700">
+                <button onClick={loadSample} className="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-sm font-medium border border-slate-200 dark:border-slate-800">
                   <RefreshCw className="w-4 h-4" />
                   <span>{t('xmlGuardrail.loadSample') || 'Load Sample'}</span>
                 </button>
@@ -156,7 +156,7 @@ ${exampleOutput}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Editor */}
           <div className="space-y-4">
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 space-y-4">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-5 space-y-4">
               
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
@@ -166,7 +166,7 @@ ${exampleOutput}
                   value={taskDescription}
                   onChange={(e) => setTaskDescription(e.target.value)}
                   rows={2}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white leading-relaxed"
+                  className="w-full dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white leading-relaxed bg-slate-50 dark:bg-slate-900"
                   placeholder={t('xmlGuardrail.descPlaceholder') || "e.g. You are a senior software engineer reviewing code."}
                 />
               </div>
@@ -180,7 +180,7 @@ ${exampleOutput}
                   value={constraints}
                   onChange={(e) => setConstraints(e.target.value)}
                   rows={4}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed"
+                  className="w-full dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed bg-slate-50 dark:bg-slate-900"
                   placeholder={t('xmlGuardrail.constraintsPlaceholder') || "1. Do not hallucinate.\n2. Return only JSON."}
                 />
               </div>
@@ -193,7 +193,7 @@ ${exampleOutput}
                   value={outputFormat}
                   onChange={(e) => setOutputFormat(e.target.value)}
                   rows={5}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed"
+                  className="w-full dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed bg-slate-50 dark:bg-slate-900"
                   placeholder={t('xmlGuardrail.outputPlaceholder') || '{\n  "key": "value"\n}'}
                 />
               </div>
@@ -207,7 +207,7 @@ ${exampleOutput}
                   value={exampleInput}
                   onChange={(e) => setExampleInput(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed"
+                  className="w-full dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed bg-slate-50 dark:bg-slate-900"
                   placeholder={t('xmlGuardrail.examplePlaceholder') || "Insert sample user context here"}
                 />
               </div>
@@ -220,7 +220,7 @@ ${exampleOutput}
                   value={exampleOutput}
                   onChange={(e) => setExampleOutput(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed"
+                  className="w-full dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 dark:text-white font-mono leading-relaxed bg-slate-50 dark:bg-slate-900"
                   placeholder={t('xmlGuardrail.exampleOutputPlaceholder') || "e.g., { \"status\": \"error\", \"message\": \"Hardware issue\" }"}
                 />
               </div>

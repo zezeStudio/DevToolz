@@ -763,7 +763,7 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Wand2 className="w-3 h-3 mr-1" /> {t('json.group.transform')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'transform' ? null : 'transform')}
-                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'transform' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'transform' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
                   <Info className="w-3.5 h-3.5" />
                 </button>
@@ -800,7 +800,7 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Code className="w-3 h-3 mr-1" /> {t('json.group.conversion')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'conversion' ? null : 'conversion')}
-                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'conversion' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'conversion' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
                   <Info className="w-3.5 h-3.5" />
                 </button>
@@ -837,7 +837,7 @@ export function JsonFormatter() {
                 <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('json.group.tools')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'tools' ? null : 'tools')}
-                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'tools' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'tools' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
                   <Info className="w-3.5 h-3.5" />
                 </button>
@@ -909,7 +909,7 @@ export function JsonFormatter() {
                 <span className="flex items-center"><Upload className="w-3 h-3 mr-1" /> {t('json.group.data')}</span>
                 <button 
                   onClick={() => setActiveHelpGroup(activeHelpGroup === 'data' ? null : 'data')}
-                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'data' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                  className={`p-1.5 rounded-full transition-all inline-flex items-center justify-center ${activeHelpGroup === 'data' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                 >
                   <Info className="w-3.5 h-3.5" />
                 </button>
@@ -942,7 +942,7 @@ export function JsonFormatter() {
                   ref={fileInputRef}
                   onChange={handleFileUpload}
                   accept=".json,.txt"
-                  className="hidden"
+                  className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900"
                 />
               </div>
             </div>
@@ -1071,7 +1071,7 @@ export function JsonFormatter() {
                   placeholder={t('json.outputPlaceholder')}
                 />
               ) : (
-                <div className="w-full h-full p-4 overflow-auto bg-white dark:bg-gray-800">
+                <div className="w-full h-full p-4 overflow-auto dark:bg-gray-800 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]">
                   <JsonViewer data={parsedJson} />
                 </div>
               )}

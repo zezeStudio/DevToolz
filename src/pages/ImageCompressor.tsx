@@ -156,7 +156,7 @@ export function ImageCompressor() {
           className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 cursor-pointer mb-8 ${
             isDragging 
               ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20' 
-              : 'border-slate-300 dark:border-slate-700 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10'
+              : 'border-slate-300 dark:border-slate-800 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -168,9 +168,9 @@ export function ImageCompressor() {
             ref={fileInputRef} 
             onChange={(e) => e.target.files && handleFile(e.target.files[0])} 
             accept="image/*" 
-            className="hidden" 
+            className="hidden bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]" 
           />
-          <div className="bg-white dark:bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-slate-100 dark:border-slate-800">
             <Upload className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{t('imageCompressor.upload')}</h3>
@@ -180,7 +180,7 @@ export function ImageCompressor() {
       
       <div className={`space-y-6 transition-all duration-300 ${!originalFile ? 'opacity-40 grayscale pointer-events-none' : ''}`}>
           {/* Controls */}
-          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 md:p-6 shadow-sm">
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 md:p-6 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="flex-1 w-full">
                 <div className="flex items-center justify-between mb-2">
@@ -195,7 +195,7 @@ export function ImageCompressor() {
                   max="100" 
                   value={quality} 
                   onChange={(e) => setQuality(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-emerald-600"
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-emerald-600 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 />
                 <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-2">
                   <span>Smaller File</span>
@@ -225,7 +225,7 @@ export function ImageCompressor() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mb-1">{t('imageCompressor.original')} {t('imageCompressor.size')}</p>
                 <p className="text-xl font-bold text-slate-900 dark:text-white">{formatBytes(originalSize)}</p>
@@ -235,7 +235,7 @@ export function ImageCompressor() {
               </div>
             </div>
             
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mb-1">{t('imageCompressor.compressed')} {t('imageCompressor.size')}</p>
                 <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{formatBytes(compressedSize)}</p>
@@ -245,7 +245,7 @@ export function ImageCompressor() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 flex items-center justify-between">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 flex items-center justify-between">
               <div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mb-1">{t('imageCompressor.reduction')}</p>
                 <p className={`text-xl font-bold ${reductionPercentage > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
@@ -260,8 +260,8 @@ export function ImageCompressor() {
 
           {/* Image Preview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-              <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 p-3 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
+              <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-3 text-center">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('imageCompressor.original')}</span>
               </div>
               <div className="p-4 flex-1 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZTVlN2ViIj48L3JlY3Q+CjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNlNWU3ZWIiPjwvcmVjdD4KPC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMzc0MTUxIj48L3JlY3Q+CjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMzNzQxNTEiPjwvcmVjdD4KPC9zdmc+')]">
@@ -269,14 +269,14 @@ export function ImageCompressor() {
                   <img src={originalUrl} alt="Original" className="max-w-full max-h-[400px] object-contain shadow-md" referrerPolicy="no-referrer" />
                 ) : (
                   <div className="flex items-center justify-center h-full w-full opacity-20">
-                    <ImageIcon className="w-12 h-12 text-slate-400" />
+                    <ImageIcon className="w-12 h-12 text-slate-500 dark:text-slate-400" />
                   </div>
                 )}
               </div>
             </div>
             
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-              <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 p-3 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
+              <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-3 text-center">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('imageCompressor.compressed')}</span>
               </div>
               <div className="p-4 flex-1 flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZTVlN2ViIj48L3JlY3Q+CjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNlNWU3ZWIiPjwvcmVjdD4KPC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMzc0MTUxIj48L3JlY3Q+CjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMzNzQxNTEiPjwvcmVjdD4KPC9zdmc+')]">
@@ -287,7 +287,7 @@ export function ImageCompressor() {
                     {originalFile ? (
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
                     ) : (
-                      <div className="opacity-20"><ImageIcon className="w-12 h-12 text-slate-400" /></div>
+                      <div className="opacity-20"><ImageIcon className="w-12 h-12 text-slate-500 dark:text-slate-400" /></div>
                     )}
                   </div>
                 )}
@@ -332,7 +332,7 @@ export function ImageCompressor() {
       </div>
 
       {/* Long Description for SEO */}
-      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-4">{t('imageCompressor.longDesc.title')}</h2>
         <p>{t('imageCompressor.longDesc.p1')}</p>
         <p>{t('imageCompressor.longDesc.p2')}</p>

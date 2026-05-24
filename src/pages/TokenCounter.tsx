@@ -77,27 +77,27 @@ Return the feedback in a structured JSON format.`);
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden h-[400px] flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden h-[400px] flex flex-col">
             <div className="flex-1 relative">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full h-full p-4 resize-none bg-transparent focus:outline-none focus:ring-0 dark:text-slate-200 text-base"
+                className="w-full h-full p-4 resize-none focus:outline-none focus:ring-0 dark:text-slate-200 text-base bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06]"
                 placeholder={t('tokenCounter.placeholder') || "Paste your prompt or text here..."}
               />
             </div>
-            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
+            <div className="px-4 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
               <div className="flex space-x-6 text-sm">
                 <div className="flex items-center">
-                  <span className="text-slate-500 dark:text-slate-500 mr-2">Tokens:</span>
+                  <span className="text-slate-500 dark:text-slate-400 mr-2">Tokens:</span>
                   <span className="font-bold text-teal-600 dark:text-teal-400">{stats.tokens.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-slate-500 dark:text-slate-500 mr-2">Characters:</span>
+                  <span className="text-slate-500 dark:text-slate-400 mr-2">Characters:</span>
                   <span className="font-semibold text-slate-700 dark:text-slate-300">{stats.characters.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center hidden sm:flex">
-                  <span className="text-slate-500 dark:text-slate-500 mr-2">Words:</span>
+                  <span className="text-slate-500 dark:text-slate-400 mr-2">Words:</span>
                   <span className="font-semibold text-slate-700 dark:text-slate-300">{stats.words.toLocaleString()}</span>
                 </div>
               </div>
@@ -122,14 +122,14 @@ Return the feedback in a structured JSON format.`);
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-          <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
+          <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
             <h3 className="font-semibold text-slate-800 dark:text-slate-200">Cost Estimation (USD)</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">Based on Input Token pricing for 1,000 requests</p>
           </div>
           <div className="flex-1 p-0 overflow-y-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-slate-50 dark:bg-slate-900/30 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+              <thead className="bg-slate-50 dark:bg-slate-900/30 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="px-4 py-2 font-medium">Model</th>
                   <th className="px-4 py-2 font-medium text-right">Cost (1k calls)</th>
@@ -155,14 +155,14 @@ Return the feedback in a structured JSON format.`);
       </div>
       
       {/* Long Description for SEO and Guide */}
-      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-4">{t('tokenCounter.longDesc.title') || 'About Token Counter & Price Estimator'}</h2>
         
         <p>{t('tokenCounter.longDesc.p1') || 'The Token Counter & Price Estimator is a specialized local tool designed to help developers and AI enthusiasts estimate the exact token count and cost of their API requests before sending them.'}</p>
         
         <p>{t('tokenCounter.longDesc.p2') || 'Our implementation uses standard parsing algorithms (Byte Pair Encoding) locally in your browser. This means your private prompts, proprietary algorithms, and codebase snippets are never transmitted to a server for token counting—ensuring absolute data privacy and rapid feedback.'}</p>
         
-        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-5 rounded-lg my-6">
+        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-5 rounded-lg my-6">
           <h3 className="text-lg font-bold mb-3 text-slate-800 dark:text-slate-200">{t('tokenCounter.help.title') || 'How to use this tool'}</h3>
           <ul className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
             <li><strong>Step 1:</strong> {t('tokenCounter.help.1') || 'Paste your prompt, system instructions, or context string into the editor.'}</li>

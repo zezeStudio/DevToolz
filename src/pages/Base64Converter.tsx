@@ -210,7 +210,7 @@ export function Base64Converter() {
             type="file" 
             ref={fileInputRef} 
             onChange={handleFileUpload} 
-            className="hidden" 
+            className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900" 
           />
         </div>
 
@@ -240,7 +240,7 @@ export function Base64Converter() {
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-none shadow-sm min-h-[200px] lg:min-h-0 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 leading-relaxed"
+                className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-none shadow-sm min-h-[200px] lg:min-h-0 dark:bg-gray-800 text-gray-800 dark:text-gray-200 leading-relaxed bg-slate-50 dark:bg-black/20"
                 placeholder="Type or paste text/Base64 here..."
                 spellCheck="false"
               />

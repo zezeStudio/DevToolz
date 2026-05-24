@@ -64,28 +64,28 @@ export function ChunkingSimulator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <h3 className="font-semibold mb-4 text-slate-800 dark:text-slate-200">Settings</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-slate-600 dark:text-slate-400 mb-1">Unit</label>
-                <select value={mode} onChange={e => setMode(e.target.value as any)} className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900">
+                <select value={mode} onChange={e => setMode(e.target.value as any)} className="w-full p-2 border border-slate-200 dark:border-slate-800 rounded bg-slate-50 dark:bg-slate-900">
                   <option value="char">Characters</option>
                   <option value="token">Tokens (Approx, 1 = 4 chars)</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm text-slate-600 dark:text-slate-400 mb-1">Chunk Size</label>
-                <input type="number" min="10" value={chunkSize} onChange={e => setChunkSize(parseInt(e.target.value) || 10)} className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900" />
+                <input type="number" min="10" value={chunkSize} onChange={e => setChunkSize(parseInt(e.target.value) || 10)} className="w-full p-2 border border-slate-200 dark:border-white/[0.06] rounded dark:bg-black/20 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" />
               </div>
               <div>
                 <label className="block text-sm text-slate-600 dark:text-slate-400 mb-1">Overlap Size</label>
-                <input type="number" min="0" value={overlap} onChange={e => setOverlap(parseInt(e.target.value) || 0)} className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900" />
+                <input type="number" min="0" value={overlap} onChange={e => setOverlap(parseInt(e.target.value) || 0)} className="w-full p-2 border border-slate-200 dark:border-white/[0.06] rounded dark:bg-black/20 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex-1">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex-1">
             <div className="flex justify-between items-center mb-2">
               <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300">Source Text</label>
               {text && (
@@ -94,12 +94,12 @@ export function ChunkingSimulator() {
                 </button>
               )}
             </div>
-            <textarea value={text} onChange={e => setText(e.target.value)} rows={12} className="w-full h-64 p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm resize-none" placeholder="Paste long text here to simulate chunking..."></textarea>
+            <textarea value={text} onChange={e => setText(e.target.value)} rows={12} className="w-full h-64 p-3 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg text-sm resize-none bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" placeholder="Paste long text here to simulate chunking..."></textarea>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col h-full min-h-[500px]">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex justify-between">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-between">
             <h3 className="font-semibold text-slate-700 dark:text-slate-300">Chunks ({chunks.length})</h3>
           </div>
           <div className="flex-1 p-4 space-y-4 overflow-y-auto min-h-[300px] lg:min-h-0">

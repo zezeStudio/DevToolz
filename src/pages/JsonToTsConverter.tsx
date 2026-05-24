@@ -173,8 +173,8 @@ export function JsonToTsConverter() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 h-[500px]">
         {/* Input Section */}
-        <div className="flex flex-col h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-          <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+        <div className="flex flex-col h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+          <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
             <div className="flex items-center space-x-3 w-full">
               <span className="font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
                 Input JSON
@@ -184,7 +184,7 @@ export function JsonToTsConverter() {
                 placeholder="Root Interface Name (e.g. User)"
                 value={interfaceName}
                 onChange={(e) => setInterfaceName(e.target.value)}
-                className="flex-1 text-sm bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 border rounded px-2 py-1 focus:outline-none focus:border-blue-500"
+                className="flex-1 text-sm dark:bg-slate-800 border-slate-300 dark:border-slate-700 border rounded px-2 py-1 focus:outline-none focus:border-blue-500 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50"
               />
             </div>
           </div>
@@ -192,14 +192,14 @@ export function JsonToTsConverter() {
             <textarea
               value={jsonInput}
               onChange={(e) => setJsonInput(e.target.value)}
-              className="w-full h-full p-4 resize-none bg-transparent focus:outline-none focus:ring-0 dark:text-slate-200 font-mono text-sm leading-relaxed"
+              className="w-full h-full p-4 resize-none focus:outline-none focus:ring-0 dark:text-slate-200 font-mono text-sm leading-relaxed bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06]"
               placeholder={
                 '{\n  "id": 1,\n  "name": "DevToolz",\n  "features": ["conversion", "formatting"]\n}'
               }
               spellCheck={false}
             />
           </div>
-          <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex justify-end">
+          <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-end">
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleSampleData}
@@ -225,8 +225,8 @@ export function JsonToTsConverter() {
         </div>
 
         {/* Output Section */}
-        <div className="flex flex-col h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-          <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+        <div className="flex flex-col h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+          <div className="bg-slate-50 dark:bg-slate-900/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
             <span className="font-semibold text-slate-700 dark:text-slate-200">
               TypeScript Interfaces
             </span>
@@ -253,7 +253,7 @@ export function JsonToTsConverter() {
                 {tsOutput}
               </pre>
             ) : (
-              <div className="h-full flex items-center justify-center text-slate-400 dark:text-slate-500 font-mono text-sm">
+              <div className="h-full flex items-center justify-center text-slate-400 dark:text-slate-400 font-mono text-sm">
                 Generated types will appear here
               </div>
             )}
@@ -262,7 +262,7 @@ export function JsonToTsConverter() {
       </div>
 
       {/* Long Description for SEO and Guide */}
-      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-4">
           {t("jsonTs.longDesc.title") ||
             "About JSON to TypeScript Converter"}
@@ -278,7 +278,7 @@ export function JsonToTsConverter() {
             "Our implementation uses a Pure JS algorithm locally in your browser. This means your private JSON payloads, proprietary schema structures, and actual API response data are never transmitted to an external server—ensuring 100% absolute data privacy and immediate live transformation."}
         </p>
 
-        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-5 rounded-lg my-6">
+        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-5 rounded-lg my-6">
           <h3 className="text-lg font-bold mb-3 text-slate-800 dark:text-slate-200">
             {t("jsonTs.help.title") || "How to use this tool"}
           </h3>

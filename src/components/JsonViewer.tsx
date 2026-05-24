@@ -48,9 +48,9 @@ export function JsonViewer({ data, name, isLast = true }: JsonViewerProps) {
         {isEmpty && <span className="w-4" />}
         {name && <span className="text-gray-700 dark:text-gray-300">"{name}": </span>}
         <span className="text-gray-500 dark:text-gray-400">{openBracket}</span>
-        {!expanded && !isEmpty && <span className="text-gray-400 mx-1">...</span>}
+        {!expanded && !isEmpty && <span className="text-gray-500 dark:text-gray-400 mx-1">...</span>}
         {!expanded && !isEmpty && <span className="text-gray-500 dark:text-gray-400">{closeBracket}{!isLast ? ',' : ''}</span>}
-        {!expanded && isArray && <span className="text-gray-400 text-xs ml-2">{keys.length} items</span>}
+        {!expanded && isArray && <span className="text-gray-500 dark:text-gray-400 text-xs ml-2">{keys.length} items</span>}
       </div>
       
       {expanded && !isEmpty && (

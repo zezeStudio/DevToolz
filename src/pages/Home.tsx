@@ -325,18 +325,18 @@ export function Home() {
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto relative px-2 sm:px-0">
             <div className="absolute inset-y-0 left-0 pl-6 sm:pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 md:h-6 md:w-6 text-slate-400" />
+              <Search className="h-5 w-5 md:h-6 md:w-6 text-slate-500 dark:text-slate-400" />
             </div>
             <input
               ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-12 pr-20 py-3 md:py-4 border-2 border-slate-200 dark:border-slate-700 rounded-2xl leading-5 bg-white dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 text-base md:text-lg transition-all shadow-sm"
+              className="block w-full pl-12 pr-20 py-3 md:py-4 border border-slate-300/80 hover:border-slate-400/80 dark:border-white/[0.06] rounded-2xl leading-5 dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 text-base md:text-lg transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] bg-slate-50 dark:bg-black/20"
               placeholder={t('home.searchPlaceholder')}
             />
             <div className="absolute inset-y-0 right-0 pr-6 sm:pr-4 flex items-center pointer-events-none">
-              <span className="hidden sm:inline-block bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-mono text-xs font-bold px-2 py-1 rounded shadow-sm border border-slate-200 dark:border-slate-700/50">
+              <span className="hidden sm:inline-block bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 font-mono text-xs font-bold px-2 py-1 rounded shadow-sm border border-slate-200 dark:border-slate-800/50">
                 ⌘K
               </span>
             </div>
@@ -353,7 +353,7 @@ export function Home() {
               return (
                 <div key={category.id}>
                   <div className="flex items-center mb-6">
-                    <category.icon className="h-6 w-6 text-slate-400 mr-3" />
+                    <category.icon className="h-6 w-6 text-slate-500 dark:text-slate-400 mr-3" />
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{category.name}</h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -361,9 +361,9 @@ export function Home() {
                       <Link
                         key={tool.name}
                         to={tool.path}
-                        className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 pb-8 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
+                        className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 pb-8 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
                       >
-                        <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/20 mb-4 md:mb-5 w-fit shadow-sm transition-colors">
+                        <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/50 border border-slate-300/60 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/40 mb-4 md:mb-5 w-fit shadow-sm transition-colors">
                           <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
                         <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:text-emerald-400 transition-colors">
@@ -385,7 +385,7 @@ export function Home() {
         ) : (
           <div className="text-center py-20">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
-              <Search className="h-8 w-8 text-slate-400" />
+              <Search className="h-8 w-8 text-slate-500 dark:text-slate-400" />
             </div>
             <h3 className="text-xl font-medium text-slate-900 dark:text-slate-100 mb-2">{t('home.noResults')}</h3>
             <button 
@@ -398,7 +398,7 @@ export function Home() {
         )}
 
         {/* Why Choose Us Section */}
-        <div className="mt-24 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+        <div className="mt-24 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-12">{t('home.why.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="flex flex-col items-center">

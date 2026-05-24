@@ -179,7 +179,7 @@ export function JwtDecoder() {
         } else if (/true|false/.test(match)) {
           cls = 'text-emerald-600 dark:text-emerald-500 font-medium'; // boolean
         } else if (/null/.test(match)) {
-          cls = 'text-slate-400 dark:text-slate-500 italic'; // null
+          cls = 'text-slate-400 dark:text-slate-400 italic'; // null
         }
         return '<span class="' + cls + '">' + match + '</span>';
       });
@@ -237,12 +237,12 @@ export function JwtDecoder() {
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-xl w-fit mb-6 border border-slate-200 dark:border-slate-700/50">
+        <div className="flex space-x-1 bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-xl w-fit mb-6 border border-slate-200 dark:border-slate-800/50">
           <button
             onClick={() => setMode('decode')}
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               mode === 'decode' 
-                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-600' 
+                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-700' 
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
             }`}
           >
@@ -252,7 +252,7 @@ export function JwtDecoder() {
             onClick={() => setMode('encode')}
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               mode === 'encode' 
-                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-600' 
+                ? 'bg-white dark:bg-slate-700 text-teal-700 dark:text-teal-400 shadow-sm border border-slate-200 dark:border-slate-700' 
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
             }`}
           >
@@ -278,7 +278,7 @@ export function JwtDecoder() {
                 <textarea
                   value={decodeInput}
                   onChange={(e) => setDecodeInput(e.target.value)}
-                  className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 font-mono text-sm resize-none shadow-sm break-all"
+                  className="flex-1 w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 font-mono text-sm resize-none shadow-sm break-all bg-slate-50 dark:bg-black/20"
                   placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI..."
                   spellCheck="false"
                 />
@@ -289,7 +289,7 @@ export function JwtDecoder() {
                   type="text"
                   value={decodeSecret}
                   onChange={(e) => setDecodeSecret(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 font-mono text-sm shadow-sm"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 font-mono text-sm shadow-sm bg-slate-50 dark:bg-black/20"
                   placeholder="Secret Key (Optional)"
                 />
               </div>
@@ -354,9 +354,9 @@ export function JwtDecoder() {
               ) : (
                 <div className="flex flex-col h-full space-y-4 opacity-70">
                   {/* Header Placeholder */}
-                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col overflow-hidden h-32">
-                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
-                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.headerLabel')}</label>
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800 border-dashed rounded-xl flex flex-col overflow-hidden h-32">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-400 text-sm">{t('jwt.headerLabel')}</label>
                     </div>
                     <div className="p-4 flex items-center justify-center h-full">
                        <span className="text-slate-300 dark:text-slate-600 font-mono text-sm">{"{ ... }"}</span>
@@ -364,20 +364,20 @@ export function JwtDecoder() {
                   </div>
 
                   {/* Payload Placeholder */}
-                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col flex-1 overflow-hidden min-h-[150px]">
-                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
-                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.payloadLabel')}</label>
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800 border-dashed rounded-xl flex flex-col flex-1 overflow-hidden min-h-[150px]">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-400 text-sm">{t('jwt.payloadLabel')}</label>
                     </div>
                     <div className="p-4 flex flex-col items-center justify-center flex-1">
-                      <FileJson className="h-10 w-10 mb-3 text-slate-400 dark:text-slate-500" />
+                      <FileJson className="h-10 w-10 mb-3 text-slate-400 dark:text-slate-400" />
                       <p className="text-slate-600 dark:text-slate-400 font-medium text-sm">{t('jwt.pasteToDecode')}</p>
                     </div>
                   </div>
 
                   {/* Signature Placeholder */}
-                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700 border-dashed rounded-xl flex flex-col overflow-hidden h-24">
-                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 border-dashed">
-                      <label className="font-semibold text-slate-400 dark:text-slate-500 text-sm">{t('jwt.signatureLabel')}</label>
+                  <div className="bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800 border-dashed rounded-xl flex flex-col overflow-hidden h-24">
+                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-800 border-dashed">
+                      <label className="font-semibold text-slate-400 dark:text-slate-400 text-sm">{t('jwt.signatureLabel')}</label>
                     </div>
                     <div className="p-4 flex items-center justify-center h-full">
                        <span className="text-slate-300 dark:text-slate-600 font-mono text-xs truncate">********************</span>
@@ -411,7 +411,7 @@ export function JwtDecoder() {
                 <textarea
                   value={encodeHeader}
                   onChange={(e) => setEncodeHeader(e.target.value)}
-                  className="flex-1 w-full p-4 border border-red-200 dark:border-red-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-none shadow-sm text-red-900 bg-red-50 dark:bg-red-900/30"
+                  className="flex-1 w-full p-4 border border-red-200 dark:border-red-800 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm resize-none shadow-sm text-red-900 dark:bg-red-900/30 bg-slate-50 dark:bg-black/20"
                   spellCheck="false"
                 />
               </div>
@@ -430,7 +430,7 @@ export function JwtDecoder() {
                 <textarea
                   value={encodePayload}
                   onChange={(e) => setEncodePayload(e.target.value)}
-                  className="flex-1 w-full p-4 border border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono text-sm resize-none shadow-sm text-purple-900 bg-purple-50/30 dark:bg-purple-900/30"
+                  className="flex-1 w-full p-4 border border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-mono text-sm resize-none shadow-sm text-purple-900 dark:bg-purple-900/30 bg-slate-50 dark:bg-black/20"
                   spellCheck="false"
                 />
               </div>
@@ -440,7 +440,7 @@ export function JwtDecoder() {
                   type="text"
                   value={encodeSecret}
                   onChange={(e) => setEncodeSecret(e.target.value)}
-                  className="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm shadow-sm text-blue-900 bg-blue-50 dark:bg-blue-900/30"
+                  className="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm shadow-sm text-blue-900 dark:bg-blue-900/30 bg-slate-50 dark:bg-black/20"
                   placeholder="your-256-bit-secret"
                 />
               </div>

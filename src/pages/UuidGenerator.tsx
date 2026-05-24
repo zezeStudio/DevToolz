@@ -129,7 +129,7 @@ export function UuidGenerator() {
                   max="1000"
                   value={count}
                   onChange={(e) => setCount(Math.min(1000, Math.max(1, parseInt(e.target.value) || 1)))}
-                  className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-800"
+                  className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 bg-slate-50 dark:bg-black/20"
                 />
               </div>
               
@@ -161,7 +161,7 @@ export function UuidGenerator() {
                       value={namespace}
                       onChange={(e) => setNamespace(e.target.value)}
                       placeholder="e.g., 6ba7b810-9dad-11d1-80b4-00c04fd430c8"
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-800"
+                      className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 bg-slate-50 dark:bg-black/20"
                     />
                   </div>
                   <div>
@@ -173,7 +173,7 @@ export function UuidGenerator() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g., example.com"
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-800"
+                      className="w-full px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 bg-slate-50 dark:bg-black/20"
                     />
                   </div>
                 </>
@@ -268,7 +268,7 @@ export function UuidGenerator() {
                         <span className="font-mono text-sm text-gray-800 dark:text-gray-200">{uuid}</span>
                         <button
                           onClick={() => copyToClipboard(uuid, index)}
-                          className="text-gray-400 hover:text-emerald-600 focus:outline-none ml-4 transition-colors"
+                          className="text-gray-500 dark:text-gray-400 hover:text-emerald-600 focus:outline-none ml-4 transition-colors"
                           title="Copy"
                         >
                           {copiedIndex === index ? <Check className="h-5 w-5 text-green-500" /> : <Copy className="h-5 w-5" />}
@@ -302,7 +302,7 @@ export function UuidGenerator() {
                   decodeUuid(e.target.value);
                 }}
                 placeholder="e.g., 123e4567-e89b-12d3-a456-426614174000"
-                className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono bg-white dark:bg-gray-800 text-sm"
+                className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono dark:bg-gray-800 text-sm bg-slate-50 dark:bg-black/20"
               />
             </div>
             

@@ -238,7 +238,7 @@ export function LlmParameterPlayground() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
           {/* Controls */}
           <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm p-6 space-y-6">
+            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm p-6 space-y-6">
               
               {/* Topic Selector */}
               <div>
@@ -246,7 +246,7 @@ export function LlmParameterPlayground() {
                   {t('llmPlayground.topic') || 'Sample Prompt Topic'}
                 </label>
                 <select 
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value as any)}
                 >
@@ -256,7 +256,7 @@ export function LlmParameterPlayground() {
                 </select>
               </div>
 
-              <hr className="border-slate-100 dark:border-slate-700" />
+              <hr className="border-slate-100 dark:border-slate-800" />
 
               {/* Temperature */}
               <div>
@@ -268,7 +268,7 @@ export function LlmParameterPlayground() {
                 <input 
                   type="range" min="0" max="2" step="0.05" 
                   value={temperature} onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                  className="w-full accent-blue-600"
+                  className="w-full accent-blue-600 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-1">
                   <span>Deterministic</span>
@@ -286,7 +286,7 @@ export function LlmParameterPlayground() {
                 <input 
                   type="range" min="0" max="1" step="0.05" 
                   value={topP} onChange={(e) => setTopP(parseFloat(e.target.value))}
-                  className="w-full accent-blue-600"
+                  className="w-full accent-blue-600 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-1">
                   <span>Narrow Vocab</span>
@@ -304,7 +304,7 @@ export function LlmParameterPlayground() {
                 <input 
                   type="range" min="-2" max="2" step="0.1" 
                   value={freqPenalty} onChange={(e) => setFreqPenalty(parseFloat(e.target.value))}
-                  className="w-full accent-blue-600"
+                  className="w-full accent-blue-600 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-1">
                   <span>Allows Repetition</span>
@@ -322,7 +322,7 @@ export function LlmParameterPlayground() {
                 <input 
                   type="range" min="-2" max="2" step="0.1" 
                   value={presPenalty} onChange={(e) => setPresPenalty(parseFloat(e.target.value))}
-                  className="w-full accent-blue-600"
+                  className="w-full accent-blue-600 bg-slate-50 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06]"
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-1">
                   <span>Sticks to Topic</span>
@@ -334,14 +334,14 @@ export function LlmParameterPlayground() {
 
           {/* Visualization */}
           <div className="space-y-6">
-            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 h-full flex flex-col justify-between">
+            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 h-full flex flex-col justify-between">
               
               <div>
                 <div className="flex items-center space-x-2 text-slate-700 dark:text-slate-300 mb-4 font-semibold">
                   <Sparkles className="w-5 h-5 text-amber-500" />
                   <span>{t('llmPlayground.simulatedOutput') || 'Simulated Sample Output'}</span>
                 </div>
-                <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-slate-800 dark:text-slate-200 shadow-sm min-h-[120px] text-lg font-medium leading-relaxed italic whitespace-pre-wrap">
+                <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg p-4 text-slate-800 dark:text-slate-200 shadow-sm min-h-[120px] text-lg font-medium leading-relaxed italic whitespace-pre-wrap">
                   "{getSimulatedText()}"
                 </div>
               </div>

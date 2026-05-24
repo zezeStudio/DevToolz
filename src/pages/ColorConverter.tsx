@@ -360,7 +360,7 @@ export function ColorConverter() {
                   min="0" max="1" step="0.01" 
                   value={alpha} 
                   onChange={handleAlphaChange}
-                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                  className="w-full h-2 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-emerald-500 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900"
                 />
               </div>
             </div>
@@ -379,11 +379,11 @@ export function ColorConverter() {
                       handleColorChange(e.target.value);
                     }}
                     onBlur={() => addToHistory(color.toHex())}
-                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100 bg-slate-50 dark:bg-black/20"
                   />
                   <button 
                     onClick={() => copyToClipboard(color.toHex(), 'hex')} 
-                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
                     title={t('color.copy')}
                   >
                     {copiedStates['hex'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -403,11 +403,11 @@ export function ColorConverter() {
                       handleColorChange(e.target.value);
                     }}
                     onBlur={() => addToHistory(color.toHex())}
-                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100 bg-slate-50 dark:bg-black/20"
                   />
                   <button 
                     onClick={() => copyToClipboard(color.toRgbString(), 'rgb')} 
-                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
                     title={t('color.copy')}
                   >
                     {copiedStates['rgb'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -427,11 +427,11 @@ export function ColorConverter() {
                       handleColorChange(e.target.value);
                     }}
                     onBlur={() => addToHistory(color.toHex())}
-                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100 bg-slate-50 dark:bg-black/20"
                   />
                   <button 
                     onClick={() => copyToClipboard(color.toHslString(), 'hsl')} 
-                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
                     title={t('color.copy')}
                   >
                     {copiedStates['hsl'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -450,11 +450,11 @@ export function ColorConverter() {
                       setCmykInput(e.target.value);
                       handleColorChange(e.target.value);
                     }}
-                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100"
+                    className="w-full py-1.5 pl-3 pr-8 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-500 dark:bg-gray-900/50 rounded-lg focus:ring-1 focus:border-emerald-500 focus:ring-emerald-500 font-mono text-sm transition-all focus:outline-none text-gray-900 dark:text-gray-100 bg-slate-50 dark:bg-black/20"
                   />
                   <button 
                     onClick={() => copyToClipboard(color.toCmykString(), 'cmyk')} 
-                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/20 flex items-center justify-center"
                     title={t('color.copy')}
                   >
                     {copiedStates['cmyk'] ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -500,7 +500,7 @@ export function ColorConverter() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {history.length === 0 ? (
-                  <p className="text-sm text-gray-400 italic">No history yet.</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">No history yet.</p>
                 ) : (
                   history.map((h, i) => (
                     <div 
@@ -528,7 +528,7 @@ export function ColorConverter() {
                 </h3>
                 <button 
                   onClick={() => setShowContrastInfo(!showContrastInfo)}
-                  className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 hover:text-gray-600 dark:text-gray-400'}`}
+                  className={`p-1.5 rounded-full transition-colors ${showContrastInfo ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 hover:text-gray-600 dark:text-gray-400'}`}
                   title="What do these scores mean?"
                 >
                   <HelpCircle className="w-4 h-4" />
@@ -641,7 +641,7 @@ export function ColorConverter() {
                   ref={fileInputRef} 
                   onChange={handleImageUpload} 
                   accept="image/*" 
-                  className="hidden" 
+                  className="hidden dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 border border-slate-200 dark:border-white/[0.06] bg-slate-50 dark:bg-slate-900" 
                 />
                 
                 {uploadedImage ? (
@@ -656,7 +656,7 @@ export function ColorConverter() {
                   </div>
                 ) : (
                   <div>
-                    <UploadCloud className={`w-8 h-8 mx-auto mb-3 transition-colors ${isDragging ? 'text-emerald-500' : 'text-gray-400'}`} />
+                    <UploadCloud className={`w-8 h-8 mx-auto mb-3 transition-colors ${isDragging ? 'text-emerald-500' : 'text-gray-500 dark:text-gray-400'}`} />
                     <p className={`text-sm font-medium ${isDragging ? 'text-emerald-600' : 'text-gray-600 dark:text-gray-400'}`}>
                       {isExtracting ? t('color.image.extracting') : t('color.image.drop')}
                     </p>

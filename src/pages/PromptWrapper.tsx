@@ -95,7 +95,7 @@ export function UserList({ users }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Format</label>
             <div className="flex gap-4">
               <label className="flex items-center space-x-2">
@@ -109,24 +109,24 @@ export function UserList({ users }) {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">System Role (Optional)</label>
-            <textarea value={system} onChange={e => setSystem(e.target.value)} rows={3} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm" placeholder="e.g. You are an expert software engineer..."></textarea>
+            <textarea value={system} onChange={e => setSystem(e.target.value)} rows={3} className="w-full p-3 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg text-sm bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" placeholder="e.g. You are an expert software engineer..."></textarea>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Instructions / Prompt</label>
-            <textarea value={prompt} onChange={e => setPrompt(e.target.value)} rows={4} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm" placeholder="What should the AI do?"></textarea>
+            <textarea value={prompt} onChange={e => setPrompt(e.target.value)} rows={4} className="w-full p-3 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg text-sm bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" placeholder="What should the AI do?"></textarea>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Code / Context</label>
-            <textarea value={context} onChange={e => setContext(e.target.value)} rows={6} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg font-mono text-sm" placeholder="Paste your source code or reference data here..."></textarea>
+            <textarea value={context} onChange={e => setContext(e.target.value)} rows={6} className="w-full p-3 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg font-mono text-sm bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" placeholder="Paste your source code or reference data here..."></textarea>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col h-full min-h-[500px]">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
             <h3 className="font-semibold text-slate-700 dark:text-slate-300">Wrapped Output</h3>
             <div className="flex gap-2">
               <button onClick={handleClear} className="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700/50 dark:text-slate-300 rounded text-sm font-medium flex items-center transition-colors">
@@ -138,7 +138,7 @@ export function UserList({ users }) {
             </div>
           </div>
           <div className="flex-1 p-4 relative">
-            <textarea readOnly value={generateOutput()} className="absolute inset-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 font-mono text-sm text-slate-700 dark:text-slate-300 outline-none resize-none" placeholder="Result will appear here..."></textarea>
+            <textarea readOnly value={generateOutput()} className="absolute inset-4 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-4 font-mono text-sm text-slate-700 dark:text-slate-300 outline-none resize-none dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-slate-900" placeholder="Result will appear here..."></textarea>
           </div>
         </div>
       </div>

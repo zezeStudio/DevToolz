@@ -63,7 +63,7 @@ export function DiffChecker() {
       </div>
 
       {/* Professional Toolbar */}
-      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         
         {/* Settings Group */}
         <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 sm:gap-6 w-full lg:w-auto">
@@ -118,14 +118,14 @@ export function DiffChecker() {
         <div className="flex gap-2 w-full lg:w-auto mt-2 lg:mt-0">
           <button
             onClick={handleSwap}
-            className="flex-1 lg:flex-none flex items-center justify-center px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
+            className="flex-1 lg:flex-none flex items-center justify-center px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
           >
             <ArrowLeftRight className="h-3.5 w-3.5 mr-2" />
             {t('diff.swap')}
           </button>
           <button
             onClick={handleClear}
-            className="flex-1 lg:flex-none flex items-center justify-center px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors whitespace-nowrap"
+            className="flex-1 lg:flex-none flex items-center justify-center px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors whitespace-nowrap"
           >
             <Trash2 className="h-3.5 w-3.5 mr-2" />
             {t('diff.clear')}
@@ -143,7 +143,7 @@ export function DiffChecker() {
             value={originalText}
             onChange={(e) => setOriginalText(e.target.value)}
             rows={8}
-            className="block w-full p-4 border border-slate-200 dark:border-slate-700 rounded-xl font-mono text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors resize-y shadow-sm custom-scrollbar"
+            className="block w-full p-4 border border-slate-200 dark:border-white/[0.06] rounded-xl font-mono text-sm dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors resize-y shadow-sm custom-scrollbar bg-slate-50 dark:bg-black/20"
             spellCheck={false}
             placeholder="Paste original text here..."
           />
@@ -157,7 +157,7 @@ export function DiffChecker() {
             value={modifiedText}
             onChange={(e) => setModifiedText(e.target.value)}
             rows={8}
-            className="block w-full p-4 border border-slate-200 dark:border-slate-700 rounded-xl font-mono text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors resize-y shadow-sm custom-scrollbar"
+            className="block w-full p-4 border border-slate-200 dark:border-white/[0.06] rounded-xl font-mono text-sm dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors resize-y shadow-sm custom-scrollbar bg-slate-50 dark:bg-black/20"
             spellCheck={false}
             placeholder="Paste modified text here..."
           />
@@ -165,8 +165,8 @@ export function DiffChecker() {
       </div>
 
       {/* Professional Diff Viewer */}
-      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden mb-8">
-        <div className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 p-3 flex flex-wrap items-center justify-between gap-y-2">
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-8">
+        <div className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 p-3 flex flex-wrap items-center justify-between gap-y-2">
           <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider ml-1">
             {t('diff.results')}
           </span>
@@ -190,7 +190,7 @@ export function DiffChecker() {
           [&_pre]:!whitespace-pre-wrap [&_pre]:!break-words [&_pre]:!overflow-wrap-anywhere [&_pre]:!break-all
         " style={{ WebkitOverflowScrolling: 'touch' }}>
           {(!originalText && !modifiedText) ? (
-            <div className="text-center py-20 text-slate-400 dark:text-slate-500 flex flex-col items-center justify-center h-full min-h-[400px]">
+            <div className="text-center py-20 text-slate-400 dark:text-slate-400 flex flex-col items-center justify-center h-full min-h-[400px]">
               <Columns className="h-12 w-12 mx-auto mb-4 opacity-20" />
               <p>Enter text above to see the differences.</p>
             </div>
@@ -278,7 +278,7 @@ export function DiffChecker() {
       </div>
 
       {/* Long Description for SEO */}
-      <div className="prose dark:prose-invert max-w-none p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+      <div className="prose dark:prose-invert max-w-none p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-4">{t('diff.longDesc.title')}</h2>
         <p>{t('diff.longDesc.p1')}</p>
         <p>{t('diff.longDesc.p2')}</p>

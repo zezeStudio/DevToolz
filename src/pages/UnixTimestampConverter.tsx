@@ -239,7 +239,7 @@ export function UnixTimestampConverter() {
                         value={inputTimestamp}
                         onChange={(e) => setInputTimestamp(e.target.value)}
                         placeholder="e.g. 1713000000 or 2024-04-13T00:00:00Z"
-                        className="w-full h-11 px-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono"
+                        className="w-full h-11 px-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono bg-slate-50 dark:bg-black/20"
                       />
                       <button
                         onClick={handleTimestampToDate}
@@ -296,7 +296,7 @@ export function UnixTimestampConverter() {
                         </div>
                       </>
                     ) : (
-                      <div className="h-full flex items-center justify-center text-gray-400 italic text-sm">
+                      <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400 italic text-sm">
                         Enter a timestamp to see the date
                       </div>
                     )}
@@ -315,7 +315,7 @@ export function UnixTimestampConverter() {
                         step="1"
                         value={inputDate}
                         onChange={(e) => setInputDate(e.target.value)}
-                        className="w-full h-11 px-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
+                        className="w-full h-11 px-4 text-sm border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-slate-50 dark:bg-black/20"
                       />
                       <button
                         onClick={handleDateToTimestamp}
@@ -357,7 +357,7 @@ export function UnixTimestampConverter() {
                         </div>
                       </>
                     ) : (
-                      <div className="flex items-center justify-center text-gray-400 italic text-sm">
+                      <div className="flex items-center justify-center text-gray-500 dark:text-gray-400 italic text-sm">
                         Select a date to see the timestamp
                       </div>
                     )}
@@ -373,7 +373,7 @@ export function UnixTimestampConverter() {
                   <textarea
                     value={batchInput}
                     onChange={(e) => setBatchInput(e.target.value)}
-                    className="w-full h-40 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-y"
+                    className="w-full h-40 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-1 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 font-mono text-sm resize-y bg-slate-50 dark:bg-black/20"
                     placeholder="1713000000&#10;2024-04-13T00:00:00Z&#10;1713000000000"
                   />
                 </div>
@@ -401,7 +401,7 @@ export function UnixTimestampConverter() {
                     <textarea
                       readOnly
                       value={batchResults}
-                      className="w-full h-40 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl font-mono text-sm resize-y text-gray-800 dark:text-gray-200"
+                      className="w-full h-40 px-4 py-3 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl font-mono text-sm resize-y text-gray-800 dark:text-gray-200 dark:bg-black/20 focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-slate-900"
                     />
                   </div>
                 )}

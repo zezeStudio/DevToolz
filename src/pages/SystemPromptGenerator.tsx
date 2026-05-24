@@ -96,12 +96,12 @@ Ensure that your output is properly formatted JSON that can be parsed by JSON.pa
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <label className="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">{t('systemPrompt.role') || 'AI Role / Objective'}</label>
-            <textarea value={role} onChange={e => setRole(e.target.value)} rows={3} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm" placeholder={t('systemPrompt.rolePlaceholder') || "e.g. Extract user information from the input text..."}></textarea>
+            <textarea value={role} onChange={e => setRole(e.target.value)} rows={3} className="w-full p-3 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg text-sm bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" placeholder={t('systemPrompt.rolePlaceholder') || "e.g. Extract user information from the input text..."}></textarea>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
             <div className="flex justify-between items-center mb-4">
               <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('systemPrompt.schema') || 'JSON Output Schema'}</label>
               <button onClick={addField} className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2 py-1 rounded flex items-center">
@@ -111,16 +111,16 @@ Ensure that your output is properly formatted JSON that can be parsed by JSON.pa
             <div className="space-y-3">
               {fields.map((f, i) => (
                 <div key={i} className="flex gap-2 items-start">
-                  <input type="text" value={f.key} onChange={e => updateField(i, { key: e.target.value })} placeholder={t('systemPrompt.keyName') || "Key name"} className="w-1/4 p-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded" />
-                  <select value={f.type} onChange={e => updateField(i, { type: e.target.value })} className="w-1/4 p-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded">
+                  <input type="text" value={f.key} onChange={e => updateField(i, { key: e.target.value })} placeholder={t('systemPrompt.keyName') || "Key name"} className="w-1/4 p-2 text-sm dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" />
+                  <select value={f.type} onChange={e => updateField(i, { type: e.target.value })} className="w-1/4 p-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded">
                     <option value="string">string</option>
                     <option value="number">number</option>
                     <option value="boolean">boolean</option>
                     <option value="array">array</option>
                     <option value="object">object</option>
                   </select>
-                  <input type="text" value={f.description} onChange={e => updateField(i, { description: e.target.value })} placeholder={t('systemPrompt.description') || "Description"} className="w-1/2 p-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded" />
-                  <button onClick={() => removeField(i)} className="p-2 text-slate-400 hover:text-red-500 rounded bg-slate-100 dark:bg-slate-800">
+                  <input type="text" value={f.description} onChange={e => updateField(i, { description: e.target.value })} placeholder={t('systemPrompt.description') || "Description"} className="w-1/2 p-2 text-sm dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50" />
+                  <button onClick={() => removeField(i)} className="p-2 text-slate-500 dark:text-slate-400 hover:text-red-500 rounded bg-slate-100 dark:bg-slate-800">
                     <Trash className="w-4 h-4" />
                   </button>
                 </div>
@@ -129,8 +129,8 @@ Ensure that your output is properly formatted JSON that can be parsed by JSON.pa
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col h-full min-h-[500px]">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col h-full min-h-[500px]">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
             <h3 className="font-semibold text-slate-700 dark:text-slate-300">{t('systemPrompt.generated') || 'Generated System Prompt'}</h3>
             <div className="flex gap-2">
               <button onClick={handleClear} className="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700/50 dark:text-slate-300 rounded text-sm font-medium flex items-center transition-colors">
@@ -142,7 +142,7 @@ Ensure that your output is properly formatted JSON that can be parsed by JSON.pa
             </div>
           </div>
           <div className="flex-1 p-4 relative">
-            <textarea readOnly value={generatePrompt()} className="absolute inset-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 font-mono text-sm text-slate-800 dark:text-slate-200 outline-none resize-none" placeholder={t('systemPrompt.resultPlaceholder') || "Result will appear here..."}></textarea>
+            <textarea readOnly value={generatePrompt()} className="absolute inset-4 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06] rounded-lg p-4 font-mono text-sm text-slate-800 dark:text-slate-200 outline-none resize-none dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-slate-900" placeholder={t('systemPrompt.resultPlaceholder') || "Result will appear here..."}></textarea>
           </div>
         </div>
       </div>
