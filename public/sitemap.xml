@@ -1,104 +1,969 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 1.0 -->
-  <url><loc>https://www.zezelab.xyz/en</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja</loc><lastmod>2026-04-12</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  
-  <!-- 0.8 -->
-  <url><loc>https://www.zezelab.xyz/en/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/json-formatter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/password-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/text-analyzer</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/base64-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/url-encoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/jwt-decoder</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/color-converter</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/markdown-editor</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/uuid-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/hash-generator</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/unix-timestamp</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/qr-code</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/regex-tester</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/diff-checker</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/image-compressor</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <url><loc>https://www.zezelab.xyz/en/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/llm-optimizer</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <url><loc>https://www.zezelab.xyz/en/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/prompt-wrapper</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <url><loc>https://www.zezelab.xyz/en/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/chunking-simulator</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <url><loc>https://www.zezelab.xyz/en/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/system-prompt</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-
-  <!-- 0.5 -->
-  <url><loc>https://www.zezelab.xyz/privacy.html</loc><lastmod>2026-05-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/terms-of-service.html</loc><lastmod>2026-05-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/en/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/about</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/privacy</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/terms</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  
-  <url><loc>https://www.zezelab.xyz/en/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ko/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.zezelab.xyz/ja/contact</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.zezelab.xyz/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-formatter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-formatter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/json-formatter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-formatter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-formatter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/password-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/password-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/password-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/password-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/password-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/text-analyzer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/text-analyzer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/text-analyzer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/text-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/text-analyzer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/base64-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/base64-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/base64-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/base64-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/base64-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/url-encoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/url-encoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/url-encoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/url-encoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/url-encoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/jwt-decoder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/jwt-decoder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/jwt-decoder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/color-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/color-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/color-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/color-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/color-converter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/markdown-editor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/markdown-editor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/markdown-editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/markdown-editor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/markdown-editor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/uuid-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/uuid-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/uuid-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/uuid-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/uuid-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/hash-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/hash-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/hash-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/hash-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/hash-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/unix-timestamp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/unix-timestamp"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/unix-timestamp"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/qr-code"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/qr-code"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/qr-code</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/qr-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/qr-code"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/regex-tester"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/regex-tester"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/regex-tester</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/regex-tester"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/regex-tester"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/diff-checker"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/diff-checker"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/diff-checker</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/diff-checker"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/diff-checker"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/image-compressor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/image-compressor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/image-compressor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/image-compressor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/image-compressor"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/json-to-ts</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-to-ts"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/json-to-ts</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-to-ts"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/json-to-ts</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/json-to-ts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/json-to-ts"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/token-counter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/token-counter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/token-counter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/token-counter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/token-counter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/token-counter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/token-counter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/llm-optimizer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/llm-optimizer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/llm-optimizer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-optimizer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-optimizer"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/prompt-wrapper</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/prompt-wrapper</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/prompt-wrapper</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-wrapper"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-wrapper"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/chunking-simulator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/chunking-simulator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/chunking-simulator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/chunking-simulator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/chunking-simulator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/prompt-variable-injector</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/prompt-variable-injector</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/prompt-variable-injector</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-variable-injector"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-variable-injector"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/prompt-token-splitter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/prompt-token-splitter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/prompt-token-splitter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/prompt-token-splitter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/prompt-token-splitter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/llm-parameter-playground</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/llm-parameter-playground</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/llm-parameter-playground</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/llm-parameter-playground"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/llm-parameter-playground"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/xml-guardrail-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/xml-guardrail-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/xml-guardrail-generator</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/xml-guardrail-generator"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/xml-guardrail-generator"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/few-shot-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/few-shot-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/few-shot-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/few-shot-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/few-shot-builder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/system-prompt</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/system-prompt"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/system-prompt</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/system-prompt"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/system-prompt</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/system-prompt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/system-prompt"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/terms"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/terms"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/terms"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/contact"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/contact"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/contact"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/about"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/about"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/about"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/why-typescript-interfaces-matter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/why-typescript-interfaces-matter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/why-typescript-interfaces-matter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/why-typescript-interfaces-matter"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/regex-mastery-for-developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/regex-mastery-for-developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/regex-mastery-for-developers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-mastery-for-developers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-mastery-for-developers"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/secure-password-generation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/secure-password-generation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/secure-password-generation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/secure-password-generation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/secure-password-generation"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/jwt-security-principles</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/jwt-security-principles</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/jwt-security-principles</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/jwt-security-principles"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/jwt-security-principles"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/understanding-base64</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/understanding-base64</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/understanding-base64</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-base64"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-base64"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/webassembly-and-local-processing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/webassembly-and-local-processing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/webassembly-and-local-processing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/webassembly-and-local-processing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/webassembly-and-local-processing"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/json-parsing-strategies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/json-parsing-strategies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/json-parsing-strategies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/json-parsing-strategies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/json-parsing-strategies"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/prompt-engineering-best-practices</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/prompt-engineering-best-practices</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/prompt-engineering-best-practices"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/prompt-engineering-best-practices"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/uuid-version-differences</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/uuid-version-differences</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/uuid-version-differences</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/uuid-version-differences"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/uuid-version-differences"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/diff-algorithms-explained</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/diff-algorithms-explained</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/diff-algorithms-explained</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/diff-algorithms-explained"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/diff-algorithms-explained"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/optimizing-web-apps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/optimizing-web-apps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/optimizing-web-apps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/optimizing-web-apps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/optimizing-web-apps"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/regex-performance-backtracking</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/regex-performance-backtracking</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/regex-performance-backtracking</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/regex-performance-backtracking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/regex-performance-backtracking"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/understanding-unix-epoch</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/understanding-unix-epoch</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/understanding-unix-epoch</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/understanding-unix-epoch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/understanding-unix-epoch"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/blog/the-math-behind-qr-codes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/blog/the-math-behind-qr-codes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/blog/the-math-behind-qr-codes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/en/blog/the-math-behind-qr-codes"/>
+  </url>
 </urlset>
