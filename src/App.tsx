@@ -114,7 +114,7 @@ function PrerenderEvent() {
 export default function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme="system" storageKey="devtoolz-theme">
+      <ThemeProvider defaultTheme="light" storageKey="devtoolz-theme">
         <BrowserRouter>
           <PrerenderEvent />
           <Routes>

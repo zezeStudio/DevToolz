@@ -22,20 +22,36 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'system',
+  defaultTheme = 'light',
   storageKey = 'vite-ui-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    const stored = localStorage.getItem(storageKey);
+    if (stored === 'dark') return 'dark';
+    if (stored === 'light') return 'light';
+    return defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove('light', 'dark');
+    const css = document.createElement('style');
+    css.type = 'text/css';
+    css.appendChild(
+      document.createTextNode(
+        `* {
+           -webkit-transition: none !important;
+           -moz-transition: none !important;
+           -o-transition: none !important;
+           -ms-transition: none !important;
+           transition: none !important;
+         }`
+      )
+    );
+    document.head.appendChild(css);
 
-    console.log('Current theme:', theme);
+    root.classList.remove('light', 'dark');
 
     if (theme === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
@@ -44,10 +60,13 @@ export function ThemeProvider({
         : 'light';
 
       root.classList.add(systemTheme);
-      return;
+    } else {
+      root.classList.add(theme);
     }
 
-    root.classList.add(theme);
+    setTimeout(() => {
+      document.head.removeChild(css);
+    }, 1);
   }, [theme]);
 
   const value = {
