@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, Calendar, Clock, User } from 'lucide-react';
+import { blogArticles } from './blogData';
 
 export function BlogPost() {
   const { lang = 'en', id } = useParams();
@@ -9,6 +10,10 @@ export function BlogPost() {
   // A generic mock article content designed to satisfy AdSense content length and quality requirements.
   // In a real app we'd fetch this from a CMS or local MDX files.
   const getArticleContent = (postId: string) => {
+    if (blogArticles[postId]) {
+      return blogArticles[postId];
+    }
+    
     // Generate ~1500+ characters of substantial SEO text.
     return (
       <div className="prose prose-slate dark:prose-invert max-w-none">

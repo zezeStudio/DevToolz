@@ -264,26 +264,25 @@ export function JsonToTsConverter() {
       {/* Long Description for SEO and Guide */}
       <div className="prose dark:prose-invert max-w-none mt-12 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
         <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
-          {t("jsonTs.longDesc.title") ||
-            "Why TypeScript Interfaces Matter for Modern Web Development"}
+          {t("jsonTs.seo.title")}
         </h2>
 
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
-          When constructing robust, scalable web applications, the integrity of your data objects is paramount. A common point of failure occurs at the boundary between the client application and external REST or GraphQL APIs. APIs traditionally return dynamically typed JSON payloads, which lack inherent structural guarantees when parsed in JavaScript. By explicitly mapping these dynamic JSON payloads into strictly typed TypeScript interfaces, developers can significantly reduce runtime errors, improve editor autocompletion (IntelliSense), and guarantee contract stability across the engineering team.
+          {t("jsonTs.seo.p1")}
         </p>
 
         <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
-          Designing Stable API Types
+          {t("jsonTs.seo.h2")}
         </h3>
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
-          Manually writing TypeScript interfaces for complex, deeply nested JSON responses is a tedious and error-prone process. It requires painstakingly inspecting the JSON tree and manually typing out nested object arrays. Our JSON to TS Converter automates this workflow entirely. By utilizing a recursive parsing algorithm mapping over key-value structures, this tool instantly breaks down complex entity relationships—extracting nested objects into distinct, perfectly named child interfaces. This ensures your TypeScript declarations remain DRY (Don't Repeat Yourself) and highly maintainable. For example, a single massive 'User' profile JSON containing embedded 'Address' and 'Preferences' objects will be neatly separated into `interface User`, `interface Address`, and `interface Preferences`.
+          {t("jsonTs.seo.p2")}
         </p>
         
         <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
-          Zero Data Storage: Client-Side Security Guarantee
+          {t("jsonTs.seo.h3")}
         </h3>
         <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-          Security and Privacy are the core tenets of DevToolz. Often, the JSON payloads you need to type-check contain highly sensitive, proprietary business logic, or personally identifiable user data (PII). Transmitting this data over the network to external third-party servers for simple text manipulation poses a severe security risk. This utility performs the entire lexing and type generation process using the computational power of your local browser JavaScript engine. Absolutely zero data is uploaded, intercepted, or logged, meaning your proprietary API shapes remain strictly confidential.
+          {t("jsonTs.seo.p3")}
         </p>
 
         <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-6 rounded-xl my-6">

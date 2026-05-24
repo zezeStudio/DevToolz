@@ -16,7 +16,7 @@ export function Blog() {
   const { t } = useTranslation();
   const { lang = 'en' } = useParams();
 
-  const posts: BlogPostType[] = [
+    const posts: BlogPostType[] = [
     {
       id: 'why-typescript-interfaces-matter',
       title: 'Why TypeScript Interfaces Matter for API Stability',
@@ -25,67 +25,39 @@ export function Blog() {
       readTime: '6 min read'
     },
     {
-      id: 'optimizing-react-performance-in-2026',
-      title: 'Optimizing React Performance: A 2026 Guide',
-      excerpt: 'Discover the latest techniques for keeping your React applications fast and responsive, including concurrent rendering best practices and memoization strategies.',
-      date: '2026-05-18',
-      readTime: '8 min read'
-    },
-    {
-      id: 'understanding-base64-encoding',
-      title: 'The Mechanics of Base64 Encoding Demystified',
-      excerpt: 'Base64 is everywhere, from email attachments to data URIs. Take a deep dive into how it works under the hood and when you should (or shouldn\'t) use it.',
-      date: '2026-05-15',
-      readTime: '5 min read'
-    },
-    {
       id: 'regex-mastery-for-developers',
       title: 'Regular Expressions: From Novice to Ninja',
       excerpt: 'Stop copying Regex from StackOverflow. Learn the fundamental syntax and concepts to write your own robust patterns for data validation and parsing.',
-      date: '2026-05-10',
-      readTime: '10 min read'
+      date: '2026-05-18',
+      readTime: '8 min read'
     },
     {
       id: 'secure-password-generation',
       title: 'The Cryptography Behind Secure Password Generators',
       excerpt: 'An exploration of Web Crypto APIs, entropy, and why relying on Math.random() is a dangerous practice for generating sensitive secrets.',
-      date: '2026-05-05',
+      date: '2026-05-15',
       readTime: '7 min read'
     },
     {
-      id: 'mastering-json-manipulation',
-      title: 'Advanced JSON Manipulation Techniques',
-      excerpt: 'Beyond JSON.parse and stringify. Explore streaming parsers, JSONPath, and efficient ways to handle massive JSON datasets in the browser.',
-      date: '2026-05-01',
-      readTime: '6 min read'
+      id: 'webassembly-and-local-processing',
+      title: 'WebAssembly and the Rise of Local Processing',
+      excerpt: 'How doing complex data processing locally in the browser (client-side) protects user privacy, reduces server costs, and boosts performance.',
+      date: '2026-05-10',
+      readTime: '5 min read'
     },
     {
       id: 'prompt-engineering-best-practices',
       title: 'Prompt Engineering: Structuring LLM Inputs',
       excerpt: 'How to structure system and user prompts to get reliable, deterministic JSON outputs from language models in production environments.',
-      date: '2026-04-25',
+      date: '2026-05-05',
       readTime: '9 min read'
-    },
-    {
-      id: 'client-side-privacy',
-      title: 'Privacy-First Web Development',
-      excerpt: 'How doing complex data processing locally in the browser (client-side) protects user privacy and reduces server costs.',
-      date: '2026-04-20',
-      readTime: '5 min read'
     },
     {
       id: 'diff-algorithms-explained',
       title: 'How Text Diff Checkers Work under the Hood',
       excerpt: 'An introduction to the Myers diff algorithm and how modern tools compute the longest common subsequence efficiently.',
-      date: '2026-04-15',
+      date: '2026-05-01',
       readTime: '11 min read'
-    },
-    {
-      id: 'future-of-web-tools',
-      title: 'The Future of Developer Productivity Tools',
-      excerpt: 'How AI-assisted code generation and hyper-specialized local utilities are reshaping the daily workflow of software engineers.',
-      date: '2026-04-10',
-      readTime: '6 min read'
     }
   ];
 
