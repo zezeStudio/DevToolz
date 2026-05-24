@@ -2,15 +2,23 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, Calendar, Clock, User } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { blogArticles } from './blogData';
+import { blogArticlesKo } from './blogDataKo';
+import { blogArticlesJa } from './blogDataJa';
 
 export function BlogPost() {
   const { lang = 'en', id } = useParams();
+  const { t } = useTranslation();
 
   // A generic mock article content designed to satisfy AdSense content length and quality requirements.
   // In a real app we'd fetch this from a CMS or local MDX files.
   const getArticleContent = (postId: string) => {
-    if (blogArticles[postId]) {
+    if (lang === 'ko' && blogArticlesKo[postId]) {
+      return blogArticlesKo[postId];
+    } else if (lang === 'ja' && blogArticlesJa[postId]) {
+      return blogArticlesJa[postId];
+    } else if (blogArticles[postId]) {
       return blogArticles[postId];
     }
     
@@ -47,13 +55,32 @@ export function BlogPost() {
     );
   };
 
-  const formattedId = (id || '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+  const titleMapping: Record<string, string> = {
+    'why-typescript-interfaces-matter': 'blog.why-default.title',
+    'regex-mastery-for-developers': 'blog.regex.title',
+    'secure-password-generation': 'blog.crypto.title',
+    'jwt-security-principles': 'blog.jwt.title',
+    'understanding-base64': 'blog.base64.title',
+    'webassembly-and-local-processing': 'blog.wasm.title',
+    'json-parsing-strategies': 'blog.json.title',
+    'prompt-engineering-best-practices': 'blog.prompt.title',
+    'uuid-version-differences': 'blog.uuid.title',
+    'diff-algorithms-explained': 'blog.diff.title',
+    'optimizing-web-apps': 'blog.react.title',
+    'regex-performance-backtracking': 'blog.backtrack.title',
+    'understanding-unix-epoch': 'blog.unix.title',
+    'the-math-behind-qr-codes': 'blog.qr.title',
+  };
+
+  const rawFormattedId = (id || '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const displayTitle = id && titleMapping[id] ? t(titleMapping[id]) : rawFormattedId;
 
   return (
     <div className="max-w-4xl mx-auto py-8">
       <Helmet>
-        <title>{formattedId} | DevToolz Tech Blog</title>
-        <meta name="description" content={`An in-depth technical article exploring ${formattedId} and its implications for modern web development, performance, and security.`} />
+        <title>{displayTitle} | DevToolz Tech Blog</title>
+        <meta name="description" content={`An in-depth technical article exploring ${displayTitle} and its implications for modern web development.`} />
       </Helmet>
 
       <div className="mb-8">
@@ -62,11 +89,11 @@ export function BlogPost() {
           className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors mb-6"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          Back to all articles
+          {t('footer.blog')}
         </Link>
         
         <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
-          {formattedId}
+          {displayTitle}
         </h1>
         
         <div className="flex flex-wrap items-center text-sm text-slate-500 dark:text-slate-400 space-x-4">

@@ -337,5 +337,81 @@ export const blogArticles: Record<string, React.ReactNode> = {
         As the React ecosystem matures in 2026, manual memoization is increasingly being deprecated in favor of the automated React Compiler. By analyzing the AST (Abstract Syntax Tree) during the build step, the compiler is capable of intelligently injecting memoization logic behind the scenes, allowing engineers to focus entirely on feature velocity rather than micro-managing render limits.
       </p>
     </div>
+  ),
+
+  'regex-performance-backtracking': (
+    <div>
+      <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">Regex Performance: The Dangers of Catastrophic Backtracking</h1>
+      <p className="text-lg text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
+        Regular Expressions (Regex) are an incredibly powerful tool for pattern matching and text extraction. However, poorly written regex patterns can suffer from a phenomenon known as "Catastrophic Backtracking," which can lock up the CPU, freeze the browser tab, or cause Denial of Service (ReDoS) attacks on backend servers.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">How the Regex Engine Works</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Standard Regex engines (like the one built into JavaScript) are Non-Deterministic Finite Automata (NFA). When evaluating a string against a pattern, the engine attempts to match characters greedily. If a path fails later in the string, the engine "backtracks" to a previous state and tries alternative paths. In normal scenarios, this takes fractions of a millisecond.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">The Catastrophic Trigger</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Catastrophic backtracking occurs when a regex pattern contains repeating groups of repeating characters, combined with a failing suffix. A classic example is <code>^(a+)+$</code> being evaluated against a string like <code>aaaaaaaaaaaaaaaaaaaaaaaaX</code>. The engine will greedily match all the 'a's, but fail at 'X'. It will then backtrack, split the matching patterns in mathematically exponential combinations, and retry. Evaluated mechanically, a 20-character string can trigger billions of internal path checks, completely halting the event loop.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">Prevention Strategies</h2>
+      <ol className="list-decimal pl-6 space-y-4 text-slate-700 dark:text-slate-300 mb-6">
+        <li><strong>Avoid Nested Quantifiers:</strong> Never put a quantifier (+ or *) directly inside a group that is also quantified.</li>
+        <li><strong>Use Possessive Quantifiers if available:</strong> While JS does not support possessive quantifiers natively, you can emulate them or use atomic groups in robust server-side processing to disable backtracking for certain chunks.</li>
+        <li><strong>Implement Character Exclusions:</strong> Instead of matching everything explicitly with greedy wildcards like <code>.*</code>, be explicit: <code>[^"]*</code> limits the engine to only matching characters that are not quotes, drastically reducing ambiguous paths.</li>
+      </ol>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Always run your patterns through a robust Regex Sandbox that executes client-side to verify logic before pushing it into a production environment where it might process thousands of user inputs.
+      </p>
+    </div>
+  ),
+
+  'understanding-unix-epoch': (
+    <div>
+      <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">The Unix Epoch: Time Computations in Systems Engineering</h1>
+      <p className="text-lg text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
+        Time is notoriously one of the most difficult concepts to model correctly in software engineering due to leap years, leap seconds, daylight saving transitions, and geopolitical timezone shifts. The standard solution across virtually all modern computing systems is the Unix Epoch Timestamp.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">What is the Epoch?</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        A Unix Timestamp is fundamentally simple: it is the total number of physical seconds that have elapsed since midnight Coordinated Universal Time (UTC) on January 1, 1970. It completely ignores time zones, completely ignores formatting, and ignores geographical anomalies. Because it is a single, continuously incrementing integer, computers can calculate durations identically and trivially via simple arithmetic subtraction.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">The Year 2038 Problem (Y2K38)</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Historically, Unix timestamps were stored as 32-bit signed integers. The maximum value of a 32-bit signed integer is 2,147,483,647. At exactly 03:14:07 UTC on January 19, 2038, the number of elapsed seconds since the epoch will exceed this mathematical limit. In older legacy systems, calculating time past this point forces an integer overflow, wrapping the value into the negative realm. This would cause critical systems to believe the year actually shifted back to December 1901.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">Modern Solutions</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        Fortunately, modern 64-bit operating systems and processors resolve the Y2K38 issue gracefully. A 64-bit signed integer expands the maximum timestamp limit exponentially, capable of representing accurate timestamps for over 292 billion years. When transferring APIs, developers often use Millisecond precision (a 13-digit integer) generated by <code>Date.now()</code>. Ensuring your serialization protocols are upgraded to handle 64-bit bounds is critical as 2038 approaches.
+      </p>
+    </div>
+  ),
+
+  'the-math-behind-qr-codes': (
+    <div>
+      <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">The Anatomy & Mathematics of Quick Response (QR) Codes</h1>
+      <p className="text-lg text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
+        Initially invented in 1994 by Denso Wave to track automotive parts through manufacturing lines, the Quick Response (QR) code has evolved into a global standard for friction-free data transfer. What appears as randomized black-and-white static is actually an incredibly resilient two-dimensional topological structure designed to combat real-world degradation.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">Structural Patterns</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        A QR code guarantees readability by relying on explicitly defined structural anchoring points. The three prominent squares located in the corners are called <strong>Finder Patterns</strong>; they allow the optical scanner to detect orientation and dimensional depth immediately. Smaller isolated squares act as <strong>Alignment Patterns</strong>, correcting any optical warp or perspective skew if the image is printed on a curved surface like a bottle or bent poster.
+      </p>
+
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">Reed-Solomon Error Correction</h2>
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        The true brilliance of the QR Code specification is its built-in Error Correction logic, rooted in the Reed-Solomon mathematical algorithm. By systematically generating polynomial checksum blocks of the encoded string and dispersing them across the visual matrix, a QR code incorporates mathematical redundancy.
+      </p>
+      
+      <p className="mb-4 text-slate-700 dark:text-slate-300">
+        This means you can physically obscure or destroy up to 30% of a high-level QR code graphic—due to dirt, damage, or placing a central company logo directly over the pixels—and scanners will still computationally recover the complete original string payload without losing a single character.
+      </p>
+    </div>
   )
 };

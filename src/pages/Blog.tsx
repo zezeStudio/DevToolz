@@ -19,80 +19,101 @@ export function Blog() {
     const posts: BlogPostType[] = [
     {
       id: 'why-typescript-interfaces-matter',
-      title: 'Why TypeScript Interfaces Matter for API Stability',
-      excerpt: 'Learn how enforcing strict type definitions with TypeScript interfaces can prevent runtime crashes and improve team collaboration when consuming REST APIs.',
+      title: t('blog.why-default.title'),
+      excerpt: t('blog.why-default.excerpt'),
       date: '2026-05-20',
       readTime: '6 min read'
     },
     {
       id: 'regex-mastery-for-developers',
-      title: 'Regular Expressions: From Novice to Ninja',
-      excerpt: 'Stop copying Regex from StackOverflow. Learn the fundamental syntax and concepts to write your own robust patterns for data validation and parsing.',
+      title: t('blog.regex.title'),
+      excerpt: t('blog.regex.excerpt'),
       date: '2026-05-18',
       readTime: '8 min read'
     },
     {
       id: 'secure-password-generation',
-      title: 'The Cryptography Behind Secure Password Generators',
-      excerpt: 'An exploration of Web Crypto APIs, entropy, and why relying on Math.random() is a dangerous practice for generating sensitive secrets.',
+      title: t('blog.crypto.title'),
+      excerpt: t('blog.crypto.excerpt'),
       date: '2026-05-15',
       readTime: '7 min read'
     },
     {
       id: 'jwt-security-principles',
-      title: 'JSON Web Tokens: Structure and Security Vulnerabilities',
-      excerpt: 'A deep dive into the anatomy of JWTs, the cryptography of signature validation, and common vulnerabilities like the "none" algorithm.',
+      title: t('blog.jwt.title'),
+      excerpt: t('blog.jwt.excerpt'),
       date: '2026-05-14',
       readTime: '8 min read'
     },
     {
       id: 'understanding-base64',
-      title: 'Understanding Base64 Encoding Principles',
-      excerpt: 'Why is Base64 omnipresent in modern software development? Learn the differences between binary-to-text encoding and real encryption.',
+      title: t('blog.base64.title'),
+      excerpt: t('blog.base64.excerpt'),
       date: '2026-05-12',
       readTime: '5 min read'
     },
     {
       id: 'webassembly-and-local-processing',
-      title: 'WebAssembly and the Rise of Local Processing',
-      excerpt: 'How doing complex data processing locally in the browser (client-side) protects user privacy, reduces server costs, and boosts performance.',
+      title: t('blog.wasm.title'),
+      excerpt: t('blog.wasm.excerpt'),
       date: '2026-05-10',
       readTime: '5 min read'
     },
     {
       id: 'json-parsing-strategies',
-      title: 'Advanced JSON Manipulation and Parsing',
-      excerpt: 'Strategies for handling massive, deeply nested JSON architectures across microservices without blocking the main browser thread.',
+      title: t('blog.json.title'),
+      excerpt: t('blog.json.excerpt'),
       date: '2026-05-08',
       readTime: '6 min read'
     },
     {
       id: 'prompt-engineering-best-practices',
-      title: 'Prompt Engineering: Structuring LLM Inputs',
-      excerpt: 'How to structure system and user prompts to get reliable, deterministic JSON outputs from language models in production environments.',
+      title: t('blog.prompt.title'),
+      excerpt: t('blog.prompt.excerpt'),
       date: '2026-05-05',
       readTime: '9 min read'
     },
     {
       id: 'uuid-version-differences',
-      title: 'Understanding UUID Versions and Collision Probabilities',
-      excerpt: 'Explore the different versions of Universally Unique Identifiers, from Version 1 MAC address exposure to Version 4 random entropy.',
+      title: t('blog.uuid.title'),
+      excerpt: t('blog.uuid.excerpt'),
       date: '2026-05-03',
       readTime: '4 min read'
     },
     {
       id: 'diff-algorithms-explained',
-      title: 'How Text Diff Checkers Work under the Hood',
-      excerpt: 'An introduction to the Myers diff algorithm and how modern tools compute the longest common subsequence efficiently.',
+      title: t('blog.diff.title'),
+      excerpt: t('blog.diff.excerpt'),
       date: '2026-05-01',
       readTime: '11 min read'
     },
     {
       id: 'optimizing-web-apps',
-      title: 'Optimizing React Performance: A 2026 Guide',
-      excerpt: 'Mastering the Virtual DOM rendering cycle to eliminate redundant updates, memoization strategies, and the dawn of the React Compiler.',
+      title: t('blog.react.title'),
+      excerpt: t('blog.react.excerpt'),
       date: '2026-04-28',
       readTime: '7 min read'
+    },
+    {
+      id: 'regex-performance-backtracking',
+      title: t('blog.backtrack.title'),
+      excerpt: t('blog.backtrack.excerpt'),
+      date: '2026-04-22',
+      readTime: '6 min read'
+    },
+    {
+      id: 'understanding-unix-epoch',
+      title: t('blog.unix.title'),
+      excerpt: t('blog.unix.excerpt'),
+      date: '2026-04-18',
+      readTime: '5 min read'
+    },
+    {
+      id: 'the-math-behind-qr-codes',
+      title: t('blog.qr.title'),
+      excerpt: t('blog.qr.excerpt'),
+      date: '2026-04-12',
+      readTime: '8 min read'
     }
   ];
 
