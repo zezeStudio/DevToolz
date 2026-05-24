@@ -262,46 +262,50 @@ export function JsonToTsConverter() {
       </div>
 
       {/* Long Description for SEO and Guide */}
-      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="prose dark:prose-invert max-w-none mt-12 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
           {t("jsonTs.longDesc.title") ||
-            "About JSON to TypeScript Converter"}
+            "Why TypeScript Interfaces Matter for Modern Web Development"}
         </h2>
 
-        <p>
-          {t("jsonTs.longDesc.p1") ||
-            "The JSON to TypeScript Converter is a specialized local tool designed to help frontend developers and AI engineers instantly generate strictly typed interfaces from JSON objects or AI API responses."}
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+          When constructing robust, scalable web applications, the integrity of your data objects is paramount. A common point of failure occurs at the boundary between the client application and external REST or GraphQL APIs. APIs traditionally return dynamically typed JSON payloads, which lack inherent structural guarantees when parsed in JavaScript. By explicitly mapping these dynamic JSON payloads into strictly typed TypeScript interfaces, developers can significantly reduce runtime errors, improve editor autocompletion (IntelliSense), and guarantee contract stability across the engineering team.
         </p>
 
-        <p>
-          {t("jsonTs.longDesc.p2") ||
-            "Our implementation uses a Pure JS algorithm locally in your browser. This means your private JSON payloads, proprietary schema structures, and actual API response data are never transmitted to an external server—ensuring 100% absolute data privacy and immediate live transformation."}
+        <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+          Designing Stable API Types
+        </h3>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+          Manually writing TypeScript interfaces for complex, deeply nested JSON responses is a tedious and error-prone process. It requires painstakingly inspecting the JSON tree and manually typing out nested object arrays. Our JSON to TS Converter automates this workflow entirely. By utilizing a recursive parsing algorithm mapping over key-value structures, this tool instantly breaks down complex entity relationships—extracting nested objects into distinct, perfectly named child interfaces. This ensures your TypeScript declarations remain DRY (Don't Repeat Yourself) and highly maintainable. For example, a single massive 'User' profile JSON containing embedded 'Address' and 'Preferences' objects will be neatly separated into `interface User`, `interface Address`, and `interface Preferences`.
+        </p>
+        
+        <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+          Zero Data Storage: Client-Side Security Guarantee
+        </h3>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          Security and Privacy are the core tenets of DevToolz. Often, the JSON payloads you need to type-check contain highly sensitive, proprietary business logic, or personally identifiable user data (PII). Transmitting this data over the network to external third-party servers for simple text manipulation poses a severe security risk. This utility performs the entire lexing and type generation process using the computational power of your local browser JavaScript engine. Absolutely zero data is uploaded, intercepted, or logged, meaning your proprietary API shapes remain strictly confidential.
         </p>
 
-        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-5 rounded-lg my-6">
-          <h3 className="text-lg font-bold mb-3 text-slate-800 dark:text-slate-200">
-            {t("jsonTs.help.title") || "How to use this tool"}
+        <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-6 rounded-xl my-6">
+          <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">
+            {t("jsonTs.help.title") || "Practical Usage Examples"}
           </h3>
-          <ul className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+          <ul className="list-disc pl-5 space-y-3 text-slate-700 dark:text-slate-300">
             <li>
-              <strong>Step 1:</strong>{" "}
-              {t("jsonTs.help.1") ||
-                "Paste your JSON data into the left editor."}
+              <strong>Direct Input:</strong>{" "}
+              Simply paste the raw JSON response received from Postman, curl, or your network tab directly into the left editor pane.
             </li>
             <li>
-              <strong>Step 2:</strong>{" "}
-              {t("jsonTs.help.2") ||
-                "You can define the custom name for your Root Interface in the input field above the JSON editor."}
+              <strong>Custom Root Interface:</strong>{" "}
+              Use the input field in the header bar above the editor (defaulted to 'Root') to name your primary parent interface. For example, enter `ProductListResponse`.
             </li>
             <li>
-              <strong>Step 3:</strong>{" "}
-              {t("jsonTs.help.3") ||
-                "The tool will instantly parse the structure and map it into perfect output code on the right."}
+              <strong>Instant Compilation:</strong>{" "}
+              As you adjust the JSON, the recursive parser instantly updates the TypeScript definitions on the right pane in real-time.
             </li>
             <li>
-              <strong>Tip:</strong>{" "}
-              {t("jsonTs.help.4") ||
-                'Click "Sample Data" to see a complex response and quickly verify how nested objects are automatically extracted.'}
+              <strong>Clipboard Ready:</strong>{" "}
+              Click the 'Copy' icon to place the resulting interfaces into your clipboard, ready to be pasted instantly into your `types.ts` or `.d.ts` declaration files.
             </li>
           </ul>
         </div>

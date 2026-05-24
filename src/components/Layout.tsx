@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
@@ -57,6 +57,12 @@ export function Layout() {
       items: [
         { name: t('nav.text'), path: `/${currentLang}/text-analyzer`, icon: Type },
         { name: t('nav.markdown'), path: `/${currentLang}/markdown-editor`, icon: FileText },
+      ]
+    },
+    {
+      group: 'Article & Guide',
+      items: [
+        { name: 'Tech Blog', path: `/${currentLang}/blog`, icon: BookOpen }
       ]
     },
     {

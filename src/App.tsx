@@ -38,6 +38,8 @@ const LlmParameterPlayground = lazy(() => import('./pages/LlmParameterPlayground
 const XmlGuardrailGenerator = lazy(() => import('./pages/XmlGuardrailGenerator').then(m => ({ default: m.XmlGuardrailGenerator })));
 const FewShotBuilder = lazy(() => import('./pages/FewShotBuilder').then(m => ({ default: m.FewShotBuilder })));
 const PromptTokenSplitter = lazy(() => import('./pages/PromptTokenSplitter').then(m => ({ default: m.PromptTokenSplitter })));
+const Blog = lazy(() => import('./pages/Blog').then(m => ({ default: m.Blog })));
+const BlogPost = lazy(() => import('./pages/BlogPost').then(m => ({ default: m.BlogPost })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfService })));
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
@@ -250,6 +252,16 @@ export default function App() {
                   <PromptTokenSplitter />
                 </Suspense>
               } />
+              <Route path="blog" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Blog />
+                </Suspense>
+              } />
+              <Route path="blog/:id" element={
+                <Suspense fallback={<PageLoader />}>
+                  <BlogPost />
+                </Suspense>
+              } />
               <Route path="privacy" element={
                 <Suspense fallback={<PageLoader />}>
                   <PrivacyPolicy />
@@ -406,6 +418,16 @@ export default function App() {
               <Route path="prompt-token-splitter" element={
                 <Suspense fallback={<PageLoader />}>
                   <PromptTokenSplitter />
+                </Suspense>
+              } />
+              <Route path="blog" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Blog />
+                </Suspense>
+              } />
+              <Route path="blog/:id" element={
+                <Suspense fallback={<PageLoader />}>
+                  <BlogPost />
                 </Suspense>
               } />
               <Route path="privacy" element={

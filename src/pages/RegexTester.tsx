@@ -474,14 +474,37 @@ export function RegexTester() {
           </ul>
         </div>
 
-        {/* Long Description for SEO */}
-        <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
-          <h2 className="text-2xl font-bold mb-4">{t('regex.longDesc.title')}</h2>
-          <p>{t('regex.longDesc.p1')}</p>
-          <p>{t('regex.longDesc.p2')}</p>
-          <p>{t('regex.longDesc.p3')}</p>
-          <p className="mt-4 leading-relaxed">{t('regex.longDesc.p4')}</p>
-          <p className="mt-4 leading-relaxed">{t('regex.longDesc.p5')}</p>
+        {/* Long Description for SEO and Guide */}
+        <div className="prose dark:prose-invert max-w-none mt-12 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+          <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+            Mastering Regular Expressions for Data Validation
+          </h2>
+          
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+            Regular Expressions (often abbreviated as Regex or RegExp) form the backbone of string searching algorithms and input validation across virtually all modern programming languages. From verifying email addresses during user registration to parsing complex server log files for error tracing, a solid grasp of regex syntax is indispensable for software engineers. However, crafting the precise pattern to capture your intended substring—without inadvertently causing catastrophic backtracking or missing edge cases—can be notoriously difficult. 
+          </p>
+          
+          <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+            Client-Side Evaluation vs. Server-Side Processing
+          </h3>
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+            When you run regex patterns against sensitive data strings—such as lists of passwords, proprietary API keys, or personally identifiable information (PII) like social security numbers—the execution environment matters immensely. DevToolz enforces a strict client-side-only execution model. Using this Regex Tester, your pattern and your test string are evaluated synchronously in your local browser sandbox utilizing the built-in JavaScript `RegExp` object. Unlike traditional diagnostic utilities that post your payloads to a remote backend processor, our architecture mathematically guarantees zero data leakage. Nothing leaves your device.
+          </p>
+          
+          <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+            Understanding Common Flags
+          </h3>
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+            The behavior of a standard Regular Expression can be drastically altered by its execution flags:
+            <br/><br/>
+            <strong>g (Global):</strong> By default, regex stops after the first successful match. The global flag instructs the engine to traverse the entire string, returning an array of every possible occurrence. <br/>
+            <strong>i (Case-insensitive):</strong> This forces the engine to treat 'A' and 'a' identically. This is particularly useful for user-input searches where capitalization is unreliable.<br/>
+            <strong>m (Multiline):</strong> This modifies the behavior of the start `^` and end `$` anchors, allowing them to match the beginning and end of individual lines within a multi-line string block, rather than just the absolute start and termination of the entire payload.
+          </p>
+
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed mt-6">
+            By utilizing the preset dropdown menu in this utility, you can instantly load industry-standard, robust patterns for validating Email addresses, URLs, IPv4/IPv6 structures, and complex Passwords. Whether you are performing a simple match assertion or executing a complex regex capture-group replacement, this sandbox provides immediate visual confirmation of your logic.
+          </p>
         </div>
       </div>
     </div>
