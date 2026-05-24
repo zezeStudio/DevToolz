@@ -574,30 +574,40 @@ export function PasswordGenerator() {
         </div>
 
         {/* SEO Detailed Description Section */}
-        <div className="mt-12 bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">{t('pass.longDesc.title')}</h2>
-          <div className="prose prose-green dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-6">
-            <div>
-              <p className="mb-4 leading-relaxed">
-                {t('pass.longDesc.p1').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-slate-900 dark:text-slate-100">{part}</strong> : part
-                )}
-              </p>
-              <p className="mb-4 leading-relaxed">
-                {t('pass.longDesc.p2')}
-              </p>
-              <p className="leading-relaxed">
-                {t('pass.longDesc.p3').split('**').map((part, i) => 
-                  i % 2 === 1 ? <strong key={i} className="text-slate-900 dark:text-slate-100">{part}</strong> : part
-                )}
-              </p>
-              <p className="mt-4 leading-relaxed">
-                {t('pass.longDesc.p4')}
-              </p>
-              <p className="mt-4 leading-relaxed">
-                {t('pass.longDesc.p5')}
-              </p>
-            </div>
+        <div className="mt-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+            The Cryptography Behind Secure Password Generators
+          </h2>
+          
+          <div className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300">
+            <p className="leading-relaxed mb-4">
+              In an era defined by massive credential stuffing attacks and automated brute-force breaches, relying on human-generated passwords or predictably altered dictionary words is a critical security vulnerability. A robust password strategy demands cryptographically secure, high-entropy secrets that lack any discernible pattern.
+            </p>
+            
+            <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+              Why Math.random() is Dangerous
+            </h3>
+            <p className="leading-relaxed mb-4">
+              Many basic utilities use JavaScript's built-in <code>Math.random()</code> function to generate passwords. This is a fatal flaw for applications intended to secure financial networks or administrative system access. <code>Math.random()</code> is a Pseudo-Random Number Generator (PRNG); its outputs are computationally predictable if the internal seed state is discovered. DevToolz exclusively utilizes the <strong>Web Crypto API</strong> (specifically <code>window.crypto.getRandomValues</code>) to extract entropy directly from the underlying operating system's cryptographic hardware, ensuring your generated passwords are truly unpredictable.
+            </p>
+
+            <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+              Zero Data Transmission Guarantee
+            </h3>
+            <p className="leading-relaxed mb-4">
+              When evaluating a password generation service, the primary concern must be: <i>"Who else knows this password?"</i> If a web application sends an API request to a remote server to generate your password, that secret exists in network traffic logs, server RAM, and potentially database records. DevToolz fundamentally eliminates this attack vector through absolute client-side processing. The mathematics used to generate your secure passwords, passphrases, and QR codes execute 100% locally within your browser sandbox. <strong>We do not know your password, we never transmit your password, and your data never touches our network.</strong>
+            </p>
+
+            <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+              Passphrase vs. Random Characters
+            </h3>
+            <p className="leading-relaxed mb-4">
+              This tool supports two distinct cryptographic paradigms depending on your use case:
+              <br/><br/>
+              <strong>Random Generated Strings:</strong> Best for API keys, database credentials, and environments where a password manager handles auto-fill. They provide maximum entropy density per character.
+              <br/>
+              <strong>XKCD-Style Passphrases:</strong> Best for master passwords or encryption keys that you must occasionally memorize or type manually. By combining randomized dictionary words, they maintain extremely high mathematical entropy while remaining cognitatively digestible for human beings.
+            </p>
           </div>
         </div>
       </div>

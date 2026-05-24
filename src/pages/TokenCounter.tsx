@@ -155,24 +155,44 @@ Return the feedback in a structured JSON format.`);
       </div>
       
       {/* Long Description for SEO and Guide */}
-      <div className="prose dark:prose-invert max-w-none mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800">
-        <h2 className="text-2xl font-bold mb-4">{t('tokenCounter.longDesc.title') || 'About Token Counter & Price Estimator'}</h2>
+      <div className="prose dark:prose-invert max-w-none mt-12 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+          {t('tokenCounter.longDesc.title') || 'Understanding LLM Tokenization and Cost Estimation'}
+        </h2>
         
-        <p>{t('tokenCounter.longDesc.p1') || 'The Token Counter & Price Estimator is a specialized local tool designed to help developers and AI enthusiasts estimate the exact token count and cost of their API requests before sending them.'}</p>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+          In the era of Large Language Models (LLMs), understanding how text is processed is crucial for building cost-effective and performant AI applications. Models like OpenAI's GPT-4o, Anthropic's Claude, and Google's Gemini do not process text character-by-character or word-by-word. Instead, they break strings down into smaller contextual chunks called <strong>Tokens</strong>. A token can be a single character, a fragment of a word (like "sub" or "ing"), or an entire word. 
+        </p>
+
+        <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+          Why Token Counting Matters for AI Engineering
+        </h3>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+          Accurate token calculation serves two primary purposes in production environments: <strong>Context Window Limits</strong> and <strong>Financial Forecasting</strong>. Every LLM has a hard limit on the maximum number of tokens it can accept in a single request (the context window). Exceeding this limit will result in API rejections. Furthermore, API providers bill strictly based on the volume of tokens ingested (Input Tokens) and generated (Output Tokens). A prompt that seems short in words might unexpectedly contain a high number of tokens if it includes dense code, non-English characters, or complex structural formatting like deeply nested JSON.
+        </p>
         
-        <p>{t('tokenCounter.longDesc.p2') || 'Our implementation uses standard parsing algorithms (Byte Pair Encoding) locally in your browser. This means your private prompts, proprietary algorithms, and codebase snippets are never transmitted to a server for token counting—ensuring absolute data privacy and rapid feedback.'}</p>
+        <h3 className="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">
+          Client-Side Evaluation Guarantee
+        </h3>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          System prompts often contain proprietary business logic, few-shot examples comprising sensitive user data, or secure operational blueprints. Using third-party token counting services that require a network request is a severe security risk. The DevToolz Token Counter utilizes standard exact-match Byte Pair Encoding (BPE) algorithms executing 100% locally within your browser tab. Your proprietary payloads are <strong>never transmitted to an external server</strong>. You get real-time, instantaneous feedback while maintaining absolute confidentiality.
+        </p>
         
-        <div className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-5 rounded-lg my-6">
-          <h3 className="text-lg font-bold mb-3 text-slate-800 dark:text-slate-200">{t('tokenCounter.help.title') || 'How to use this tool'}</h3>
-          <ul className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
-            <li><strong>Step 1:</strong> {t('tokenCounter.help.1') || 'Paste your prompt, system instructions, or context string into the editor.'}</li>
-            <li><strong>Step 2:</strong> {t('tokenCounter.help.2') || 'The tool will automatically calculate the characters, words, and exact token count in real-time.'}</li>
-            <li><strong>Step 3:</strong> {t('tokenCounter.help.3') || 'The Cost Estimation table automatically updates, showing how much it would cost to run this context size 1,000 times against popular LLMs like GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro.'}</li>
-            <li><strong>Tip:</strong> {t('tokenCounter.help.4') || 'Click "Sample Data" to see a typical prompt example and verify the estimation features in action.'}</li>
+        <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-6 rounded-xl my-6">
+          <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">
+            {t('tokenCounter.help.title') || 'Practical Usage Guide'}
+          </h3>
+          <ul className="list-disc pl-5 space-y-3 text-slate-700 dark:text-slate-300">
+            <li><strong>Input Assessment:</strong> Paste your system prompt, RAG (Retrieval-Augmented Generation) context strings, or codebase snippets directly into the editor pane.</li>
+            <li><strong>Live Metrics:</strong> The tool instantly processes your string, displaying standard metrics: exact Character count, rough Word count, and precisely calculated Token count.</li>
+            <li><strong>Cost Forecasting:</strong> The dynamic Cost Estimation table automatically multiplies your token count against current, real-world pricing models (such as GPT-4o and Gemini 1.5 Pro). The table illustrates a projection of the USD cost required to process this exact payload 1,000 times at scale.</li>
+            <li><strong>Context Iteration:</strong> Optimize your prompts by removing redundant white-space or verbose instructions, watching the token count and forecasted costs decrease in real-time.</li>
           </ul>
         </div>
         
-        <p>{t('tokenCounter.longDesc.p3') || 'We aim to keep our model rates up to date, but prices serve merely as an approximate estimation based on the input payload schemas provided by OpenAI, Anthropic, and Google. We calculate the baseline estimation as: (Input Tokens / 1,000,000) × Provider Input Rate (Per 1M tokens) × 1,000 Requests.'}</p>
+        <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
+          <i>Note: While our implementation provides highly accurate BPE tokenization suitable for OpenAI models, other providers (Anthropic, Google) use slightly different proprietary tokenizers (like SentencePiece). However, this tool's count provides an excellent baseline approximation for cross-platform cost estimation. Default calculations are based strictly on Input Tokens.</i>
+        </p>
       </div>
     </div>
   );
