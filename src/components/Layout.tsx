@@ -15,64 +15,65 @@ export function Layout() {
   const { theme, setTheme } = useTheme();
 
   const currentLang = lang || 'en';
+  const basePath = currentLang === 'en' ? '' : `/${currentLang}`;
 
   const navGroups = [
     {
       group: t('home.category.home') || 'Home',
       items: [
-        { name: t('nav.home'), path: `/${currentLang}`, icon: Home }
+        { name: t('nav.home'), path: basePath || '/', icon: Home }
       ]
     },
     {
       group: t('home.category.ai') || 'AI Tools',
       items: [
-        { name: t('nav.jsonTs') || 'JSON to TS', path: `/${currentLang}/json-to-ts`, icon: Bot },
-        { name: t('nav.tokenCounter') || 'Token Counter', path: `/${currentLang}/token-counter`, icon: Terminal },
-        { name: t('nav.llmOptimizer'), path: `/${currentLang}/llm-optimizer`, icon: Bot },
-        { name: t('nav.promptWrapper'), path: `/${currentLang}/prompt-wrapper`, icon: Braces },
-        { name: t('nav.chunkingSimulator'), path: `/${currentLang}/chunking-simulator`, icon: Layers },
-        { name: t('nav.systemPrompt'), path: `/${currentLang}/system-prompt`, icon: Terminal },
-        { name: t('nav.promptInjector') || 'Prompt Injector', path: `/${currentLang}/prompt-variable-injector`, icon: Terminal },
-        { name: t('nav.promptSplitter') || 'Prompt Splitter', path: `/${currentLang}/prompt-token-splitter`, icon: Layers },
-        { name: t('nav.llmPlayground') || 'LLM Playground', path: `/${currentLang}/llm-parameter-playground`, icon: Terminal },
-        { name: t('nav.xmlGuardrail') || 'XML Guardrail', path: `/${currentLang}/xml-guardrail-generator`, icon: Terminal },
-        { name: t('nav.fewShotBuilder') || 'Few-Shot Builder', path: `/${currentLang}/few-shot-builder`, icon: Terminal },
+        { name: t('nav.jsonTs') || 'JSON to TS', path: `${basePath}/json-to-ts`, icon: Bot },
+        { name: t('nav.tokenCounter') || 'Token Counter', path: `${basePath}/token-counter`, icon: Terminal },
+        { name: t('nav.llmOptimizer'), path: `${basePath}/llm-optimizer`, icon: Bot },
+        { name: t('nav.promptWrapper'), path: `${basePath}/prompt-wrapper`, icon: Braces },
+        { name: t('nav.chunkingSimulator'), path: `${basePath}/chunking-simulator`, icon: Layers },
+        { name: t('nav.systemPrompt'), path: `${basePath}/system-prompt`, icon: Terminal },
+        { name: t('nav.promptInjector') || 'Prompt Injector', path: `${basePath}/prompt-variable-injector`, icon: Terminal },
+        { name: t('nav.promptSplitter') || 'Prompt Splitter', path: `${basePath}/prompt-token-splitter`, icon: Layers },
+        { name: t('nav.llmPlayground') || 'LLM Playground', path: `${basePath}/llm-parameter-playground`, icon: Terminal },
+        { name: t('nav.xmlGuardrail') || 'XML Guardrail', path: `${basePath}/xml-guardrail-generator`, icon: Terminal },
+        { name: t('nav.fewShotBuilder') || 'Few-Shot Builder', path: `${basePath}/few-shot-builder`, icon: Terminal },
       ]
     },
     {
       group: t('home.category.developer') || 'Developer Tools',
       items: [
-        { name: t('nav.json'), path: `/${currentLang}/json-formatter`, icon: Code2 },
-        { name: t('nav.base64'), path: `/${currentLang}/base64-converter`, icon: Binary },
-        { name: t('nav.url'), path: `/${currentLang}/url-encoder`, icon: LinkIcon },
-        { name: t('nav.jwt'), path: `/${currentLang}/jwt-decoder`, icon: FileJson },
-        { name: t('nav.uuid'), path: `/${currentLang}/uuid-generator`, icon: Fingerprint },
-        { name: t('nav.unix'), path: `/${currentLang}/unix-timestamp`, icon: Clock },
-        { name: t('nav.regex'), path: `/${currentLang}/regex-tester`, icon: Search },
-        { name: t('nav.diff'), path: `/${currentLang}/diff-checker`, icon: FileDiff },
+        { name: t('nav.json'), path: `${basePath}/json-formatter`, icon: Code2 },
+        { name: t('nav.base64'), path: `${basePath}/base64-converter`, icon: Binary },
+        { name: t('nav.url'), path: `${basePath}/url-encoder`, icon: LinkIcon },
+        { name: t('nav.jwt'), path: `${basePath}/jwt-decoder`, icon: FileJson },
+        { name: t('nav.uuid'), path: `${basePath}/uuid-generator`, icon: Fingerprint },
+        { name: t('nav.unix'), path: `${basePath}/unix-timestamp`, icon: Clock },
+        { name: t('nav.regex'), path: `${basePath}/regex-tester`, icon: Search },
+        { name: t('nav.diff'), path: `${basePath}/diff-checker`, icon: FileDiff },
       ]
     },
     {
       group: t('home.category.text') || 'Text & Formatting',
       items: [
-        { name: t('nav.text'), path: `/${currentLang}/text-analyzer`, icon: Type },
-        { name: t('nav.markdown'), path: `/${currentLang}/markdown-editor`, icon: FileText },
+        { name: t('nav.text'), path: `${basePath}/text-analyzer`, icon: Type },
+        { name: t('nav.markdown'), path: `${basePath}/markdown-editor`, icon: FileText },
       ]
     },
     {
       group: 'Article & Guide',
       items: [
-        { name: 'Tech Blog', path: `/${currentLang}/blog`, icon: BookOpen }
+        { name: 'Tech Blog', path: `${basePath}/blog`, icon: BookOpen }
       ]
     },
     {
       group: t('home.category.design') || 'Design & Security',
       items: [
-        { name: t('nav.color'), path: `/${currentLang}/color-converter`, icon: Palette },
-        { name: t('nav.qr'), path: `/${currentLang}/qr-code`, icon: QrCode },
-        { name: t('nav.imageCompressor'), path: `/${currentLang}/image-compressor`, icon: ImageIcon },
-        { name: t('nav.password'), path: `/${currentLang}/password-generator`, icon: Key },
-        { name: t('nav.hash'), path: `/${currentLang}/hash-generator`, icon: Hash },
+        { name: t('nav.color'), path: `${basePath}/color-converter`, icon: Palette },
+        { name: t('nav.qr'), path: `${basePath}/qr-code`, icon: QrCode },
+        { name: t('nav.imageCompressor'), path: `${basePath}/image-compressor`, icon: ImageIcon },
+        { name: t('nav.password'), path: `${basePath}/password-generator`, icon: Key },
+        { name: t('nav.hash'), path: `${basePath}/hash-generator`, icon: Hash },
       ]
     }
   ];
@@ -81,10 +82,11 @@ export function Layout() {
     const currentPath = location.pathname;
     const pathSegments = currentPath.split('/').filter(Boolean);
     
-    // If the first segment is a language code, replace it
     if (pathSegments.length > 0 && ['en', 'ko', 'ja'].includes(pathSegments[0])) {
-      pathSegments[0] = newLang;
-    } else {
+      pathSegments.shift();
+    }
+    
+    if (newLang !== 'en') {
       pathSegments.unshift(newLang);
     }
     
@@ -98,7 +100,7 @@ export function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link to={`/${currentLang}`} className="flex items-center">
+              <Link to={basePath || '/'} className="flex items-center">
                 <Globe className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <span className="ml-2 text-xl font-bold text-slate-900 dark:text-white tracking-tight">DevToolz</span>
               </Link>
@@ -155,7 +157,7 @@ export function Layout() {
                 <div className="space-y-1">
                   {group.items.map((item) => {
                     const isActive = location.pathname === item.path || 
-                      (item.path === `/${currentLang}` && (location.pathname === '/' || location.pathname === `/${currentLang}/`));
+                      (item.path === (basePath || '/') && (location.pathname === '/' || location.pathname === `${basePath}/`));
                     return (
                       <Link
                         key={item.name}
@@ -213,17 +215,17 @@ export function Layout() {
           </div>
           <div className="flex flex-col items-center md:items-end space-y-4">
             <div className="flex space-x-6">
-              <Link to={`/${currentLang}/about`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.about')}</Link>
+              <Link to={`${basePath}/about`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.about')}</Link>
               <a href="/privacy.html" className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.privacy')}</a>
               <a href="/terms-of-service.html" className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.terms')}</a>
-              <Link to={`/${currentLang}/contact`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.contact')}</Link>
+              <Link to={`${basePath}/contact`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.contact')}</Link>
             </div>
             <div className="flex space-x-4 text-xs text-slate-400 dark:text-slate-400">
-              <Link to={`/en${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'en' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>English</Link>
+              <Link to={`/${location.pathname.replace(/^\/(en|ko|ja)\/?/, '')}`} className={cn("transition-colors", currentLang === 'en' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>English</Link>
               <span>•</span>
-              <Link to={`/ko${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'ko' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>한국어</Link>
+              <Link to={`/ko/${location.pathname.replace(/^\/(en|ko|ja)\/?/, '')}`.replace(/\/$/, '')} className={cn("transition-colors", currentLang === 'ko' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>한국어</Link>
               <span>•</span>
-              <Link to={`/ja${location.pathname.replace(/^\/(en|ko|ja)/, '')}`} className={cn("transition-colors", currentLang === 'ja' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>日本語</Link>
+              <Link to={`/ja/${location.pathname.replace(/^\/(en|ko|ja)\/?/, '')}`.replace(/\/$/, '')} className={cn("transition-colors", currentLang === 'ja' ? "text-blue-600 dark:text-blue-400 font-bold" : "hover:text-blue-600 dark:hover:text-blue-400")}>日本語</Link>
             </div>
           </div>
         </div>

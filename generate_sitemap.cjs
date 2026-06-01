@@ -67,19 +67,21 @@ function generateSitemap() {
   baseRoutes.forEach(route => {
     // For each route, generate a block for each language
     LANGUAGES.forEach(lang => {
-      const currentUrl = `${DOMAIN}/${lang}${route ? `/${route}` : ''}`;
+      const langPrefix = lang === 'en' ? '' : `/${lang}`;
+      const currentUrl = `${DOMAIN}${langPrefix}${route ? `/${route}` : ''}`;
       
       xml += `  <url>
     <loc>${currentUrl}</loc>
 `;
       // hreflang tags
       LANGUAGES.forEach(altLang => {
-        const altUrl = `${DOMAIN}/${altLang}${route ? `/${route}` : ''}`;
+        const altLangPrefix = altLang === 'en' ? '' : `/${altLang}`;
+        const altUrl = `${DOMAIN}${altLangPrefix}${route ? `/${route}` : ''}`;
         xml += `    <xhtml:link rel="alternate" hreflang="${altLang}" href="${altUrl}"/>
 `;
       });
       // x-default using 'en'
-      const defaultUrl = `${DOMAIN}/en${route ? `/${route}` : ''}`;
+      const defaultUrl = `${DOMAIN}${route ? `/${route}` : ''}`;
       xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultUrl}"/>
   </url>
 `;

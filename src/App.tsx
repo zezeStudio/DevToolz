@@ -78,22 +78,25 @@ function LanguageWrapper() {
   return (
     <>
       <Helmet>
-        {supportedLangs.map((l) => (
-          <link 
-            key={l}
-            rel="alternate" 
-            hrefLang={l} 
-            href={`https://www.zezelab.xyz/${l}${trailingPath}`} 
-          />
-        ))}
+        {supportedLangs.map((l) => {
+          const langPrefix = l === 'en' ? '' : `/${l}`;
+          return (
+            <link 
+              key={l}
+              rel="alternate" 
+              hrefLang={l} 
+              href={`https://www.zezelab.xyz${langPrefix}${trailingPath}`} 
+            />
+          );
+        })}
         <link 
           rel="alternate" 
           hrefLang="x-default" 
-          href={`https://www.zezelab.xyz/en${trailingPath}`} 
+          href={`https://www.zezelab.xyz${trailingPath}`} 
         />
         <link 
           rel="canonical" 
-          href={`https://www.zezelab.xyz/${lang}${trailingPath}`} 
+          href={`https://www.zezelab.xyz${lang === 'en' ? '' : `/${lang}`}${trailingPath}`} 
         />
       </Helmet>
       <Layout />
