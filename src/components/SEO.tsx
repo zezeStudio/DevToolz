@@ -15,7 +15,8 @@ export function SEO({ title, description, url, schema, applicationCategory = 'De
   const { i18n } = useTranslation();
   const baseUrl = 'https://www.zezelab.xyz';
   const cleanPath = url.replace(/^\/(en|ko|ja)/, '') || '/';
-  const fullUrl = `${baseUrl}/${i18n.language}${cleanPath === '/' ? '' : cleanPath}`;
+  const langPrefix = i18n.language === 'en' ? '' : `/${i18n.language}`;
+  const fullUrl = `${baseUrl}${langPrefix}${cleanPath === '/' ? '' : cleanPath}`;
 
   const defaultSchema = {
     "@context": "https://schema.org",
@@ -73,10 +74,10 @@ export function SEO({ title, description, url, schema, applicationCategory = 'De
       <meta name="twitter:image" content={`${baseUrl}/og-image.png`} />
 
       {/* Hreflang tags for Internationalization (SEO) */}
-      <link rel="alternate" hrefLang="en" href={`${baseUrl}/en${cleanPath === '/' ? '' : cleanPath}`} />
+      <link rel="alternate" hrefLang="en" href={`${baseUrl}${cleanPath === '/' ? '' : cleanPath}`} />
       <link rel="alternate" hrefLang="ko" href={`${baseUrl}/ko${cleanPath === '/' ? '' : cleanPath}`} />
       <link rel="alternate" hrefLang="ja" href={`${baseUrl}/ja${cleanPath === '/' ? '' : cleanPath}`} />
-      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en${cleanPath === '/' ? '' : cleanPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${cleanPath === '/' ? '' : cleanPath}`} />
 
       {/* Structured Data (JSON-LD) for GEO and AEO (Answer Engines) */}
       <script type="application/ld+json">
