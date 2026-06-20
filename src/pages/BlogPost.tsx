@@ -1,8 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, Calendar, Clock, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SEO } from '../components/SEO';
 import { blogArticles } from './blogData';
 import { blogArticlesKo } from './blogDataKo';
 import { blogArticlesJa } from './blogDataJa';
@@ -78,10 +78,12 @@ export function BlogPost() {
 
   return (
     <div className="max-w-4xl mx-auto py-8">
-      <Helmet>
-        <title>{displayTitle} | DevToolz Tech Blog</title>
-        <meta name="description" content={`An in-depth technical article exploring ${displayTitle} and its implications for modern web development.`} />
-      </Helmet>
+      <SEO 
+        title={`${displayTitle} | DevToolz Tech Blog`}
+        description={`An in-depth technical article exploring ${displayTitle} and its implications for modern web development.`}
+        url={`/${lang === 'en' ? '' : lang + '/'}blog/${id}`}
+        applicationCategory="Article"
+      />
 
       <div className="mb-8">
         <Link 

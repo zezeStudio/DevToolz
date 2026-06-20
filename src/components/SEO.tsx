@@ -25,25 +25,36 @@ export function SEO({ title, description, url, schema, applicationCategory = 'De
     "url": baseUrl,
   };
 
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": title,
-    "description": description,
-    "applicationCategory": applicationCategory,
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
+  const dynamicSchema = applicationCategory === 'Article' || applicationCategory === 'BlogPosting' 
+    ? {
+        "@context": "https://schema.org",
+        "@type": applicationCategory,
+        "headline": title,
+        "description": description,
+        "author": {
+          "@type": "Organization",
+          "name": "DevToolz Engineering"
+        }
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": title,
+        "description": description,
+        "applicationCategory": applicationCategory,
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      };
 
   const finalSchema = {
     "@context": "https://schema.org",
     "@graph": [
       defaultSchema,
-      softwareSchema,
+      dynamicSchema,
       ...(schema || [])
     ]
   };

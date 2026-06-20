@@ -1,8 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { BookOpen, Calendar, Clock, ChevronRight } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 interface BlogPostType {
   id: string;
@@ -119,10 +119,12 @@ export function Blog() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <Helmet>
-        <title>Tech Blog & Articles | DevToolz</title>
-        <meta name="description" content="Read our latest articles on web development, TypeScript, productivity, and software engineering best practices." />
-      </Helmet>
+      <SEO 
+        title="Tech Blog & Articles | DevToolz"
+        description="Read our latest articles on web development, TypeScript, productivity, and software engineering best practices."
+        url={`/${lang === 'en' ? '' : lang + '/'}blog`}
+        applicationCategory="BlogPosting"
+      />
 
       <div>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white">DevToolz Tech Blog</h1>

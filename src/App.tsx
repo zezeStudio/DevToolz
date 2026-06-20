@@ -57,6 +57,10 @@ function LanguageWrapper() {
   const { i18n } = useTranslation();
   const location = useLocation();
 
+  if (location.pathname === '/en' || location.pathname.startsWith('/en/')) {
+    return <Navigate to={location.pathname.replace(/^\/en/, '') || '/'} replace />;
+  }
+
   useEffect(() => {
     const supportedLangs = ['en', 'ko', 'ja'];
     if (lang && supportedLangs.includes(lang)) {
