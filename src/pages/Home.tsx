@@ -247,6 +247,24 @@ export function Home() {
       category: 'ai',
       keywords: ['ai', 'few-shot', 'example', 'prompt', 'json', 'xml']
     },
+    {
+      name: t('nav.functionBuilder') || 'Function Payload Builder',
+      description: t('functionBuilder.desc') || 'Visually build and format tools array for OpenAI, Anthropic, and Gemini function calling.',
+      icon: Bot,
+      path: `/${currentLang}/function-calling-builder`,
+      color: 'bg-indigo-500',
+      category: 'ai',
+      keywords: ['ai', 'function', 'openai', 'anthropic', 'gemini', 'tool', 'calling']
+    },
+    {
+      name: t('nav.jsonSchema') || 'JSON Schema Generator',
+      description: t('jsonSchema.desc') || 'Generate strict JSON Schemas for OpenAI and Gemini Structured Outputs.',
+      icon: Bot,
+      path: `/${currentLang}/json-schema-generator`,
+      color: 'bg-teal-500',
+      category: 'ai',
+      keywords: ['ai', 'json', 'schema', 'openai', 'gemini', 'structured', 'output']
+    },
   ];
 
   const categories = [
