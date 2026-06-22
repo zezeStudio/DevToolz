@@ -22,6 +22,8 @@ const baseRoutes = [
   'diff-checker',
   'image-compressor',
   'json-to-ts',
+  'json-schema-generator',
+  'function-calling-builder',
   'token-counter',
   'llm-optimizer',
   'prompt-wrapper',

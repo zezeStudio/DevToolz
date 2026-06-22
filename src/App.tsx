@@ -38,6 +38,8 @@ const LlmParameterPlayground = lazy(() => import('./pages/LlmParameterPlayground
 const XmlGuardrailGenerator = lazy(() => import('./pages/XmlGuardrailGenerator').then(m => ({ default: m.XmlGuardrailGenerator })));
 const FewShotBuilder = lazy(() => import('./pages/FewShotBuilder').then(m => ({ default: m.FewShotBuilder })));
 const PromptTokenSplitter = lazy(() => import('./pages/PromptTokenSplitter').then(m => ({ default: m.PromptTokenSplitter })));
+const JsonSchemaGenerator = lazy(() => import('./pages/JsonSchemaGenerator').then(m => ({ default: m.JsonSchemaGenerator })));
+const FunctionCallingBuilder = lazy(() => import('./pages/FunctionCallingBuilder').then(m => ({ default: m.FunctionCallingBuilder })));
 const Blog = lazy(() => import('./pages/Blog').then(m => ({ default: m.Blog })));
 const BlogPost = lazy(() => import('./pages/BlogPost').then(m => ({ default: m.BlogPost })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
@@ -204,6 +206,8 @@ export default function App() {
                   <ImageCompressor />
                 </Suspense>
               } />
+              <Route path="json-schema-generator" element={<Suspense fallback={<PageLoader />}><JsonSchemaGenerator /></Suspense>} />
+              <Route path="function-calling-builder" element={<Suspense fallback={<PageLoader />}><FunctionCallingBuilder /></Suspense>} />
               <Route path="json-to-ts" element={
                 <Suspense fallback={<PageLoader />}>
                   <JsonToTsConverter />
@@ -372,6 +376,8 @@ export default function App() {
                   <ImageCompressor />
                 </Suspense>
               } />
+              <Route path="json-schema-generator" element={<Suspense fallback={<PageLoader />}><JsonSchemaGenerator /></Suspense>} />
+              <Route path="function-calling-builder" element={<Suspense fallback={<PageLoader />}><FunctionCallingBuilder /></Suspense>} />
               <Route path="json-to-ts" element={
                 <Suspense fallback={<PageLoader />}>
                   <JsonToTsConverter />

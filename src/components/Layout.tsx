@@ -27,6 +27,8 @@ export function Layout() {
     {
       group: t('home.category.ai') || 'AI Tools',
       items: [
+        { name: t('nav.functionBuilder') || 'Function Payload Builder', path: `${basePath}/function-calling-builder`, icon: Bot },
+        { name: t('nav.jsonSchema') || 'JSON Schema Generator', path: `${basePath}/json-schema-generator`, icon: Bot },
         { name: t('nav.jsonTs') || 'JSON to TS', path: `${basePath}/json-to-ts`, icon: Bot },
         { name: t('nav.tokenCounter') || 'Token Counter', path: `${basePath}/token-counter`, icon: Terminal },
         { name: t('nav.llmOptimizer'), path: `${basePath}/llm-optimizer`, icon: Bot },
