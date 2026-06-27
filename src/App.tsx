@@ -111,6 +111,18 @@ function LanguageWrapper() {
 }
 
 
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).wcs && (window as any).wcs_do) {
+      (window as any).wcs_do();
+    }
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
 function PrerenderEvent() {
   useEffect(() => {
     // Small delay to ensure everything is rendered and i18n is applied
@@ -127,6 +139,7 @@ export default function App() {
     <HelmetProvider>
       <ThemeProvider defaultTheme="light" storageKey="devtoolz-theme">
         <BrowserRouter>
+          <AnalyticsTracker />
           <PrerenderEvent />
           <Routes>
             <Route path="/:lang" element={<LanguageWrapper />}>
