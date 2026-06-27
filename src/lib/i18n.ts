@@ -4,6 +4,14 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      "home.partners.title": "Our Network",
+      "home.partners.everydaycalcs": "Everyday Calcs",
+      "home.partners.everydaycalcs.desc": "Simple and practical everyday calculators.",
+      "home.partners.zezeworklab": "Zeze Work Lab",
+      "home.partners.zezeworklab.desc": "Productivity and workspace optimization solutions.",
+      "home.partners.inselfcolor": "In Self Color",
+      "home.partners.inselfcolor.desc": "Personal color analysis and styling guide.",
+
       "common.copy": "Copy Regex",
       "common.copied": "Copied!",
       "common.clear": "Clear",
@@ -1065,6 +1073,14 @@ const resources = {
   },
   ko: {
     translation: {
+      "home.partners.title": "파트너 사이트",
+      "home.partners.everydaycalcs": "에브리데이 계산기 (Everyday Calcs)",
+      "home.partners.everydaycalcs.desc": "일상생활에 필요한 다양하고 편리한 계산기 모음입니다.",
+      "home.partners.zezeworklab": "제제 워크랩 (Zeze Work Lab)",
+      "home.partners.zezeworklab.desc": "생산성 및 업무 공간 최적화 솔루션을 제공합니다.",
+      "home.partners.inselfcolor": "인셀프컬러 (In Self Color)",
+      "home.partners.inselfcolor.desc": "퍼스널 컬러 진단 및 스타일링 가이드.",
+
       "common.copy": "정규식 복사",
       "common.copied": "복사됨!",
       "common.clear": "지우기",
@@ -2116,6 +2132,14 @@ const resources = {
   },
   ja: {
     translation: {
+      "home.partners.title": "パートナーサイト",
+      "home.partners.everydaycalcs": "Everyday Calcs",
+      "home.partners.zezelab.desc": "最先端のソリューションを提供する革新的な技術ラボです。",
+      "home.partners.zezeworklab": "Zeze Work Lab",
+      "home.partners.zezeworklab.desc": "生産性とワークスペース最適化のソリューション。",
+      "home.partners.inselfcolor": "In Self Color",
+      "home.partners.inselfcolor.desc": "パーソナルカラー分析とスタイリングガイド。",
+
       "common.copy": "正規表現をコピー",
       "common.copied": "コピーしました！",
       "common.clear": "クリア",

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Calculator } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
@@ -414,6 +414,60 @@ export function Home() {
             </button>
           </div>
         )}
+
+        {/* Partner Sites Section */}
+        <div className="mt-20 mb-8">
+          <div className="flex items-center mb-6">
+            <LinkIcon className="h-6 w-6 text-slate-500 dark:text-slate-400 mr-3" />
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{t('home.partners.title')}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="https://everydaycalcs.pages.dev" target="_blank" rel="noopener noreferrer" className="group relative bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-900/20 dark:to-slate-800 border border-indigo-100 dark:border-indigo-800/50 rounded-2xl p-6 hover:shadow-lg hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+              <div className="inline-flex p-3 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 mb-4 w-fit shadow-sm">
+                <Calculator className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                {t('home.partners.everydaycalcs')}
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 flex-1 mb-4 leading-relaxed">
+                {t('home.partners.everydaycalcs.desc')}
+              </p>
+              <div className="flex items-center text-indigo-600 dark:text-indigo-400 font-bold mt-auto text-sm">
+                Visit Site <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+              </div>
+            </a>
+            
+            <a href="https://www.zezeworklab.xyz" target="_blank" rel="noopener noreferrer" className="group relative bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-900/20 dark:to-slate-800 border border-emerald-100 dark:border-emerald-800/50 rounded-2xl p-6 hover:shadow-lg hover:border-emerald-300 dark:hover:border-emerald-500/50 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+              <div className="inline-flex p-3 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 mb-4 w-fit shadow-sm">
+                <Terminal className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                {t('home.partners.zezeworklab')}
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 flex-1 mb-4 leading-relaxed">
+                {t('home.partners.zezeworklab.desc')}
+              </p>
+              <div className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold mt-auto text-sm">
+                Visit Site <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+              </div>
+            </a>
+
+            <a href="https://inselfcolor.pages.dev" target="_blank" rel="noopener noreferrer" className="group relative bg-gradient-to-br from-rose-50 to-white dark:from-rose-900/20 dark:to-slate-800 border border-rose-100 dark:border-rose-800/50 rounded-2xl p-6 hover:shadow-lg hover:border-rose-300 dark:hover:border-rose-500/50 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+              <div className="inline-flex p-3 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 mb-4 w-fit shadow-sm">
+                <Palette className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                {t('home.partners.inselfcolor')}
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 flex-1 mb-4 leading-relaxed">
+                {t('home.partners.inselfcolor.desc')}
+              </p>
+              <div className="flex items-center text-rose-600 dark:text-rose-400 font-bold mt-auto text-sm">
+                Visit Site <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+              </div>
+            </a>
+          </div>
+        </div>
 
         {/* Why Choose Us Section */}
         <div className="mt-24 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
