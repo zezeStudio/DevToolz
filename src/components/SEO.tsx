@@ -9,9 +9,10 @@ interface SEOProps {
   schema?: object[];
   applicationCategory?: string;
   noindex?: boolean;
+  keywords?: string[];
 }
 
-export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication', noindex = false }: SEOProps) {
+export function SEO({ title, description, url, schema, applicationCategory = 'DeveloperApplication', noindex = false, keywords = [] }: SEOProps) {
   const { i18n } = useTranslation();
   const baseUrl = 'https://www.zezelab.xyz';
   const cleanPath = url.replace(/^\/(en|ko|ja)/, '') || '/';
@@ -65,6 +66,7 @@ export function SEO({ title, description, url, schema, applicationCategory = 'De
       <html lang={i18n.language} />
       <title>{title}</title>
       <meta name="description" content={description} />
+      {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       <link rel="canonical" href={fullUrl} />
       

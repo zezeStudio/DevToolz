@@ -303,6 +303,7 @@ export function Home() {
         title={t('home.pageTitle')}
         description={t('home.subtitle')}
         url={`/${currentLang}`}
+        keywords={["AI tools", "LLM optimization", "prompt engineering", "JSON formatter", "developer tools", "JSON Schema Generator", "Token Counter", "Few-Shot Builder", "Function Calling Builder", "AI 프롬프트 최적화", "개발자 도구", "제제랩", "devtoolz"]}
         schema={[
           {
             "@type": "WebApplication",
