@@ -47,6 +47,7 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService').then(m => ({ 
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
 const AboutUs = lazy(() => import('./pages/AboutUs').then(m => ({ default: m.AboutUs })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
+const Donate = lazy(() => import('./pages/Donate').then(m => ({ default: m.Donate })));
 
 const PageLoader = () => (
   <div className="flex h-[60vh] w-full items-center justify-center">
@@ -306,6 +307,11 @@ export default function App() {
                   <AboutUs />
                 </Suspense>
               } />
+              <Route path="donate" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Donate />
+                </Suspense>
+              } />
               <Route path="*" element={
                 <Suspense fallback={<PageLoader />}>
                   <NotFound />
@@ -474,6 +480,11 @@ export default function App() {
               <Route path="about" element={
                 <Suspense fallback={<PageLoader />}>
                   <AboutUs />
+                </Suspense>
+              } />
+              <Route path="donate" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Donate />
                 </Suspense>
               } />
               <Route path="*" element={

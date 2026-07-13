@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal, BookOpen } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal, BookOpen, Heart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
@@ -110,6 +110,15 @@ export function Layout() {
             <div className="flex items-center space-x-2 sm:space-x-3">
               <span className="text-sm text-slate-500 dark:text-slate-400 hidden sm:inline-block mr-2">{t('header.subtitle')}</span>
               
+              <Link
+                to={`${basePath}/donate`}
+                className="p-2 rounded-md text-pink-500 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 focus:outline-none transition-colors flex items-center gap-1.5 font-medium"
+                aria-label="Donate"
+              >
+                <Heart className="h-5 w-5" />
+                <span className="text-sm hidden sm:inline-block">{t('footer.donate') || 'Donate'}</span>
+              </Link>
+
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className="p-2 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none transition-colors"
@@ -218,6 +227,10 @@ export function Layout() {
           <div className="flex flex-col items-center md:items-end space-y-4">
             <div className="flex space-x-6">
               <Link to={`${basePath}/about`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.about')}</Link>
+              <Link to={`${basePath}/donate`} className="text-sm text-pink-500 dark:text-pink-400 hover:text-pink-600 dark:hover:text-pink-300 font-medium flex items-center gap-1">
+                <Heart className="h-4 w-4" />
+                {t('footer.donate') || 'Donate'}
+              </Link>
               <a href="/privacy.html" className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.privacy')}</a>
               <a href="/terms-of-service.html" className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.terms')}</a>
               <Link to={`${basePath}/contact`} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">{t('footer.contact')}</Link>
