@@ -4,6 +4,30 @@ import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield,
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
+function KakaoAd() {
+  useEffect(() => {
+    // Check if the script is already loaded
+    if (!document.getElementById('kakao-ad-script')) {
+      const script = document.createElement('script');
+      script.id = 'kakao-ad-script';
+      script.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
+      script.async = true;
+      script.type = 'text/javascript';
+      document.head.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div className="flex justify-center w-full my-8 min-h-[90px] overflow-hidden">
+      <ins className="kakao_ad_area" 
+           style={{ display: "none" }} 
+           data-ad-unit="DAN-bjHuQZDtMivOytId" 
+           data-ad-width="728" 
+           data-ad-height="90"></ins>
+    </div>
+  );
+}
+
 export function Home() {
   const { t } = useTranslation();
   const { lang } = useParams();
@@ -361,6 +385,8 @@ export function Home() {
             </div>
           </div>
         </div>
+
+        <KakaoAd />
 
         {/* Tools Grid by Category */}
         {filteredTools.length > 0 ? (

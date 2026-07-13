@@ -380,6 +380,27 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/json-schema-generator"/>
   </url>
   <url>
+    <loc>https://www.zezelab.xyz/function-calling-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/function-calling-builder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ko/function-calling-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/function-calling-builder"/>
+  </url>
+  <url>
+    <loc>https://www.zezelab.xyz/ja/function-calling-builder</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja/function-calling-builder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz/function-calling-builder"/>
+  </url>
+  <url>
     <loc>https://www.zezelab.xyz/token-counter</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.zezelab.xyz/token-counter"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko/token-counter"/>
