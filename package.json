@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "npm run clean && node generate_sitemap.cjs && vite build",
+    "build": "npm run clean && node generate_sitemap.cjs && vite build && node generate_static_pages.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
@@ -19,7 +19,7 @@
     "colord": "^2.9.3",
     "crypto-js": "^4.2.0",
     "diff": "^8.0.4",
-    "dompurify": "^3.4.5",
+    "dompurify": "^3.4.5", 
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "gpt-tokenizer": "^3.4.0",
