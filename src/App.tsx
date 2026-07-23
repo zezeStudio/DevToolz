@@ -64,8 +64,9 @@ function LanguageWrapper() {
     return <Navigate to={location.pathname.replace(/^\/en/, '') || '/'} replace />;
   }
 
+  const supportedLangs = ['en', 'ko', 'ja'];
+
   useEffect(() => {
-    const supportedLangs = ['en', 'ko', 'ja'];
     if (lang && supportedLangs.includes(lang)) {
       if (i18n.language !== lang) {
         i18n.changeLanguage(lang);
@@ -73,14 +74,17 @@ function LanguageWrapper() {
       }
     }
   }, [lang, i18n]);
-
-  const supportedLangs = ['en', 'ko', 'ja'];
   
   // Extract path without lang prefix
   const pathParts = location.pathname.split('/').filter(Boolean);
   const hasLangPrefix = pathParts.length > 0 && supportedLangs.includes(pathParts[0]);
   const basePath = hasLangPrefix ? pathParts.slice(1).join('/') : pathParts.join('/');
   const trailingPath = basePath ? `/${basePath}` : '';
+
+  // Prevent rendering content in the wrong language during the initial client-side render
+  if (lang && supportedLangs.includes(lang) && i18n.language !== lang) {
+    return null;
+  }
 
   return (
     <>

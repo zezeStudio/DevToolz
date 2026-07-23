@@ -528,8 +528,8 @@ export function Home() {
         <div className="mt-16 text-left px-4 md:px-8 max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">{t('home.about.longTitle')}</h2>
           <div className="prose prose-gray dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
-             {t('home.about.longDesc').split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-6 leading-[1.85] tracking-[0.015em] text-[15px]">{paragraph}</p>
+             {(t('home.about.longDesc', { defaultValue: '' }) as string).split('\n\n').map((paragraph, index) => (
+                <p key={`${currentLang}-${index}`} className="mb-6 leading-[1.85] tracking-[0.015em] text-[15px]">{paragraph}</p>
              ))}
           </div>
         </div>

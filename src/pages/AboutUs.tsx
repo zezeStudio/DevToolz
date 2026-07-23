@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 import { Info, Code2, Globe, Shield } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 export function AboutUs() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { lang } = useParams();
   const currentLang = lang || 'en';
+
+  useEffect(() => {
+    if (i18n.language !== currentLang) {
+      i18n.changeLanguage(currentLang);
+    }
+  }, [currentLang, i18n]);
 
   return (
     <>
@@ -53,12 +59,12 @@ export function AboutUs() {
 
           <hr className="my-8 border-gray-200 dark:border-gray-700" />
 
-          {t('about.content').split('\n\n').map((paragraph, index) => {
+          {(t('about.content', { defaultValue: '' }) as string).split('\n\n').map((paragraph, index) => {
             if (paragraph.startsWith('### ')) {
-              return <h3 key={index} className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">{paragraph.replace('### ', '')}</h3>;
+              return <h3 key={`${currentLang}-${index}`} className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">{paragraph.replace('### ', '')}</h3>;
             }
             return (
-              <p key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+              <p key={`${currentLang}-${index}`} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 {paragraph}
               </p>
             );

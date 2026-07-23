@@ -110,7 +110,20 @@ function createStaticPage(route, lang) {
   }
 
   let newHtml = baseHtml.replace(/<title>.*?<\/title>/, `<title>${pageTitle}</title>`);
-  const staticBlock = `\n<div id="static-content" style="padding: 2rem; font-family: sans-serif;">\n${staticHtml}\n</div>\n`;
+  
+  const currentUrl = `https://www.zezelab.xyz${fullRoute === '/' ? '' : fullRoute}`;
+  newHtml = newHtml.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${currentUrl}" />`);
+  
+  const routeSuffix = route ? `/${route}` : '';
+  newHtml = newHtml.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${currentUrl}" />`);
+  newHtml = newHtml.replace(/<link rel="alternate" hreflang="en" href=".*?" \/>/, `<link rel="alternate" hreflang="en" href="https://www.zezelab.xyz${routeSuffix}" />`);
+  newHtml = newHtml.replace(/<link rel="alternate" hreflang="ko" href=".*?" \/>/, `<link rel="alternate" hreflang="ko" href="https://www.zezelab.xyz/ko${routeSuffix}" />`);
+  newHtml = newHtml.replace(/<link rel="alternate" hreflang="ja" href=".*?" \/>/, `<link rel="alternate" hreflang="ja" href="https://www.zezelab.xyz/ja${routeSuffix}" />`);
+  newHtml = newHtml.replace(/<link rel="alternate" hreflang="x-default" href=".*?" \/>/, `<link rel="alternate" hreflang="x-default" href="https://www.zezelab.xyz${routeSuffix}" />`);
+  newHtml = newHtml.replace(/<meta name="twitter:title" content=".*?" \/>/, `<meta name="twitter:title" content="${pageTitle}" />`);
+  newHtml = newHtml.replace(/"url": "https:\/\/www\.zezelab\.xyz\/"/, `"url": "${currentUrl}"`);
+
+  const staticBlock = `\n<div id="static-content" style="display:none; visibility:hidden;">\n${staticHtml}\n</div>\n`;
   newHtml = newHtml.replace('<body>', '<body>' + staticBlock);
   
   fs.writeFileSync(path.join(dir, 'index.html'), newHtml);
@@ -123,3 +136,6 @@ baseRoutes.forEach(route => {
 });
 
 console.log('Static pages generated for AdFit/AdSense SEO!');
+
+// Clean up temp_build directory
+fs.rmSync(path.join(__dirname, 'temp_build'), { recursive: true, force: true });
