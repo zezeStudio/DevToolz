@@ -1,5 +1,8 @@
 {
-  "name": "DevToolz - Global Developer Utilities",
-  "description": "High-quality, low-bounce-rate developer tools for global users. Optimized for AdSense.",
-  "requestFramePermissions": []
-} 
+  "name": "DevToolz - Essential Dev Tools & AI Prompt Utilities",
+  "description": "DevToolz: Free online developer utilities and AI prompt engineering tools. Securely format data, generate JSON schemas, simulate chunking, and optimize LLM context.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
