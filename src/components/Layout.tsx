@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
 import { CookieConsent } from './CookieConsent';
+import { Breadcrumbs } from './Breadcrumbs';
+import { GlobalSearch } from './GlobalSearch';
 
 export function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -100,15 +102,19 @@ export function Layout() {
       {/* Header */}
       <header className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.02)] dark:shadow-none sticky top-0 z-30 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link to={basePath || '/'} className="flex items-center">
+          <div className="flex justify-between items-center h-16 gap-2 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-6 flex-1 min-w-0">
+              <Link to={basePath || '/'} className="flex items-center shrink-0">
                 <Globe className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <span className="ml-2 text-xl font-bold text-slate-900 dark:text-white tracking-tight">DevToolz</span>
               </Link>
+
+              {/* Global Tool Search */}
+              <GlobalSearch />
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <span className="text-sm text-slate-500 dark:text-slate-400 hidden sm:inline-block mr-2">{t('header.subtitle')}</span>
+
+            <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+              <span className="text-sm text-slate-500 dark:text-slate-400 hidden xl:inline-block mr-2">{t('header.subtitle')}</span>
               
               <Link
                 to={`${basePath}/donate`}
@@ -139,7 +145,7 @@ export function Layout() {
 
               <button
                 type="button"
-                className="md:hidden ml-2 p-2 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none"
+                className="md:hidden ml-1 p-2 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               >
                 {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -199,7 +205,8 @@ export function Layout() {
 
         {/* Main Content Area */}
         <main className="flex-1 min-w-0 flex flex-col">
-          {/* AdSense Auto Ads will inject here if needed. */}
+          {/* Breadcrumb Navigation */}
+          <Breadcrumbs />
 
           {/* Page Content */}
           <div className="flex-1 bg-white dark:bg-slate-800 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-slate-200 dark:border-slate-800 p-4 sm:p-6 lg:p-8 transition-colors duration-200">

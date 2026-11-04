@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Calculator } from 'lucide-react';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Calculator, Star, PinOff } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
+import { useFavorites } from '../hooks/useFavorites';
+import { FavoriteButton } from '../components/FavoriteButton';
 
 function KakaoAd() {
   useEffect(() => {
@@ -50,9 +52,11 @@ export function Home() {
   }, []);
 
   const currentLang = lang || 'en';
+  const { favorites, toggleFavorite } = useFavorites();
 
-  const tools = [
-    {
+  const tools = useMemo(() => {
+    const rawTools = [
+      {
       name: t('home.tools.json.name'),
       description: t('home.tools.json.desc'),
       icon: Code2,
@@ -290,6 +294,18 @@ export function Home() {
       keywords: ['ai', 'json', 'schema', 'openai', 'gemini', 'structured', 'output']
     },
   ];
+    return rawTools.map(tool => ({
+      ...tool,
+      id: tool.path.replace(new RegExp(`^/${currentLang}/`), ''),
+    }));
+  }, [t, currentLang]);
+
+  const pinnedTools = useMemo(() => {
+    if (favorites.length === 0) return [];
+    return favorites
+      .map(favId => tools.find(tool => tool.id === favId))
+      .filter((tool): tool is typeof tools[0] => Boolean(tool));
+  }, [favorites, tools]);
 
   const categories = [
     { id: 'ai', name: t('home.category.ai'), icon: Bot },
@@ -388,6 +404,79 @@ export function Home() {
 
         <KakaoAd />
 
+        {/* Pinned Utilities Section */}
+        {pinnedTools.length > 0 && (
+          <section className="mb-14 bg-gradient-to-br from-amber-50/70 via-amber-50/20 to-white dark:from-amber-950/20 dark:via-slate-800/60 dark:to-slate-800/90 border border-amber-200/80 dark:border-amber-800/40 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <Star className="h-5 w-5 fill-amber-400 text-amber-500" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
+                      {t('home.pinnedTitle')}
+                    </h2>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                      {pinnedTools.length}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                    {t('home.pinnedSubtitle')}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pinnedTools.map((tool) => (
+                <div
+                  key={`pinned-${tool.id}`}
+                  className="group relative bg-white dark:bg-slate-800/90 border border-amber-200/70 dark:border-amber-800/40 hover:border-amber-400 dark:hover:border-amber-600 rounded-2xl p-6 pb-8 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1 shadow-xs"
+                >
+                  <div className="flex items-start justify-between mb-4 md:mb-5">
+                    <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-amber-500/10 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-amber-600 dark:text-amber-400 group-hover:scale-105 shadow-xs transition-transform">
+                      <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100/90 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50">
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                        {t('home.pinnedBadge')}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleFavorite(tool.id);
+                        }}
+                        title={t('tool.unpin')}
+                        aria-label={t('tool.unpin')}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+                      >
+                        <PinOff className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
+                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      {tool.name}
+                    </h3>
+                    <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 md:mb-8 leading-relaxed">
+                      {tool.description}
+                    </p>
+                    <div className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold mt-auto">
+                      {t('home.useTool', { tool: tool.name })} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Tools Grid by Category */}
         {filteredTools.length > 0 ? (
           <div className="space-y-16">
@@ -403,14 +492,17 @@ export function Home() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {categoryTools.map((tool) => (
-                      <Link
+                      <div
                         key={tool.name}
-                        to={tool.path}
                         className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 pb-8 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
                       >
-                        <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/50 border border-slate-300/60 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/40 mb-4 md:mb-5 w-fit shadow-sm transition-colors">
-                          <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+                        <div className="flex items-start justify-between mb-4 md:mb-5">
+                          <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/50 border border-slate-300/60 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/40 w-fit shadow-sm transition-colors">
+                            <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+                          </div>
+                          <FavoriteButton toolId={tool.id} variant="icon" size="sm" />
                         </div>
+                        <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
                         <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:text-emerald-400 transition-colors">
                           {tool.name}
                         </h3>
@@ -421,7 +513,8 @@ export function Home() {
                           {t('home.useTool', { tool: tool.name })} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
                         </div>
                       </Link>
-                    ))}
+                    </div>
+                  ))}
                   </div>
                 </div>
               );
