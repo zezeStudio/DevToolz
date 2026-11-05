@@ -5,6 +5,7 @@ import { FileCode, ArrowRight, Copy, Check, Trash2, Wand2, FileJson, HelpCircle,
 import { useParams } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { ToolDetailSection } from '../components/ToolDetailSection';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 function generateTypeScriptInterfaces(
   jsonString: string,
@@ -77,6 +78,7 @@ export function JsonToTsConverter() {
 
   const { lang } = useParams();
   const currentLang = lang || "en";
+  useActiveToolUsage('json-to-ts', tsOutput);
 
   useEffect(() => {
     setError(null);

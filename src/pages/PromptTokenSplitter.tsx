@@ -5,6 +5,7 @@ import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Scissors, Copy, CheckCircle2, ChevronDown, ListEnd, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { encode, decode } from 'gpt-tokenizer';
 import { cn } from '../lib/utils';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 export function PromptTokenSplitter() {
   const { t, i18n } = useTranslation();
@@ -68,6 +69,9 @@ export function PromptTokenSplitter() {
   const handleSplit = () => {
     const rawChunks = splitTextIntelligently(inputText, tokenLimit);
     const total = rawChunks.length;
+    if (total > 0) {
+      incrementToolUsage('prompt-token-splitter', { minIntervalMs: 800 });
+    }
     
     if (total <= 1) {
       setChunks(rawChunks);

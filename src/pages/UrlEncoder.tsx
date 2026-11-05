@@ -4,6 +4,8 @@ import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Copy, Check, Trash2, Link as LinkIcon, Info, ArrowDownUp, Globe, Hash, ListTree, ArrowRight, ArrowLeft, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function UrlEncoder() {
   const [input, setInput] = useState('');
@@ -16,6 +18,7 @@ export function UrlEncoder() {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   const currentLang = lang || 'en';
+  useActiveToolUsage('url-encoder', isLiveMode ? input : '');
 
   const handleEncode = (textToEncode: string = input) => {
     if (!textToEncode) {
@@ -30,6 +33,9 @@ export function UrlEncoder() {
       setOutput(encoded);
       setError(null);
       setLastAction('encode');
+      if (!isLiveMode) {
+        incrementToolUsage('url-encoder', { minIntervalMs: 800 });
+      }
     } catch (err) {
       setError((err as Error).message);
     }
@@ -48,6 +54,9 @@ export function UrlEncoder() {
       setOutput(decoded);
       setError(null);
       setLastAction('decode');
+      if (!isLiveMode) {
+        incrementToolUsage('url-encoder', { minIntervalMs: 800 });
+      }
     } catch (err) {
       setError("Invalid URL-encoded string");
     }

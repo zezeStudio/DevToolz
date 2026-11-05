@@ -1,10 +1,13 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Calculator, Star, PinOff } from 'lucide-react';
+import { Link, useParams, useLocation } from 'react-router-dom';
+import { Code2, Key, Type, ArrowRight, Binary, Link as LinkIcon, Search, Shield, Terminal, FileText, FileJson, Palette, Fingerprint, Hash, Clock, QrCode, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Calculator, Star, PinOff, Activity, TrendingUp } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 import { useFavorites } from '../hooks/useFavorites';
 import { FavoriteButton } from '../components/FavoriteButton';
+import { useToolUsage } from '../hooks/useToolUsage';
+import { useShortcuts } from '../components/ShortcutProvider';
+import { SEARCHABLE_TOOLS } from '../data/searchTools';
 
 function KakaoAd() {
   useEffect(() => {
@@ -33,26 +36,26 @@ function KakaoAd() {
 export function Home() {
   const { t } = useTranslation();
   const { lang } = useParams();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortMode, setSortMode] = useState<'category' | 'popular'>('category');
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      } else if (e.key === '/' && document.activeElement !== searchInputRef.current) {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    const hashId = location.hash?.replace(/^#/, '');
+    if (hashId && ['ai', 'developer', 'design', 'text', 'security'].includes(hashId)) {
+      setSortMode('category');
+      const timer = window.setTimeout(() => {
+        document.getElementById(hashId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
+      return () => window.clearTimeout(timer);
+    }
+  }, [location.hash]);
 
   const currentLang = lang || 'en';
-  const { favorites, toggleFavorite } = useFavorites();
+  const { favorites, isFavorite, toggleFavorite } = useFavorites();
+  const { usageMap } = useToolUsage();
+  const { openSearch, modKey } = useShortcuts();
 
   const tools = useMemo(() => {
     const rawTools = [
@@ -294,10 +297,31 @@ export function Home() {
       keywords: ['ai', 'json', 'schema', 'openai', 'gemini', 'structured', 'output']
     },
   ];
-    return rawTools.map(tool => ({
-      ...tool,
-      id: tool.path.replace(new RegExp(`^/${currentLang}/`), ''),
-    }));
+    const searchIndexById = new Map(SEARCHABLE_TOOLS.map(item => [item.id, item]));
+    return rawTools.map(tool => {
+      const id = tool.path.replace(new RegExp(`^/${currentLang}/`), '');
+      const indexed = searchIndexById.get(id);
+      const mergedKeywords = Array.from(
+        new Set([...(tool.keywords || []), ...(indexed?.keywords || [])])
+      );
+      return {
+        ...tool,
+        id,
+        keywords: mergedKeywords,
+        searchableHaystack: [
+          tool.name,
+          tool.description,
+          id,
+          indexed?.name.en || '',
+          indexed?.name.ko || '',
+          indexed?.name.ja || '',
+          indexed?.description.en || '',
+          ...mergedKeywords,
+        ]
+          .join(' ')
+          .toLowerCase(),
+      };
+    });
   }, [t, currentLang]);
 
   const pinnedTools = useMemo(() => {
@@ -316,14 +340,11 @@ export function Home() {
   ];
 
   const filteredTools = useMemo(() => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return tools;
-    return tools.filter(tool => {
-      const matchName = tool.name.toLowerCase().includes(query);
-      const matchDesc = tool.description.toLowerCase().includes(query);
-      const matchKeywords = tool.keywords?.some(kw => kw.toLowerCase().includes(query));
-      return matchName || matchDesc || matchKeywords;
-    });
+    const tokens = searchQuery.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) return tools;
+    return tools.filter(tool =>
+      tokens.every(token => tool.searchableHaystack.includes(token))
+    );
   }, [searchQuery, tools]);
 
   const toolsByCategory = useMemo(() => {
@@ -336,6 +357,16 @@ export function Home() {
     });
     return grouped;
   }, [filteredTools]);
+
+  const popularSortedTools = useMemo(() => {
+    return [...filteredTools].sort((a, b) => {
+      const usageDiff = (usageMap[b.id] || 0) - (usageMap[a.id] || 0);
+      if (usageDiff !== 0) return usageDiff;
+      const favDiff = (isFavorite(b.id) ? 1 : 0) - (isFavorite(a.id) ? 1 : 0);
+      if (favDiff !== 0) return favDiff;
+      return 0;
+    });
+  }, [filteredTools, usageMap, isFavorite]);
 
   return (
     <>
@@ -391,13 +422,20 @@ export function Home() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-12 pr-20 py-3 md:py-4 border border-slate-300/80 hover:border-slate-400/80 dark:border-white/[0.06] rounded-2xl leading-5 dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 text-base md:text-lg transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] bg-slate-50 dark:bg-black/20"
+              className="block w-full pl-12 pr-24 py-3 md:py-4 border border-slate-300/80 hover:border-slate-400/80 dark:border-white/[0.06] rounded-2xl leading-5 dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 dark:focus:ring-emerald-400/20 text-base md:text-lg transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] bg-slate-50 dark:bg-black/20"
               placeholder={t('home.searchPlaceholder')}
             />
-            <div className="absolute inset-y-0 right-0 pr-6 sm:pr-4 flex items-center pointer-events-none">
-              <span className="hidden sm:inline-block bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 font-mono text-xs font-bold px-2 py-1 rounded shadow-sm border border-slate-200 dark:border-slate-800/50">
-                ⌘K
-              </span>
+            <div className="absolute inset-y-0 right-0 pr-5 sm:pr-3 flex items-center">
+              <button
+                type="button"
+                onClick={openSearch}
+                title={t('shortcuts.openSearch')}
+                aria-label={t('shortcuts.openSearch')}
+                className="hidden sm:inline-flex items-center gap-0.5 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-300 font-mono text-xs font-bold px-2.5 py-1 rounded-lg shadow-xs border border-slate-200 dark:border-slate-700 transition-colors"
+              >
+                <span>{modKey}</span>
+                <span>K</span>
+              </button>
             </div>
           </div>
         </div>
@@ -429,97 +467,225 @@ export function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pinnedTools.map((tool) => (
-                <div
-                  key={`pinned-${tool.id}`}
-                  className="group relative bg-white dark:bg-slate-800/90 border border-amber-200/70 dark:border-amber-800/40 hover:border-amber-400 dark:hover:border-amber-600 rounded-2xl p-6 pb-8 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1 shadow-xs"
-                >
-                  <div className="flex items-start justify-between mb-4 md:mb-5">
-                    <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-amber-500/10 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-amber-600 dark:text-amber-400 group-hover:scale-105 shadow-xs transition-transform">
-                      <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+              {pinnedTools.map((tool) => {
+                const count = usageMap[tool.id] || 0;
+                return (
+                  <div
+                    key={`pinned-${tool.id}`}
+                    className="group relative bg-white dark:bg-slate-800/90 border border-amber-200/70 dark:border-amber-800/40 hover:border-amber-400 dark:hover:border-amber-600 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1 shadow-xs"
+                  >
+                    <div className="flex items-start justify-between mb-4 md:mb-5">
+                      <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-amber-500/10 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-amber-600 dark:text-amber-400 group-hover:scale-105 shadow-xs transition-transform">
+                        <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+                      </div>
+
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100/90 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                          {t('home.pinnedBadge')}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleFavorite(tool.id);
+                          }}
+                          title={t('tool.unpin')}
+                          aria-label={t('tool.unpin')}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+                        >
+                          <PinOff className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100/90 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
-                        {t('home.pinnedBadge')}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleFavorite(tool.id);
-                        }}
-                        title={t('tool.unpin')}
-                        aria-label={t('tool.unpin')}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
-                      >
-                        <PinOff className="w-4 h-4" />
-                      </button>
-                    </div>
+                    <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
+                      <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        {tool.name}
+                      </h3>
+                      <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 leading-relaxed">
+                        {tool.description}
+                      </p>
+                      <div className="flex items-center justify-between gap-3 pt-4 mt-auto border-t border-amber-200/60 dark:border-amber-800/40">
+                        <span className="inline-flex items-center text-sm text-emerald-600 dark:text-emerald-400 font-bold min-w-0 truncate">
+                          <span className="truncate">{t('home.useTool', { tool: tool.name })}</span>
+                          <ArrowRight className="ml-1.5 h-4 w-4 shrink-0 group-hover:translate-x-1.5 transition-transform" />
+                        </span>
+                        <span
+                          className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap shrink-0"
+                          title={t('tool.usageTooltip', { count })}
+                          data-testid={`pinned-tool-usage-${tool.id}`}
+                        >
+                          <Activity className="w-3.5 h-3.5 text-emerald-600/80 dark:text-emerald-400/80 shrink-0" aria-hidden="true" />
+                          <span>{t('home.usageCount', { count })}</span>
+                        </span>
+                      </div>
+                    </Link>
                   </div>
-
-                  <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
-                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 md:mb-8 leading-relaxed">
-                      {tool.description}
-                    </p>
-                    <div className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold mt-auto">
-                      {t('home.useTool', { tool: tool.name })} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
         )}
 
-        {/* Tools Grid by Category */}
-        {filteredTools.length > 0 ? (
-          <div className="space-y-16">
-            {categories.map(category => {
-              const categoryTools = toolsByCategory[category.id];
-              if (!categoryTools || categoryTools.length === 0) return null;
+        {/* Sort Mode Toggle Header */}
+        <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            {sortMode === 'popular' && (
+              <>
+                <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
+                <span>{t('home.popularSectionSubtitle')}</span>
+              </>
+            )}
+          </div>
+          <div
+            role="group"
+            aria-label="Sort tools"
+            className="inline-flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 ml-auto"
+          >
+            <button
+              type="button"
+              onClick={() => setSortMode('category')}
+              aria-pressed={sortMode === 'category'}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+                sortMode === 'category'
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              <span>{t('home.sort.category')}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setSortMode('popular')}
+              aria-pressed={sortMode === 'popular'}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+                sortMode === 'popular'
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+              }`}
+            >
+              <TrendingUp className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              <span>{t('home.sort.popular')}</span>
+            </button>
+          </div>
+        </div>
 
-              return (
-                <div key={category.id}>
-                  <div className="flex items-center mb-6">
-                    <category.icon className="h-6 w-6 text-slate-500 dark:text-slate-400 mr-3" />
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{category.name}</h2>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {categoryTools.map((tool) => (
-                      <div
-                        key={tool.name}
-                        className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 pb-8 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
-                      >
-                        <div className="flex items-start justify-between mb-4 md:mb-5">
+        {/* Tools Grid (By Category or Most Used) */}
+        {filteredTools.length > 0 ? (
+          sortMode === 'popular' ? (
+            <div>
+              <div className="flex items-center mb-6">
+                <TrendingUp className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mr-3 shrink-0" aria-hidden="true" />
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+                  {t('home.popularSectionTitle')}
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {popularSortedTools.map((tool, index) => {
+                  const count = usageMap[tool.id] || 0;
+                  return (
+                    <div
+                      key={`popular-${tool.id}`}
+                      className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
+                    >
+                      <div className="flex items-start justify-between mb-4 md:mb-5">
+                        <div className="flex items-center gap-2.5">
                           <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/50 border border-slate-300/60 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/40 w-fit shadow-sm transition-colors">
                             <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
                           </div>
-                          <FavoriteButton toolId={tool.id} variant="icon" size="sm" />
+                          <span className="font-mono text-xs font-semibold text-slate-400 dark:text-slate-400 tabular-nums">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
                         </div>
-                        <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
-                        <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:text-emerald-400 transition-colors">
+                        <FavoriteButton toolId={tool.id} variant="icon" size="sm" />
+                      </div>
+                      <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
+                        <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                           {tool.name}
                         </h3>
-                        <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 md:mb-8 leading-relaxed">
+                        <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 leading-relaxed">
                           {tool.description}
                         </p>
-                        <div className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold mt-auto">
-                          {t('home.useTool', { tool: tool.name })} <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                        <div className="flex items-center justify-between gap-3 pt-4 mt-auto border-t border-slate-100 dark:border-slate-700/60">
+                          <span className="inline-flex items-center text-sm text-emerald-600 dark:text-emerald-400 font-bold min-w-0 truncate">
+                            <span className="truncate">{t('home.useTool', { tool: tool.name })}</span>
+                            <ArrowRight className="ml-1.5 h-4 w-4 shrink-0 group-hover:translate-x-1.5 transition-transform" />
+                          </span>
+                          <span
+                            className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 dark:text-slate-400 tabular-nums whitespace-nowrap shrink-0"
+                            title={t('tool.usageTooltip', { count })}
+                            data-testid={`home-tool-usage-${tool.id}`}
+                          >
+                            <Activity className="w-3.5 h-3.5 text-emerald-600/80 dark:text-emerald-400/80 shrink-0" aria-hidden="true" />
+                            <span>{t('home.usageCount', { count })}</span>
+                          </span>
                         </div>
                       </Link>
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-16">
+              {categories.map(category => {
+                const categoryTools = toolsByCategory[category.id];
+                if (!categoryTools || categoryTools.length === 0) return null;
+
+                return (
+                  <div key={category.id} id={category.id} className="scroll-mt-24">
+                    <div className="flex items-center mb-6">
+                      <category.icon className="h-6 w-6 text-slate-500 dark:text-slate-400 mr-3" />
+                      <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{category.name}</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {categoryTools.map((tool) => {
+                        const count = usageMap[tool.id] || 0;
+                        return (
+                          <div
+                            key={tool.name}
+                            className="group relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1"
+                          >
+                            <div className="flex items-start justify-between mb-4 md:mb-5">
+                              <div className="inline-flex p-2.5 md:p-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/50 border border-slate-300/60 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/40 w-fit shadow-sm transition-colors">
+                                <tool.icon className="h-5 w-5 md:h-6 md:w-6" />
+                              </div>
+                              <FavoriteButton toolId={tool.id} variant="icon" size="sm" />
+                            </div>
+                            <Link to={tool.path} className="flex-1 flex flex-col focus:outline-none">
+                              <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 md:mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                                {tool.name}
+                              </h3>
+                              <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 flex-1 mb-6 leading-relaxed">
+                                {tool.description}
+                              </p>
+                              <div className="flex items-center justify-between gap-3 pt-4 mt-auto border-t border-slate-100 dark:border-slate-700/60">
+                                <span className="inline-flex items-center text-sm text-emerald-600 dark:text-emerald-400 font-bold min-w-0 truncate">
+                                  <span className="truncate">{t('home.useTool', { tool: tool.name })}</span>
+                                  <ArrowRight className="ml-1.5 h-4 w-4 shrink-0 group-hover:translate-x-1.5 transition-transform" />
+                                </span>
+                                <span
+                                  className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 dark:text-slate-400 tabular-nums whitespace-nowrap shrink-0"
+                                  title={t('tool.usageTooltip', { count })}
+                                  data-testid={`home-tool-usage-${tool.id}`}
+                                >
+                                  <Activity className="w-3.5 h-3.5 text-emerald-600/80 dark:text-emerald-400/80 shrink-0" aria-hidden="true" />
+                                  <span>{t('home.usageCount', { count })}</span>
+                                </span>
+                              </div>
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )
         ) : (
           <div className="text-center py-20">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">

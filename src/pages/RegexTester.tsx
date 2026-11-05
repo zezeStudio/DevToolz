@@ -4,6 +4,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 const COMMON_PATTERNS = [
   { id: 'custom', label: 'regex.custom', pattern: '', flags: 'g' },
@@ -72,6 +73,8 @@ export function RegexTester() {
   const [replaceText, setReplaceText] = useState('user@domain.com');
   const [copied, setCopied] = useState(false);
   const [showCheatsheet, setShowCheatsheet] = useState(false);
+
+  useActiveToolUsage('regex-tester', `${mode}:${pattern}:${flags}:${testText}:${replaceText}`);
 
   const availableFlags = [
     { char: 'g', label: 'global' },

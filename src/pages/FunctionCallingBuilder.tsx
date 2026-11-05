@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useLocation, useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 type DataType = 'string' | 'integer' | 'number' | 'boolean' | 'array' | 'object';
 type Provider = 'openai' | 'anthropic' | 'gemini';
@@ -69,6 +71,7 @@ export function FunctionCallingBuilder() {
         ]
       }
     ]);
+    incrementToolUsage('function-calling-builder', { minIntervalMs: 800 });
   };
 
   const addTool = () => {
@@ -213,6 +216,13 @@ export function FunctionCallingBuilder() {
 
     return '';
   }, [tools, provider]);
+
+  useActiveToolUsage(
+    'function-calling-builder',
+    tools.some(t => t.name.trim() || t.description.trim() || t.parameters.length > 0)
+      ? generatedPayload
+      : ''
+  );
 
   const handleCopy = async () => {
     try {

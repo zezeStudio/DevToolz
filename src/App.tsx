@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from '
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { ThemeProvider } from './components/ThemeProvider';
 import { Layout } from './components/Layout';
+import { ShortcutProvider } from './components/ShortcutProvider';
 import { useTranslation } from 'react-i18next';
 
 import { Home } from './pages/Home';
@@ -144,9 +145,10 @@ export default function App() {
     <HelmetProvider>
       <ThemeProvider defaultTheme="light" storageKey="devtoolz-theme">
         <BrowserRouter>
-          <AnalyticsTracker />
-          <PrerenderEvent />
-          <Routes>
+          <ShortcutProvider>
+            <AnalyticsTracker />
+            <PrerenderEvent />
+            <Routes>
             <Route path="/:lang" element={<LanguageWrapper />}>
               <Route index element={<Home />} />
               <Route path="json-formatter" element={
@@ -498,6 +500,7 @@ export default function App() {
               } />
             </Route>
                       </Routes>
+          </ShortcutProvider>
         </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>

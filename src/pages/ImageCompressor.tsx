@@ -4,6 +4,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 export function ImageCompressor() {
   const { t, i18n } = useTranslation();
@@ -91,6 +92,7 @@ export function ImageCompressor() {
       const dataUrl = canvas.toDataURL(mimeType, actualQuality);
       
       setCompressedUrl(dataUrl);
+      incrementToolUsage('image-compressor', { minIntervalMs: 800 });
       
       // Calculate compressed size
       const base64str = dataUrl.split(',')[1];

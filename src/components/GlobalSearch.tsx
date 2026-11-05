@@ -15,20 +15,32 @@ import {
   Shield,
   Layers,
   LucideIcon,
-  Star
+  Star,
+  Keyboard
 } from 'lucide-react';
 import { SEARCHABLE_TOOLS, SearchableTool, ToolCategory } from '../data/searchTools';
 import { cn } from '../lib/utils';
 import { useFavorites } from '../hooks/useFavorites';
+import { useShortcuts } from './ShortcutProvider';
+import { useToolUsage } from '../hooks/useToolUsage';
+
+const CATEGORY_ORDER: (ToolCategory | 'all')[] = [
+  'all',
+  'ai',
+  'developer',
+  'text',
+  'design',
+  'security',
+];
 
 export function GlobalSearch() {
-  const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<ToolCategory | 'all'>('all');
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [isMac, setIsMac] = useState(true);
 
+  const { isSearchOpen: isOpen, setIsSearchOpen: setIsOpen, openHelp, isMac } = useShortcuts();
   const { isFavorite } = useFavorites();
+  const { usageMap } = useToolUsage();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,34 +53,6 @@ export function GlobalSearch() {
   const currentLang = (lang || i18n.language || 'en') as 'en' | 'ko' | 'ja';
   const effectiveLang: 'en' | 'ko' | 'ja' = ['en', 'ko', 'ja'].includes(currentLang) ? currentLang : 'en';
   const basePath = effectiveLang === 'en' ? '' : `/${effectiveLang}`;
-
-  // Detect platform for shortcut display (⌘ vs Ctrl)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
-      const isApple = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent || navigator.platform);
-      setIsMac(isApple);
-    }
-  }, []);
-
-  // Global keyboard shortcut listener (⌘K / Ctrl+K and '/')
-  useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept if user is typing in another input/textarea unless it's Cmd+K
-      const target = e.target as HTMLElement;
-      const isInput = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable;
-
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setIsOpen(prev => !prev);
-      } else if (e.key === '/' && !isInput && !isOpen) {
-        e.preventDefault();
-        setIsOpen(true);
-      }
-    };
-
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
-  }, [isOpen]);
 
   // Handle modal open: focus input and prevent body scroll
   useEffect(() => {
@@ -99,53 +83,45 @@ export function GlobalSearch() {
   // Filter tools based on query and category
   const filteredTools = useMemo(() => {
     const cleanQuery = query.trim().toLowerCase();
+    const queryTokens = cleanQuery.split(/\s+/).filter(Boolean);
 
     return SEARCHABLE_TOOLS.filter(tool => {
       // Category filter
-      if (selectedCategory !== 'all') {
-        if (selectedCategory === 'security' && (tool.category === 'security' || tool.category === 'developer')) {
-          // allow crossover if specifically categorized
-        }
-        if (tool.category !== selectedCategory) {
-          return false;
-        }
+      if (selectedCategory !== 'all' && tool.category !== selectedCategory) {
+        return false;
       }
 
       // If no query, return all matching category
-      if (!cleanQuery) return true;
+      if (queryTokens.length === 0) return true;
 
-      // Check tool names across all languages
-      const nameCurrent = tool.name[effectiveLang]?.toLowerCase() || '';
-      const nameEn = tool.name.en.toLowerCase();
-      const nameKo = tool.name.ko.toLowerCase();
-      const nameJa = tool.name.ja.toLowerCase();
+      // Combine searchable text across localized names, descriptions, id, path, and keywords
+      const haystack = [
+        tool.name[effectiveLang] || '',
+        tool.name.en,
+        tool.name.ko,
+        tool.name.ja,
+        tool.description[effectiveLang] || '',
+        tool.description.en,
+        tool.id,
+        tool.path,
+        ...tool.keywords,
+      ]
+        .join(' ')
+        .toLowerCase();
 
-      // Check tool description
-      const descCurrent = tool.description[effectiveLang]?.toLowerCase() || '';
-      const descEn = tool.description.en.toLowerCase();
-
-      // Check path / id
-      const idMatch = tool.id.toLowerCase().includes(cleanQuery);
-      const pathMatch = tool.path.toLowerCase().includes(cleanQuery);
-
-      // Check keywords
-      const keywordMatch = tool.keywords.some(k => k.toLowerCase().includes(cleanQuery));
-
-      return (
-        nameCurrent.includes(cleanQuery) ||
-        nameEn.includes(cleanQuery) ||
-        nameKo.includes(cleanQuery) ||
-        nameJa.includes(cleanQuery) ||
-        descCurrent.includes(cleanQuery) ||
-        descEn.includes(cleanQuery) ||
-        idMatch ||
-        pathMatch ||
-        keywordMatch
-      );
+      return queryTokens.every(token => haystack.includes(token));
     }).sort((a, b) => {
       const cleanQuery = query.trim().toLowerCase();
       if (!cleanQuery) {
-        // Prioritize popular tools first when empty
+        // Prioritize favorites, then most used tools, then curated popular tools
+        const aFav = isFavorite(a.id) ? 1 : 0;
+        const bFav = isFavorite(b.id) ? 1 : 0;
+        if (aFav !== bFav) return bFav - aFav;
+
+        const aUsage = usageMap[a.id] || 0;
+        const bUsage = usageMap[b.id] || 0;
+        if (aUsage !== bUsage) return bUsage - aUsage;
+
         if (a.isPopular && !b.isPopular) return -1;
         if (!a.isPopular && b.isPopular) return 1;
         return 0;
@@ -168,7 +144,7 @@ export function GlobalSearch() {
 
       return 0;
     });
-  }, [query, selectedCategory, effectiveLang]);
+  }, [query, selectedCategory, effectiveLang, isFavorite, usageMap]);
 
   // Keep selected index within bounds
   useEffect(() => {
@@ -200,6 +176,13 @@ export function GlobalSearch() {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setSelectedIndex(prev => (prev - 1 + filteredTools.length) % (filteredTools.length || 1));
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const idx = CATEGORY_ORDER.indexOf(selectedCategory);
+      const nextIdx = e.shiftKey
+        ? (idx - 1 + CATEGORY_ORDER.length) % CATEGORY_ORDER.length
+        : (idx + 1) % CATEGORY_ORDER.length;
+      setSelectedCategory(CATEGORY_ORDER[nextIdx]);
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (filteredTools[selectedIndex]) {
@@ -211,14 +194,19 @@ export function GlobalSearch() {
     }
   };
 
-  // Helper highlighting
+  // Helper highlighting supporting multi-word queries
   const highlightMatch = (text: string, searchQuery: string) => {
-    if (!searchQuery.trim()) return text;
-    const parts = text.split(new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'));
+    const tokens = searchQuery.trim().split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) return text;
+    const escapedTokens = tokens
+      .sort((a, b) => b.length - a.length)
+      .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`(${escapedTokens.join('|')})`, 'gi');
+    const parts = text.split(regex);
     return (
       <>
         {parts.map((part, i) => 
-          part.toLowerCase() === searchQuery.toLowerCase() ? (
+          tokens.some(tok => part.toLowerCase() === tok.toLowerCase()) ? (
             <mark key={i} className="bg-yellow-200 dark:bg-yellow-900/60 text-slate-900 dark:text-yellow-200 px-0.5 rounded font-medium">
               {part}
             </mark>
@@ -234,8 +222,9 @@ export function GlobalSearch() {
     { id: 'all', label: t('search.all') || 'All Tools', icon: SlidersHorizontal },
     { id: 'ai', label: t('home.category.ai') || 'AI Tools', icon: Bot },
     { id: 'developer', label: t('home.category.developer') || 'Developer', icon: Terminal },
-    { id: 'text', label: t('home.category.text') || 'Text & Formatting', icon: FileText },
-    { id: 'design', label: t('home.category.design') || 'Design & Security', icon: Palette }
+    { id: 'text', label: t('home.category.text') || 'Text & Content', icon: FileText },
+    { id: 'design', label: t('home.category.design') || 'Design', icon: Palette },
+    { id: 'security', label: t('home.category.security') || 'Security', icon: Shield }
   ];
 
   return (
@@ -246,6 +235,7 @@ export function GlobalSearch() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
+          aria-keyshortcuts="Meta+k Control+k"
           className={cn(
             "hidden md:flex items-center justify-between w-56 lg:w-72 xl:w-80 h-9 px-3 text-xs font-normal",
             "bg-slate-100/80 hover:bg-slate-100 dark:bg-slate-800/90 dark:hover:bg-slate-800",
@@ -284,6 +274,7 @@ export function GlobalSearch() {
           className="fixed inset-0 z-50 flex items-start justify-center pt-12 sm:pt-20 px-3 sm:px-4"
           role="dialog"
           aria-modal="true"
+          aria-label={t('shortcuts.openSearch') || 'Global Tool Search'}
         >
           {/* Backdrop */}
           <div 
@@ -295,17 +286,22 @@ export function GlobalSearch() {
           {/* Modal Content */}
           <div 
             className={cn(
-              "relative w-full max-w-2xl bg-white dark:bg-slate-850 dark:bg-[#1e293b] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700/80 overflow-hidden z-10 flex flex-col max-h-[82vh]",
+              "relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-10 flex flex-col max-h-[82vh]",
               "animate-in zoom-in-95 fade-in duration-150"
             )}
             onKeyDown={handleKeyDown}
           >
             {/* Header: Input Bar */}
-            <div className="flex items-center px-4 py-3.5 border-b border-slate-200/90 dark:border-slate-700/80 gap-3">
+            <div className="flex items-center px-4 py-3.5 border-b border-slate-200/90 dark:border-slate-800 gap-3">
               <Search className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
+                role="combobox"
+                aria-expanded="true"
+                aria-controls="global-search-listbox"
+                aria-activedescendant={filteredTools[selectedIndex] ? `search-option-${filteredTools[selectedIndex].id}` : undefined}
+                aria-label={t('search.placeholder') || 'Search tools'}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={
@@ -314,7 +310,7 @@ export function GlobalSearch() {
                    effectiveLang === 'ja' ? 'ツール名、機能、キーワードで検索 (例: JSON, Base64, トークン...)' : 
                    'Search developer tools (e.g., JSON, Base64, Token, Regex, Diff)...')
                 }
-                className="flex-1 bg-transparent border-0 text-slate-900 dark:text-slate-100 text-base sm:text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-0"
+                className="flex-1 bg-transparent border-0 text-slate-900 dark:text-slate-100 text-base sm:text-lg placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:ring-0"
               />
 
               {query && (
@@ -364,6 +360,9 @@ export function GlobalSearch() {
             {/* Tools Result List */}
             <div 
               ref={listRef}
+              id="global-search-listbox"
+              role="listbox"
+              aria-label={t('search.quickResults') || 'Developer Tools'}
               className="flex-1 overflow-y-auto p-2 space-y-1 divide-y-0"
               tabIndex={-1}
             >
@@ -394,6 +393,9 @@ export function GlobalSearch() {
                     return (
                       <div
                         key={tool.id}
+                        id={`search-option-${tool.id}`}
+                        role="option"
+                        aria-selected={isSelected}
                         data-tool-index={index}
                         onClick={() => handleSelectTool(tool)}
                         onMouseEnter={() => setSelectedIndex(index)}
@@ -430,11 +432,11 @@ export function GlobalSearch() {
                                   <span>Hot</span>
                                 </span>
                               )}
-                              <span className={cn(
-                                "hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-medium rounded border",
-                                tool.badgeBg
-                              )}>
-                                {tool.badgeText}
+                              <span className="hidden sm:inline text-[11px] text-slate-400 dark:text-slate-400 tabular-nums">
+                                · {tool.badgeText}
+                                {(usageMap[tool.id] || 0) > 0 && (
+                                  <> · {t('home.usageCount', { count: usageMap[tool.id] })}</>
+                                )}
                               </span>
                             </div>
 
@@ -485,7 +487,7 @@ export function GlobalSearch() {
             </div>
 
             {/* Modal Footer Bar */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200/80 dark:border-slate-700/60 text-xs text-slate-400 dark:text-slate-400">
+            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200/80 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
                   <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">↑</kbd>
@@ -496,15 +498,25 @@ export function GlobalSearch() {
                   <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">↵</kbd>
                   <span className="hidden sm:inline ml-0.5">{effectiveLang === 'ko' ? '선택' : effectiveLang === 'ja' ? '選択' : 'Select'}</span>
                 </span>
+                <span className="hidden md:flex items-center gap-1">
+                  <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">Tab</kbd>
+                  <span className="ml-0.5">{effectiveLang === 'ko' ? '카테고리' : effectiveLang === 'ja' ? '分類' : 'Category'}</span>
+                </span>
                 <span className="flex items-center gap-1">
                   <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">Esc</kbd>
                   <span className="hidden sm:inline ml-0.5">{effectiveLang === 'ko' ? '닫기' : effectiveLang === 'ja' ? '閉じる' : 'Close'}</span>
                 </span>
               </div>
 
-              <div className="font-medium text-slate-400 dark:text-slate-400 hidden sm:block">
-                <span>DevToolz · 28+ Utilities</span>
-              </div>
+              <button
+                type="button"
+                onClick={openHelp}
+                className="inline-flex items-center gap-1 font-medium text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
+              >
+                <Keyboard className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>{t('shortcuts.buttonLabel') || 'Shortcuts'}</span>
+                <kbd className="px-1 py-0.2 text-[10px] font-mono bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">?</kbd>
+              </button>
             </div>
           </div>
         </div>

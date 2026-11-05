@@ -4,6 +4,7 @@ import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Type, Trash2, Info, Copy, Check, Search, Replace, AlignLeft, AlignJustify, ArrowDownAZ, ArrowLeftRight, Eraser, Link, Mail, FileText, Database, Undo2, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 const countSyllables = (word: string) => {
   word = word.toLowerCase();
@@ -23,6 +24,7 @@ export function TextAnalyzer() {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   const currentLang = lang || 'en';
+  useActiveToolUsage('text-analyzer', text);
 
   const stats = useMemo(() => {
     if (!text.trim()) {

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal, BookOpen, Heart } from 'lucide-react';
+import { Code2, Key, Type, Home, Menu, X, Globe, Binary, Link as LinkIcon, FileJson, Palette, FileText, Fingerprint, Hash, Clock, QrCode, Search, Sun, Moon, FileDiff, Image as ImageIcon, Bot, Braces, Layers, Terminal, BookOpen, Heart, Keyboard } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../lib/utils';
 import { useTheme } from './ThemeProvider';
 import { CookieConsent } from './CookieConsent';
 import { Breadcrumbs } from './Breadcrumbs';
 import { GlobalSearch } from './GlobalSearch';
+import { KeyboardShortcutsModal } from './KeyboardShortcutsModal';
+import { useShortcuts } from './ShortcutProvider';
+import { useRouteToolUsageTracker } from '../hooks/useToolUsage';
 
 export function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -15,6 +18,9 @@ export function Layout() {
   const { lang } = useParams();
   const { t, i18n } = useTranslation();
   const { theme, setTheme } = useTheme();
+  const { toggleHelp } = useShortcuts();
+
+  useRouteToolUsageTracker();
 
   const currentLang = lang || 'en';
   const basePath = currentLang === 'en' ? '' : `/${currentLang}`;
@@ -124,6 +130,16 @@ export function Layout() {
                 <Heart className="h-5 w-5" />
                 <span className="text-sm hidden sm:inline-block">{t('footer.donate') || 'Donate'}</span>
               </Link>
+
+              <button
+                type="button"
+                onClick={toggleHelp}
+                className="hidden sm:inline-flex p-2 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 transition-colors"
+                aria-label={t('shortcuts.title') || 'Keyboard Shortcuts'}
+                title={`${t('shortcuts.title') || 'Keyboard Shortcuts'} (?)`}
+              >
+                <Keyboard className="h-5 w-5" />
+              </button>
 
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -253,6 +269,7 @@ export function Layout() {
         </div>
       </footer>
       <CookieConsent />
+      <KeyboardShortcutsModal />
     </div>
   );
 }

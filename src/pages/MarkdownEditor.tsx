@@ -8,6 +8,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 const DEFAULT_MARKDOWN = `# Welcome to Markdown Editor!
 
@@ -54,6 +55,7 @@ export function MarkdownEditor() {
   const [copiedHtml, setCopiedHtml] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [viewMode, setViewMode] = useState<'split' | 'edit' | 'preview'>('split');
+  useActiveToolUsage('markdown-editor', markdown);
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);

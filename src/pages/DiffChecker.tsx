@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import { useTheme } from '../components/ThemeProvider';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function DiffChecker() {
   const { t, i18n } = useTranslation();
@@ -19,6 +20,8 @@ export function DiffChecker() {
   const [compareMethod, setCompareMethod] = useState<DiffMethod>(DiffMethod.WORDS);
   const [splitView, setSplitView] = useState(true);
   const [isDark, setIsDark] = useState(false);
+
+  useActiveToolUsage('diff-checker', `${originalText}\n---\n${modifiedText}`);
 
   // Handle system theme resolution
   useEffect(() => {

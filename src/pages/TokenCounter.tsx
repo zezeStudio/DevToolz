@@ -5,6 +5,7 @@ import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Calculator, Trash2, Wand2, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { encode } from 'gpt-tokenizer';
 import { useParams } from 'react-router-dom';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 const MODELS = [
   { id: 'gpt-4o', name: 'GPT-4o', inputPrice: 5.0, outputPrice: 15.0 },
@@ -21,6 +22,7 @@ export function TokenCounter() {
   
   const { lang } = useParams();
   const currentLang = lang || 'en';
+  useActiveToolUsage('token-counter', text);
 
   const stats = useMemo(() => {
     if (!text) return { characters: 0, words: 0, tokens: 0 };

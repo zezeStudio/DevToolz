@@ -4,6 +4,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { ListPlus, Copy, CheckCircle2, Plus, Trash2, ArrowRight, RefreshCw, Info, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 interface Example {
   input: string;
@@ -17,6 +19,8 @@ export function FewShotBuilder() {
   ]);
   const [format, setFormat] = useState<'markdown' | 'xml' | 'json'>('markdown');
   const [copied, setCopied] = useState(false);
+
+  useActiveToolUsage('few-shot-builder', examples);
 
   const loadSample = () => {
     const lang = i18n.language.startsWith('ko') ? 'ko' : i18n.language.startsWith('ja') ? 'ja' : 'en';
@@ -82,6 +86,7 @@ export function FewShotBuilder() {
     try {
       await navigator.clipboard.writeText(generateFewShot());
       setCopied(true);
+      incrementToolUsage('few-shot-builder', { minIntervalMs: 800 });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy', err);

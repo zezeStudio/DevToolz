@@ -4,6 +4,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { SlidersHorizontal, Info, Sparkles, Shield, BookOpen, AlertCircle, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function LlmParameterPlayground() {
   const { t, i18n } = useTranslation();
@@ -12,6 +13,11 @@ export function LlmParameterPlayground() {
   const [freqPenalty, setFreqPenalty] = useState(0.0);
   const [presPenalty, setPresPenalty] = useState(0.0);
   const [topic, setTopic] = useState<'dog'|'novel'|'code'>('dog');
+
+  useActiveToolUsage(
+    'llm-parameter-playground',
+    `${topic}:${temperature}:${topP}:${freqPenalty}:${presPenalty}`
+  );
 
   const lang = i18n.language.startsWith('ko') ? 'ko' : i18n.language.startsWith('ja') ? 'ja' : 'en';
 

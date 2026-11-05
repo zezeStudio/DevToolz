@@ -5,6 +5,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useParams } from 'react-router-dom';
 import { v1 as uuidv1, v3 as uuidv3, v4 as uuidv4, v5 as uuidv5, v7 as uuidv7, validate as uuidValidate, version as uuidVersion } from 'uuid';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 export function UuidGenerator() {
   const { t, i18n } = useTranslation();
@@ -61,6 +62,7 @@ export function UuidGenerator() {
     setUuids(newUuids);
     setCopiedIndex(null);
     setCopiedAll(false);
+    incrementToolUsage('uuid-generator', { minIntervalMs: 800 });
   };
 
   const decodeUuid = (input: string) => {

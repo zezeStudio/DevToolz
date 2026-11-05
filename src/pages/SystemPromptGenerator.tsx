@@ -4,6 +4,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Terminal, Copy, Check, Plus, Trash, Trash2, Wand2, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 interface SchemaField {
   key: string;
@@ -16,6 +18,11 @@ export function SystemPromptGenerator() {
   const [role, setRole] = useState('');
   const [fields, setFields] = useState<SchemaField[]>([]);
   const [copied, setCopied] = useState(false);
+
+  useActiveToolUsage(
+    'system-prompt',
+    role || fields.length > 0 ? { role, fields } : ''
+  );
 
   const addField = () => setFields([...fields, { key: '', type: 'string', description: '' }]);
   const updateField = (index: number, f: Partial<SchemaField>) => {
@@ -62,6 +69,7 @@ Ensure that your output is properly formatted JSON that can be parsed by JSON.pa
   const handleCopy = () => {
     navigator.clipboard.writeText(generatePrompt()).then(() => {
       setCopied(true);
+      incrementToolUsage('system-prompt', { minIntervalMs: 800 });
       setTimeout(() => setCopied(false), 2000);
     });
   };

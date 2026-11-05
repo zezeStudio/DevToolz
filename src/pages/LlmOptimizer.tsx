@@ -4,6 +4,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { FileCode2, Copy, Trash2, Plus, Upload, Bot, FileText, Check, Download, AlignLeft, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 interface CodeFile {
   id: string;
@@ -19,6 +21,11 @@ export function LlmOptimizer() {
   const [copied, setCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
+
+  useActiveToolUsage(
+    'llm-optimizer',
+    files.length > 0 ? files.map(f => `${f.name}:${f.content.length}`).join('|') : ''
+  );
 
   const addEmptyFile = () => {
     const newId = crypto.randomUUID();
@@ -114,6 +121,7 @@ export function LlmOptimizer() {
     const md = generateMarkdown();
     navigator.clipboard.writeText(md).then(() => {
       setCopied(true);
+      incrementToolUsage('llm-optimizer', { minIntervalMs: 800 });
       setTimeout(() => setCopied(false), 2000);
     });
   };

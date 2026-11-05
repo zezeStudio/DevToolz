@@ -5,6 +5,7 @@ import { Trash2, Info, FileJson, AlertCircle, Copy, Check, ShieldCheck, ShieldAl
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function JwtDecoder() {
   const [mode, setMode] = useState<'decode' | 'encode'>('decode');
@@ -23,6 +24,12 @@ export function JwtDecoder() {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   const currentLang = lang || 'en';
+  useActiveToolUsage(
+    'jwt-decoder',
+    mode === 'decode'
+      ? decodeInput
+      : `${encodeAlg}:${encodeHeader}:${encodePayload}:${encodeSecret}`
+  );
 
   // --- Utility Functions ---
   const base64urlEncode = (str: string) => {

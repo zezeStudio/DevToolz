@@ -8,6 +8,7 @@ import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useParams, Link } from 'react-router-dom';
 import { jsonrepair } from 'jsonrepair';
 import yaml from 'js-yaml';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 export function JsonFormatter() {
   const [input, setInput] = useState('');
@@ -110,6 +111,7 @@ export function JsonFormatter() {
       setOutput(JSON.stringify(parsed, null, 2));
       setError(null);
       setIsValid(true);
+      incrementToolUsage('json-formatter', { minIntervalMs: 800 });
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
@@ -144,6 +146,7 @@ export function JsonFormatter() {
       setOutput(JSON.stringify(parsed));
       setError(null);
       setIsValid(true);
+      incrementToolUsage('json-formatter', { minIntervalMs: 800 });
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
@@ -218,6 +221,7 @@ export function JsonFormatter() {
       setOutput(formatted);
       setError(null);
       setIsValid(true);
+      incrementToolUsage('json-formatter', { minIntervalMs: 800 });
     } catch (err) {
       const errMessage = (err as Error).message;
       setError(errMessage);

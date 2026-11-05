@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useLocation, useParams } from 'react-router-dom';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function JsonSchemaGenerator() {
   const { t, i18n } = useTranslation();
@@ -12,6 +13,7 @@ export function JsonSchemaGenerator() {
   const [outputData, setOutputData] = useState<string>('');
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  useActiveToolUsage('json-schema-generator', outputData);
 
   const sampleJson = `{
   "user": {

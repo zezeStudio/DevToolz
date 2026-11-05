@@ -5,6 +5,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useParams } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 type HashMode = 'text' | 'file';
 type Encoding = 'hex' | 'base64';
@@ -33,6 +34,7 @@ export function HashGenerator() {
     ripemd160: ''
   });
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  useActiveToolUsage('hash-generator', hashes.sha256);
 
   const calculateTextHashes = useCallback(() => {
     if (!input) {

@@ -5,6 +5,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useParams } from 'react-router-dom';
 import { QRCodeSVG, QRCodeCanvas } from 'qrcode.react';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 type PayloadType = 'text' | 'wifi' | 'vcard' | 'email' | 'sms';
 type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
@@ -66,6 +68,8 @@ export function QrCodeGenerator() {
     }
   }, [payloadType, textInput, wifiSsid, wifiPassword, wifiEncryption, wifiHidden, vcardName, vcardPhone, vcardEmail, vcardOrg, emailTo, emailSubject, emailBody, smsPhone, smsMessage]);
 
+  useActiveToolUsage('qr-code', qrValue);
+
   const downloadPng = () => {
     const canvas = canvasRef.current?.querySelector('canvas');
     if (canvas) {
@@ -74,6 +78,7 @@ export function QrCodeGenerator() {
       link.download = 'qrcode.png';
       link.href = url;
       link.click();
+      incrementToolUsage('qr-code', { minIntervalMs: 800 });
     }
   };
 
@@ -88,6 +93,7 @@ export function QrCodeGenerator() {
       link.href = url;
       link.click();
       URL.revokeObjectURL(url);
+      incrementToolUsage('qr-code', { minIntervalMs: 800 });
     }
   };
 

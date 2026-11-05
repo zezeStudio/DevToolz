@@ -4,6 +4,7 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Layers, Trash2, Wand2, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function ChunkingSimulator() {
   const { t, i18n } = useTranslation();
@@ -11,6 +12,8 @@ export function ChunkingSimulator() {
   const [chunkSize, setChunkSize] = useState(200);
   const [overlap, setOverlap] = useState(50);
   const [mode, setMode] = useState<'char' | 'token'>('char');
+
+  useActiveToolUsage('chunking-simulator', text);
 
   const handleSample = () => {
     setText('Vector space models are a key component of modern search and retrieval-augmented generation (RAG) systems. In RAG, documents are split into smaller segments called chunks. These chunks are embedded using embedding models, transforming them into high-dimensional numerical vectors.\n\nWhen a user queries the system, their question is also converted into a vector. The system then performs a cosine similarity search between the query vector and the document vectors. The top K most similar chunks are retrieved and provided as context to the Large Language Model (LLM).\n\nHowever, deciding the chunk size and overlap is an art. Too large, and the context might be diluted with irrelevant information. Too small, and the AI might lack the broader context needed to synthesize a coherent answer. Overlap is crucial because it prevents sentences or thoughts from being abruptly cut off precisely at the boundary of a chunk.');

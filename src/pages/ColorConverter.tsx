@@ -10,6 +10,7 @@ import harmoniesPlugin from 'colord/plugins/harmonies';
 import cmykPlugin from 'colord/plugins/cmyk';
 import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 extend([harmoniesPlugin, cmykPlugin, namesPlugin, a11yPlugin]);
 
@@ -72,6 +73,7 @@ export function ColorConverter() {
   const { lang } = useParams();
   const currentLang = lang || 'en';
   const [color, setColor] = useState(colord('#3b82f6'));
+  useActiveToolUsage('color-converter', color.toHex());
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
   const [isEyeDropperSupported, setIsEyeDropperSupported] = useState(false);
   const [showContrastInfo, setShowContrastInfo] = useState(false);

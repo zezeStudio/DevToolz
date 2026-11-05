@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { cn } from '../lib/utils';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function PromptVariableInjector() {
   const { t, i18n } = useTranslation();
@@ -11,6 +13,7 @@ export function PromptVariableInjector() {
   const [variables, setVariables] = useState<Record<string, string>>({});
   const [copied, setCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const isInitialLoad = React.useRef(true);
 
   // Set default sample data on mount or language change if untouched
@@ -49,10 +52,12 @@ export function PromptVariableInjector() {
   }, [extractedVariables]);
 
   const handleVariableChange = (name: string, value: string) => {
+    setHasInteracted(true);
     setVariables(prev => ({ ...prev, [name]: value }));
   };
 
   const clearAll = () => {
+    setHasInteracted(false);
     setTemplate("");
     setVariables({});
   };
@@ -69,10 +74,14 @@ export function PromptVariableInjector() {
 
   const output = generateOutput();
 
+  useActiveToolUsage('prompt-variable-injector', hasInteracted ? output : '');
+
   const handleCopy = async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      setHasInteracted(true);
+      incrementToolUsage('prompt-variable-injector', { minIntervalMs: 800 });
       setCopied(true);
       setShowToast(true);
       setTimeout(() => {
@@ -138,7 +147,10 @@ export function PromptVariableInjector() {
             <div className="flex-1 relative min-h-[300px]">
               <textarea
                 value={template}
-                onChange={(e) => setTemplate(e.target.value)}
+                onChange={(e) => {
+                  setHasInteracted(true);
+                  setTemplate(e.target.value);
+                }}
                 className="absolute inset-0 w-full h-full p-4 resize-none focus:outline-none focus:ring-0 text-slate-900 dark:text-slate-100 font-mono text-sm leading-relaxed bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/[0.06]"
                 placeholder="Enter your prompt template here. Use {{variable_name}} to define variables..."
                 spellCheck={false}

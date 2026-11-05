@@ -4,6 +4,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { FileCode2, Copy, CheckCircle2, AlertTriangle, Lightbulb, Info, RefreshCw, Trash2, HelpCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function XmlGuardrailGenerator() {
   const { t, i18n } = useTranslation();
@@ -13,6 +15,13 @@ export function XmlGuardrailGenerator() {
   const [exampleInput, setExampleInput] = useState('');
   const [exampleOutput, setExampleOutput] = useState('');
   const [copied, setCopied] = useState(false);
+
+  useActiveToolUsage(
+    'xml-guardrail-generator',
+    taskDescription || outputFormat || constraints || exampleInput || exampleOutput
+      ? `${taskDescription}|${outputFormat}|${constraints}|${exampleInput}|${exampleOutput}`
+      : ''
+  );
 
   const loadSample = () => {
     const lang = i18n.language.startsWith('ko') ? 'ko' : i18n.language.startsWith('ja') ? 'ja' : 'en';
@@ -82,6 +91,7 @@ ${exampleOutput}
     try {
       await navigator.clipboard.writeText(generateXml());
       setCopied(true);
+      incrementToolUsage('xml-guardrail-generator', { minIntervalMs: 800 });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy', err);

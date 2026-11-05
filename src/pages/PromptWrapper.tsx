@@ -4,6 +4,8 @@ import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { Braces, Copy, Check, Trash2, Wand2, HelpCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
+import { useActiveToolUsage } from '../hooks/useToolUsage';
 
 export function PromptWrapper() {
   const { t, i18n } = useTranslation();
@@ -12,6 +14,11 @@ export function PromptWrapper() {
   const [context, setContext] = useState('');
   const [format, setFormat] = useState<'xml' | 'markdown'>('xml');
   const [copied, setCopied] = useState(false);
+
+  useActiveToolUsage(
+    'prompt-wrapper',
+    system || prompt || context ? `${format}:${system}:${prompt}:${context}` : ''
+  );
 
   const handleSample = () => {
     setSystem('You are an expert React developer specializing in performance optimization.');
@@ -60,6 +67,7 @@ export function UserList({ users }) {
   const handleCopy = () => {
     navigator.clipboard.writeText(generateOutput()).then(() => {
       setCopied(true);
+      incrementToolUsage('prompt-wrapper', { minIntervalMs: 800 });
       setTimeout(() => setCopied(false), 2000);
     });
   };

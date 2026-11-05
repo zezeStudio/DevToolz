@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { ChevronRight, Home } from 'lucide-react';
+import { ChevronRight, Home, Activity } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { FavoriteButton } from './FavoriteButton';
+import { useToolUsage } from '../hooks/useToolUsage';
 
 interface BreadcrumbItem {
   label: string;
@@ -39,6 +40,37 @@ const TOOL_TITLE_KEYS: Record<string, string> = {
   'llm-parameter-playground': 'nav.llmPlayground',
   'xml-guardrail-generator': 'nav.xmlGuardrail',
   'few-shot-builder': 'nav.fewShotBuilder',
+};
+
+const TOOL_CATEGORY_KEYS: Record<string, { categoryId: string; titleKey: string }> = {
+  'function-calling-builder': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'token-counter': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'json-schema-generator': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'json-to-ts': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'llm-optimizer': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'prompt-wrapper': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'chunking-simulator': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'system-prompt': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'prompt-variable-injector': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'prompt-token-splitter': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'llm-parameter-playground': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'xml-guardrail-generator': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'few-shot-builder': { categoryId: 'ai', titleKey: 'home.category.ai' },
+  'json-formatter': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'base64-converter': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'url-encoder': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'jwt-decoder': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'uuid-generator': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'unix-timestamp': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'regex-tester': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'diff-checker': { categoryId: 'developer', titleKey: 'home.category.developer' },
+  'text-analyzer': { categoryId: 'text', titleKey: 'home.category.text' },
+  'markdown-editor': { categoryId: 'text', titleKey: 'home.category.text' },
+  'color-converter': { categoryId: 'design', titleKey: 'home.category.design' },
+  'qr-code': { categoryId: 'design', titleKey: 'home.category.design' },
+  'image-compressor': { categoryId: 'design', titleKey: 'home.category.design' },
+  'password-generator': { categoryId: 'security', titleKey: 'home.category.security' },
+  'hash-generator': { categoryId: 'security', titleKey: 'home.category.security' },
 };
 
 const BLOG_TITLE_KEYS: Record<string, string> = {
@@ -81,6 +113,11 @@ export function Breadcrumbs() {
     ? rawSegments.slice(1)
     : rawSegments;
 
+  const firstSeg = segments[0];
+  const isTool = Boolean(firstSeg && TOOL_TITLE_KEYS[firstSeg]);
+  const currentToolId = isTool ? firstSeg : null;
+  const { count: usageCount } = useToolUsage(currentToolId || undefined);
+
   // Don't render breadcrumbs on homepage
   if (segments.length === 0) {
     return null;
@@ -92,8 +129,6 @@ export function Breadcrumbs() {
       path: homePath,
     },
   ];
-
-  const firstSeg = segments[0];
 
   if (firstSeg === 'blog') {
     const blogIndexPath = `${basePath}/blog`;
@@ -117,7 +152,17 @@ export function Breadcrumbs() {
       });
     }
   } else if (TOOL_TITLE_KEYS[firstSeg]) {
-    // Tool page: Home -> Category (optional/implied) -> Tool Name
+    // Tool page: Home -> Category -> Tool Name
+    const categoryMeta = TOOL_CATEGORY_KEYS[firstSeg];
+    if (categoryMeta) {
+      const categoryLabel = t(categoryMeta.titleKey);
+      if (categoryLabel) {
+        items.push({
+          label: categoryLabel,
+          path: `${basePath || ''}/#${categoryMeta.categoryId}`,
+        });
+      }
+    }
     const toolTitle = t(TOOL_TITLE_KEYS[firstSeg]) || firstSeg;
     items.push({
       label: toolTitle,
@@ -142,21 +187,17 @@ export function Breadcrumbs() {
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, index) => {
       const isLast = index === items.length - 1;
-      const itemUrl = isLast
-        ? `${baseUrl}${location.pathname}`
-        : `${baseUrl}${item.path}`;
+      const itemPath = isLast ? location.pathname : (item.path || '/');
+      const normalizedItemUrl = `${baseUrl}${itemPath.startsWith('/') ? itemPath : `/${itemPath}`}`;
 
       return {
         '@type': 'ListItem',
         position: index + 1,
         name: item.label,
-        item: itemUrl,
+        item: normalizedItemUrl,
       };
     }),
   };
-
-  const isTool = Boolean(TOOL_TITLE_KEYS[firstSeg]);
-  const currentToolId = isTool ? firstSeg : null;
 
   return (
     <>
@@ -194,9 +235,9 @@ export function Breadcrumbs() {
                   ) : (
                     <Link
                       to={item.path || '#'}
-                      className="flex items-center text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
+                      className="flex items-center text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded px-1 -mx-1 whitespace-nowrap"
                     >
-                      {isFirst && <Home className="w-3.5 h-3.5 mr-1" aria-hidden="true" />}
+                      {isFirst && <Home className="w-3.5 h-3.5 mr-1 shrink-0" aria-hidden="true" />}
                       <span>{item.label}</span>
                     </Link>
                   )}
@@ -207,7 +248,27 @@ export function Breadcrumbs() {
         </nav>
 
         {currentToolId && (
-          <div className="flex items-center shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            <span
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 tabular-nums whitespace-nowrap"
+              title={t('tool.usageTooltip', { count: usageCount })}
+              data-testid="tool-usage-count"
+            >
+              <Activity
+                className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0"
+                aria-hidden="true"
+              />
+              <span>
+                {t('tool.usedCount', { count: usageCount }) ||
+                  `Used ${usageCount} ${usageCount === 1 ? 'time' : 'times'}`}
+              </span>
+            </span>
+            <span
+              className="text-slate-300 dark:text-slate-700 select-none"
+              aria-hidden="true"
+            >
+              ·
+            </span>
             <FavoriteButton toolId={currentToolId} showLabel={true} size="sm" />
           </div>
         )}

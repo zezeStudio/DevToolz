@@ -4,6 +4,7 @@ import { Clock, Copy, Check, ArrowDown, ArrowUp, List, FileText, HelpCircle, Lig
 import { SEO } from '../components/SEO';
 import { ToolDetailSection } from '../components/ToolDetailSection';
 import { useParams } from 'react-router-dom';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 type Mode = 'single' | 'batch';
 
@@ -71,6 +72,7 @@ export function UnixTimestampConverter() {
       iso: date.toISOString(),
       relative: getRelativeTime(date)
     });
+    incrementToolUsage('unix-timestamp', { minIntervalMs: 800 });
   };
 
   const handleDateToTimestamp = () => {
@@ -82,6 +84,7 @@ export function UnixTimestampConverter() {
       s: Math.floor(date.getTime() / 1000),
       ms: date.getTime()
     });
+    incrementToolUsage('unix-timestamp', { minIntervalMs: 800 });
   };
 
   const handleBatchConvert = () => {
@@ -116,6 +119,7 @@ export function UnixTimestampConverter() {
     });
 
     setBatchResults(results.join('\n'));
+    incrementToolUsage('unix-timestamp', { minIntervalMs: 800 });
   };
 
   const getRelativeTime = (date: Date) => {

@@ -5,6 +5,7 @@ import { Key, Copy, Check, RefreshCw, Info, Shield, Eye, EyeOff, QrCode, X, Book
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
+import { incrementToolUsage } from '../lib/toolUsage';
 
 const ADJECTIVES = ['Swift', 'Bright', 'Silent', 'Strong', 'Kind', 'Fast', 'Cool', 'Warm', 'Bold', 'Wise', 'Grand', 'Pure', 'Vast', 'Deep', 'High', 'Blue', 'Red', 'Gold', 'Silver', 'Iron'];
 const NOUNS = ['Eagle', 'River', 'Mountain', 'Forest', 'Ocean', 'Star', 'Cloud', 'Wind', 'Fire', 'Stone', 'Wolf', 'Lion', 'Bear', 'Hawk', 'Tiger', 'Oak', 'Pine', 'Lake', 'Peak', 'Moon'];
@@ -202,6 +203,7 @@ export function PasswordGenerator() {
   const handleGenerateClick = () => {
     setIsGeneratingState(true);
     generatePasswords();
+    incrementToolUsage('password-generator', { minIntervalMs: 800 });
     setTimeout(() => setIsGeneratingState(false), 500);
   };
 
